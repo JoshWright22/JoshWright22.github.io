@@ -4,149 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Josh Wright - Resume</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            letter-spacing: 1px;
-        }
-
-        header h2 {
-            margin: 5px 0 10px;
-            font-weight: normal;
-            color: #555;
-        }
-
-        .contact {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .contact a {
-            color: #0073e6;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        section {
-            margin-bottom: 25px;
-        }
-
-        h3 {
-            border-bottom: 2px solid #0073e6;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-            color: #0073e6;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        ul li {
-            margin-bottom: 5px;
-        }
-
-        .skills span {
-            display: inline-block;
-            background-color: #e0e0e0;
-            color: #333;
-            padding: 5px 10px;
-            margin: 5px 5px 0 0;
-            border-radius: 15px;
-            font-size: 0.9em;
-        }
-    </style>
+    <title>Joshua Wright | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body id="body-tag">
 
-    <div class="container">
-        <header>
-            <h1>Josh Wright</h1>
-            <h2>Software/AI Engineer</h2>
-        </header>
+    <nav>
+        <div class="logo">JOSHUA WRIGHT</div>
+        <div class="mode-switch" onclick="toggleMode()" id="toggle-btn">SWITCH TO ART_MODE</div>
+    </nav>
 
-        <div class="contact">
-            <p>+1(480)-252-6911 | <a href="mailto:joshwright0322@gmail.com">joshwright0322@gmail.com</a></p>
-            <p><a href="https://github.com/JoshWright22/" target="_blank">github.com/JoshWright22</a> | <a
-                    href="https://linkedin.com/in/josh-wright-a94143338/"
-                    target="_blank">linkedin.com/in/josh-wright-a94143338</a></p>
-        </div>
-
-        <section>
-            <h3>About Me</h3>
-            <p>Seeking to leverage my programming, problem-solving, teamwork, and ai-driven development skills to
-                optimize workflows, improve operational efficiency, and deliver scalable software solutions. I am
-                motivated to apply my software engineering and artificial intelligence knowledge to enhance
-                decision-making, streamline production pipelines, and contribute to high-impact projects in gaming,
-                engineering, or business that drive long-term value and meaningful results.</p>
-        </section>
-
-        <section>
-            <h3>Work Experience</h3>
-            <p><strong>Data Annotation | AI Data Specialist</strong> - Remote | 06.2025 – Current</p>
-            <ul>
-                <li>Evaluated AI repositories and commits, providing detailed feedback to improve model performance and
-                    code quality.</li>
-                <li>Performed data annotation, cleaning, and preprocessing to support machine learning training
-                    pipelines.</li>
-                <li>Assisted in benchmarking AI models against project requirements and industry standards.</li>
-            </ul>
-            <p><strong>Projects</strong></p>
-            <ul>
-                <li>Multiplayer Prototype: Created an Online co-op prototype using Facepunch Steamworks Lobbies API</li>
-                <li>Harvard CS50: Completed CS50 and CS50W, developing multiple prototype websites</li>
-            </ul>
-        </section>
-
-        <section>
-            <h3>Skills</h3>
-            <div class="skills">
-                <span>C#</span><span>.NET</span><span>Unity</span><span>Unreal Engine</span>
-                <span>Python</span><span>C++</span><span>JavaScript</span><span>Node.js</span>
-                <span>SQL</span><span>Microsoft Azure</span><span>Git</span><span>HTML & CSS</span>
-                <span>Blender</span><span>Autodesk Maya</span><span>3D Keyframe Animation</span><span>Adobe Creative
-                    Suite</span>
-                <span>WordPress</span><span>Microsoft Office</span><span>AI/ML Model Evaluation</span><span>Game Systems
-                    Design</span>
-                <span>Agile/Scrum Development</span><span>Debugging & Optimization</span>
-            </div>
-        </section>
-
-        <section>
-            <h3>Education</h3>
-            <p><strong>Arizona State University | Bachelor’s Degree</strong> - Scottsdale, Arizona | 05.2023 - 05.2027
-            </p>
-            <p>Software Engineering Degree, Junior Year, 3.6 GPA</p>
-            <p><strong>Scottsdale Community College | Associates Degree in Science</strong> - Scottsdale, Arizona |
-                05.2023 - 05.2025</p>
-            <p>Honors Scholarship, 3.6 GPA</p>
-        </section>
+    <div class="hero">
+        <h1 id="hero-title">ENGINEERING<br><span id="role-text" style="color:var(--accent)">SYSTEMS</span></h1>
     </div>
 
+    <div class="grid-section">
+        <div class="about-wrapper">
+            <div class="about-image-column">
+                <img id="profile-img" src="assets/your-dev-photo.jpg" alt="Joshua Wright">
+            </div>
+            <div class="about-text-column">
+                <span class="label">01 / About</span>
+                <h3 id="about-heading">Software/AI Engineer</h3>
+                <p id="about-text">Building scalable solutions and optimizing AI workflows. Junior at ASU with a focus on C# and Python development.</p>
+                <div id="contact-area">
+                    <a href="https://github.com/JoshWright22" id="primary-link" class="nav-link">GitHub ↗</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="projects-container">
+        </div>
+
+    <div class="grid-section">
+        <div class="grid-block" style="grid-column: 1 / 3;">
+            <span class="label">03 / Expertise</span>
+            <div id="stack-tags">
+                <span class="skills-tag">C#</span>
+                <span class="skills-tag">Python</span>
+                <span class="skills-tag">AI/ML</span>
+                <span class="skills-tag">Azure</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
