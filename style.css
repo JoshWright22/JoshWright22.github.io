@@ -12,7 +12,8 @@ body {
     background: var(--bg);
     color: var(--text);
     font-family: 'Inter', sans-serif;
-    transition: background 0.5s ease, color 0.5s ease;
+    transition: background 0.2s cubic-bezier(0.19, 1, 0.22, 1), 
+                color 0.2s cubic-bezier(0.19, 1, 0.22, 1);
     overflow-x: hidden;
 }
 
@@ -29,7 +30,8 @@ nav {
     /* Mode-aware background */
     backdrop-filter: blur(10px);
     z-index: 100;
-    transition: background 0.5s ease, border-color 0.5s ease;
+    transition: background 0.2s cubic-bezier(0.19, 1, 0.22, 1), 
+                border-color 0.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .logo {
@@ -37,7 +39,7 @@ nav {
     letter-spacing: -1.5px;
     font-size: 1.6rem;
     text-transform: uppercase;
-    transition: color 0.5s ease;
+    transition: color 0.2s ease;
 }
 
 .mode-switch {
@@ -51,7 +53,7 @@ nav {
     font-size: 0.85rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1), color 0.5s ease, border-color 0.5s ease;
+    transition: 0.2s cubic-bezier(0.19, 1, 0.22, 1), color 0.2s ease, border-color 0.2s ease;
 }
 
 .mode-switch:hover {
@@ -75,7 +77,7 @@ nav {
 }
 
 #role-text {
-    transition: color 0.5s ease;
+    transition: color 0.2s ease;
 }
 
 /* --- Grid System --- */
@@ -153,7 +155,7 @@ nav {
     border: 1px solid var(--border);
     border-radius: 4px;
     filter: grayscale(100%);
-    transition: filter var(--transition-fast), border-color 0.5s ease;
+    transition: filter var(--transition-fast), border-color 0.2s ease;
     /* Add this to fix laggy playback */
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -181,7 +183,7 @@ nav {
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 1px;
-    transition: 0.3s ease, color 0.5s ease, border-color 0.5s ease;
+    transition: 0.3s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .project-link:hover {
@@ -214,7 +216,7 @@ nav {
     font-family: 'JetBrains Mono';
     background: transparent;
     color: var(--text);
-    transition: border-color 0.5s ease, color 0.5s ease;
+    transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 /* --- Mobile Responsiveness --- */
@@ -239,4 +241,185 @@ nav {
     .project-image {
         height: 300px;
     }
+}
+
+/* --- Hero --- */
+.hero {
+    padding: 3rem 2rem; /* Was 8vw - now fixed to a smaller height */
+    border-bottom: 1px solid var(--border);
+}
+
+.hero h1 {
+    font-size: 7vw; /* Was 10vw - smaller title fits more on screen */
+    line-height: 0.8;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: -3px; /* Slightly tighter for the smaller size */
+}
+
+.about-image-column, 
+.about-text-column {
+    padding: 2rem; /* Was 4rem - smaller padding keeps content "above the fold" */
+}
+
+.about-wrapper {
+    display: grid;
+    /* Changed from 0.8fr to 0.6fr to shrink the image column width */
+    grid-template-columns: 0.6fr 1.4fr; 
+    grid-column: 1 / 3;
+    width: 100%;
+}
+
+#profile-img {
+    width: 100%;
+    /* Locked size for the profile photo */
+    max-width: 280px; 
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 2px;
+    filter: grayscale(100%);
+    transition: filter var(--transition-fast);
+    background-color: #222;
+}
+
+.project-image {
+    width: 100%;
+    /* Locked height for consistency */
+    height: 400px; 
+    /* "contain" ensures you see the whole GIF content without cropping */
+    background-size: contain; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #111; /* Darker background to frame the GIF */
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    filter: grayscale(100%);
+    transition: filter var(--transition-fast), border-color 0.2s ease;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.about-wrapper {
+    display: grid;
+    /* Adjusting the ratio so the text column has more room */
+    grid-template-columns: 300px 1fr; 
+    grid-column: 1 / 3;
+    width: 100%;
+}
+
+#profile-img {
+    /* Fixed size for a perfect square */
+    width: 250px; 
+    height: 250px;
+    object-fit: cover;
+    border-radius: 2px;
+    filter: grayscale(100%);
+    transition: filter var(--transition-fast);
+    background-color: #222;
+}
+
+/* --- Art Mode Overrides --- */
+
+/* Allow the profile image to stretch/fill again */
+body.art-mode .about-wrapper {
+    grid-template-columns: 0.8fr 1.2fr; /* Back to fluid ratio */
+}
+
+body.art-mode #profile-img {
+    width: 100%;
+    max-width: none;
+    height: auto; 
+    filter: grayscale(0%); /* Art mode is full color */
+}
+
+/* Allow project GIFs to stretch to the screen width */
+body.art-mode .project-image {
+    max-width: none;
+    aspect-ratio: auto; /* Remove the locked square constraint */
+    height: 60vh; /* Make them large and cinematic */
+    filter: grayscale(0%);
+}
+
+body.art-mode .hero h1 {
+    letter-spacing: 2px; /* Open up the typography */
+    transition: all 0.5s ease;
+}
+
+#profile-img {
+    /* Ensure it starts locked and grey */
+    width: 250px; 
+    height: 250px;
+    filter: grayscale(100%); 
+    display: block; /* Ensures it's visible immediately in the right spot */
+}
+
+.project-image {
+    /* Ensure GIFs start locked and grey */
+    max-width: 400px;
+    aspect-ratio: 1 / 1;
+    filter: grayscale(100%);
+}
+
+/* --- Projects --- */
+.project-display {
+    width: 100%;
+}
+
+.project-image {
+    width: 100%;
+    /* Increased locked size from 400px to 550px to make them bigger */
+    max-width: 550px; 
+    aspect-ratio: 1 / 1; 
+    
+    /* "cover" stretches the GIF to fill the box, removing the black bars */
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Matches the UI background so edges blend perfectly */
+    background-color: var(--bg); 
+    
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    filter: grayscale(100%);
+    transition: filter var(--transition-fast), border-color 0.2s ease, transform 0.3s ease;
+    
+    /* Optimization for GIF playback */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Optional: Slight lift on hover to make the larger GIFs feel interactive */
+.project-image:hover {
+    filter: grayscale(0%);
+    transform: scale(1.02) translateZ(0);
+}
+
+/* Art Mode Overrides: Let them go full-screen/fluid */
+body.art-mode .project-image {
+    max-width: 100%;
+    height: 70vh; /* Very large cinematic view */
+    aspect-ratio: auto;
+    filter: grayscale(0%);
+}
+
+#profile-img {
+    width: 250px; 
+    height: 250px;
+    object-fit: cover;
+    border-radius: 2px;
+    filter: grayscale(100%);
+    /* Added transform and scale to the transition list */
+    transition: filter var(--transition-fast), 
+                transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    background-color: #222;
+    /* Keeps the animation smooth */
+    transform: scale(1) translateZ(0); 
+    cursor: pointer;
+}
+
+#profile-img:hover {
+    filter: grayscale(0%);
+    /* Matches the 'pop' scale of your projects */
+    transform: scale(1.05) translateZ(0); 
 }

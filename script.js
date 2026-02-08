@@ -8,7 +8,7 @@ const content = {
         linkUrl: 'https://github.com/JoshWright22',
         profileImg: 'assets/me.jpg', // Updated path
         stack: ['C#', '.NET', 'Python', 'Azure', 'Git', 'SQL'],
-        btn: 'SWITCH TO ART_MODE',
+        btn: 'SWITCH TO JOSH_ART',
         projects: [
             {
                 title: 'ASU VGDC Game 2025-26',
@@ -20,14 +20,14 @@ const content = {
     },
     art: {
         accent: '#ff4d6d',
-        hero: 'CREATING<br><span style="color:#ff4d6d">VISUALS</span>',
+        hero: 'CRAFTING<br><span style="color:#ff4d6d">VISUALS</span>',
         aboutH: '3D Artist & Animator',
         aboutT: 'Crafting immersive environments and 3D assets. Experienced in Blender and Maya.',
         linkText: 'ArtStation ↗',
         linkUrl: 'https://joshwrightart.artstation.com',
         profileImg: 'assets/your-dev-photo.jpg', // Update this when you add art photo
         stack: ['Blender', 'Autodesk Maya', 'ZBrush', 'Substance', 'Animation'],
-        btn: 'SWITCH TO DEV_MODE',
+        btn: 'SWITCH TO JOSH_DEV',
         projects: [
             {
                 title: 'Atmospheric Environment',
