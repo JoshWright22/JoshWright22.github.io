@@ -423,3 +423,389 @@ body.art-mode .project-image {
     /* Matches the 'pop' scale of your projects */
     transform: scale(1.05) translateZ(0); 
 }
+
+/* This applies to both the old <div> and the new <video> tag */
+.project-image, 
+.project-video {
+    width: 100%;
+    /* 16:9 is the standard for gameplay and cinematic renders */
+    aspect-ratio: 16 / 9; 
+    object-fit: cover; 
+    background-position: center;
+    background-color: var(--bg); 
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    filter: grayscale(100%);
+    transition: filter var(--transition-fast), border-color 0.2s ease, transform 0.3s ease;
+    
+    /* Hardware acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Hover effect */
+.project-image:hover,
+.project-video:hover {
+    filter: grayscale(0%);
+    transform: scale(1.01) translateZ(0); /* Subtle lift */
+}
+
+/* Mobile: Adjust ratio so it doesn't get too thin */
+@media (max-width: 768px) {
+    .project-image, 
+    .project-video {
+        aspect-ratio: 4 / 3; 
+    }
+}
+
+.project-video {
+    cursor: pointer;
+    background-color: #000; /* Ensure black background while paused */
+}
+
+/* Optional: add a slight brightness boost on hover to signal it's "waking up" */
+.project-video:hover {
+    filter: grayscale(0%) brightness(1.1);
+}
+
+/* --- Compact Project Container --- */
+.grid-block {
+    padding: 1.5rem 2rem; /* Reduced from 4rem to pull content up */
+}
+
+.project-display {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr; /* Video on left, Text on right */
+    gap: 2rem;
+    align-items: start;
+}
+
+.project-video, 
+.project-image {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Cinematic but compact */
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+}
+
+/* --- Hover Logic --- */
+.project-video:hover,
+.project-image:hover {
+    filter: grayscale(0%);
+    transform: scale(1.02);
+}
+
+/* --- Typography Scaling --- */
+.dynamic-proj-title {
+    font-size: clamp(1.2rem, 3vw, 1.8rem); /* Smaller, more professional font size */
+    margin: 0 0 0.5rem 0;
+}
+
+.dynamic-proj-desc {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.project-link {
+    margin-top: 0;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+}
+
+/* Mobile: Stack them back vertically */
+@media (max-width: 900px) {
+    .project-display {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .project-video {
+        aspect-ratio: 16 / 10;
+    }
+}
+/* --- Title Above Image --- */
+.dynamic-proj-title {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    margin: 0.5rem 0 1rem 0; /* Tight spacing between title and image */
+    text-transform: uppercase;
+}
+
+/* --- The Media Box --- */
+.project-video, 
+.project-image {
+    width: 100%;
+    aspect-ratio: 21 / 9; /* Ultrawide fits more content on one page */
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.project-video:hover {
+    filter: grayscale(0%);
+}
+
+/* --- Info Row Below Image --- */
+.project-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 0.75rem;
+}
+
+.dynamic-proj-desc {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #888;
+    margin: 0;
+    max-width: 75%;
+}
+
+.project-link {
+    margin-top: 0;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+/* --- Art Mode Override --- */
+body.art-mode .project-video {
+    aspect-ratio: 16 / 9; /* Slightly taller for cinematic art */
+    filter: grayscale(0%);
+}
+/* --- Title Above Image --- */
+.dynamic-proj-title {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    margin: 0.5rem 0 1rem 0; /* Tight spacing between title and image */
+    text-transform: uppercase;
+}
+
+/* --- The Media Box --- */
+.project-video, 
+.project-image {
+    width: 100%;
+    aspect-ratio: 21 / 9; /* Ultrawide fits more content on one page */
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.project-video:hover {
+    filter: grayscale(0%);
+}
+
+/* --- Info Row Below Image --- */
+.project-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 0.75rem;
+}
+
+.dynamic-proj-desc {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #888;
+    margin: 0;
+    max-width: 75%;
+}
+
+.project-link {
+    margin-top: 0;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+/* --- Art Mode Override --- */
+body.art-mode .project-video {
+    aspect-ratio: 16 / 9; /* Slightly taller for cinematic art */
+    filter: grayscale(0%);
+}
+
+/* --- Center the project content --- */
+.project-wrapper {
+    max-width: 550px; /* Locked to your preferred size */
+    margin: 0; /* Keep it left-aligned to match your grid style */
+}
+
+.dynamic-proj-title {
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    margin: 0.5rem 0 1.2rem 0;
+    letter-spacing: -1px;
+}
+
+/* --- Media Styling (Locked Size) --- */
+.project-video, 
+.project-image {
+    width: 100%;
+    max-width: 550px; 
+    aspect-ratio: 1 / 1; /* Reverting to the square size you had last */
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+    display: block;
+    background-color: var(--bg);
+}
+
+.project-video:hover {
+    filter: grayscale(0%);
+    transform: scale(1.02);
+}
+
+/* --- Metadata (Description & Link) --- */
+.project-meta {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.dynamic-proj-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #888;
+    margin: 0;
+}
+
+.project-link {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+}
+
+/* Art Mode: Allow it to expand */
+body.art-mode .project-wrapper {
+    max-width: 100%;
+}
+body.art-mode .project-video {
+    max-width: 100%;
+    height: 70vh;
+    aspect-ratio: auto;
+}
+
+/* --- Project Wrapper (Fixed Width) --- */
+.project-wrapper {
+    max-width: 550px; /* Limits the size as requested */
+    width: 100%;
+}
+
+.dynamic-proj-title {
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    margin: 0.4rem 0 1rem 0; /* Space between title and video */
+    letter-spacing: -1px;
+}
+
+/* --- The Video/Image (16:9 Widescreen) --- */
+.project-video, 
+.project-image {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* The "Correct" size for video content */
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+    display: block;
+    background-color: #000;
+}
+
+.project-video:hover {
+    filter: grayscale(0%);
+    transform: scale(1.01); /* Subtle lift */
+}
+
+/* --- Metadata Row --- */
+.project-meta-row {
+    margin-top: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.dynamic-proj-desc {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #888;
+    margin: 0;
+    flex: 1;
+}
+
+.project-link {
+    white-space: nowrap;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+}
+
+/* Art Mode Overrides */
+body.art-mode .project-wrapper {
+    max-width: 800px; /* Slightly wider for Art mode impact */
+}
+body.art-mode .project-video {
+    filter: grayscale(0%);
+}
+
+/* Ensure the grid doesn't collapse */
+#projects-container {
+    width: 100%;
+}
+
+.project-wrapper {
+    max-width: 550px; /* Locked as requested */
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+/* Force the video and image to the same size */
+.project-video, 
+.project-image {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Professional widescreen */
+    object-fit: cover;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+    display: block;
+    background-color: #000;
+}
+
+.project-video:hover,
+.project-image:hover {
+    filter: grayscale(0%);
+    transform: scale(1.01);
+}
+
+/* Info row below the media */
+.project-meta-row {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.dynamic-proj-desc {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--text);
+    opacity: 0.8;
+    margin: 0;
+}

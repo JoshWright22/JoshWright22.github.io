@@ -13,7 +13,7 @@ const content = {
             {
                 title: 'ASU VGDC Game 2025-26',
                 desc: 'Collaborated with the Systems Team to integrate core mechanics including physics-based forces and player movement.',
-                img: 'assets/vgdc.gif', // Make sure to add this image to your assets folder!
+                img: 'assets/ezgif-1804722bd5a82cf8.webm', // Make sure to add this image to your assets folder!
                 link: 'https://github.com/GDCASU/VGDC-Game-2025-26'
             }
         ]
@@ -34,6 +34,12 @@ const content = {
                 desc: 'A deep-dive into lighting and texture work using Blender Cycles.',
                 img: 'assets/dev-project-1.jpg', // Update this when you add art image
                 link: ''
+            },
+            {
+                title: 'Atmospheric Environment',
+                desc: 'A deep-dive into lighting and texture work using Blender Cycles.',
+                img: 'assets/dev-project-1.jpg', // Update this when you add art image
+                link: ''
             }
         ]
     }
@@ -48,18 +54,28 @@ function renderProjects(projects) {
     container.innerHTML = '';
 
     projects.forEach((proj, index) => {
+        const isVideo = proj.img.endsWith('.webm') || proj.img.endsWith('.mp4');
         const linkHTML = proj.link ? `<a href="${proj.link}" target="_blank" class="project-link">VIEW PROJECT ↗</a>` : '';
 
-        // We use an inline style here so the JS can pass the specific 'assets/' path
+        const mediaHTML = isVideo 
+            ? `<video muted loop playsinline class="project-video" onmouseenter="this.play()" onmouseleave="this.pause()">
+                <source src="${proj.img}" type="video/webm">
+               </video>`
+            : `<div class="project-image" style="background-image: url('${proj.img}');"></div>`;
+
         container.innerHTML += `
             <div class="grid-section">
                 <div class="grid-block" style="grid-column: 1 / 3;">
-                    <span class="label">02.${index + 1} / Project</span>
-                    <div class="project-display">
-                        <div class="project-image" style="background-image: url('${proj.img}');"></div>
+                    <div class="project-wrapper">
+                        <span class="label">02.${index + 1} / Project</span>
                         <h2 class="dynamic-proj-title">${proj.title}</h2>
-                        <p class="dynamic-proj-desc">${proj.desc}</p>
-                        ${linkHTML}
+                        
+                        ${mediaHTML}
+                        
+                        <div class="project-meta-row">
+                            <p class="dynamic-proj-desc">${proj.desc}</p>
+                            ${linkHTML}
+                        </div>
                     </div>
                 </div>
             </div>
