@@ -5,6 +5,8 @@ const content = {
         aboutH: 'Software/AI Engineer',
         aboutT: 'Building scalable solutions and optimizing AI workflows. Junior at ASU with a focus on C# and Python development.',
         links: [
+            { text: 'Youtube ↗', url: '' },
+            { text: 'Twitter ↗', url: '' },
             { text: 'GitHub ↗', url: 'https://github.com/JoshWright22' },
 
             { text: 'LinkedIn ↗', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' }
