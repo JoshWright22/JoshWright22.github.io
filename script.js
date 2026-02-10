@@ -24,7 +24,7 @@ const content = {
             {
                 title: 'Anime Card Battler',
                 desc: 'A networked multiplayer card game utilizing a custom REST API for secure server requests and game state synchronization. Features a scalable architecture for card-effect triggers and real-time combat data handling.',
-                img: 'assets/project3.webm', 
+                img: 'assets/project3.webm',
                 link: 'https://github.com/JoshWright22/animecardbattler'
             },
             {
@@ -38,21 +38,36 @@ const content = {
     art: {
         accent: '#ff4d6d',
         hero: 'CRAFTING<br><span style="color:#ff4d6d">VISUALS</span>',
-        aboutH: '3D Artist & Animator',
-        aboutT: 'Crafting immersive environments and 3D assets. Experienced in Blender and Maya.',
+        aboutH: '2D Artist & 3D Animator',
+        aboutT: 'I love to draw and animate. I have a passion for art, and I’m always looking for new ways to challenge myself and grow as an artist.',
         links: [
-            { text: 'ArtStation ↗', url: 'https://joshwrightart.artstation.com' },
-            { text: 'Instagram ↗', url: 'https://instagram.com/yourart' }
+            { text: 'YouTube ↗', url: 'https://youtube.com/@yourchannel' },
+            { text: 'Twitter ↗', url: 'https://twitter.com/yourhandle' },
+            { text: 'ArtStation ↗', url: 'https://joshwrightart.artstation.com' }
+            
+            
         ],
         profileImg: 'assets/me.jpg',
-        stack: ['Blender', 'Autodesk Maya', 'ZBrush', 'Substance', 'Animation'],
+        stack: ['Blender', 'Autodesk Maya', 'ZBrush', 'Substance Painter', 'After Effects', 'Procreate'],
         btn: 'SWITCH TO JOSH_DEV',
         projects: [
             {
-                title: 'Atmospheric Environment',
-                desc: 'A deep-dive into lighting and texture work using Blender Cycles.',
-                img: 'assets/dev-project-1.jpg',
-                link: ''
+                title: 'Digital Concept Gallery',
+                desc: 'A collection of 2D character designs and environmental concept art exploring light, shadow, and color theory.',
+                img: 'assets/projects/2d-concepts.jpg',
+                link: 'https://joshwrightart.artstation.com/albums/concepts'
+            },
+            {
+                title: '3D Animation Reel',
+                desc: 'Highlighting my expertise in character movement, physics-based simulations, and expressive facial rigging.',
+                img: 'assets/projects/animation-thumb.jpg',
+                link: 'https://youtube.com/watch?v=yourreel'
+            },
+            {
+                title: 'Environmental Assets',
+                desc: 'Game-ready 3D assets optimized for performance, from high-poly sculpting to PBR texturing.',
+                img: 'assets/projects/3d-assets.jpg',
+                link: 'https://joshwrightart.artstation.com/albums/3d'
             }
         ]
     }

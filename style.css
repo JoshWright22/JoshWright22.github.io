@@ -889,3 +889,124 @@ body.art-mode #profile-img {
     height: 250px;
     filter: grayscale(0%); /* Full color in art mode */
 }
+
+/* --- Locked Layout for Both Modes --- */
+.about-wrapper {
+    display: grid;
+    /* Fixed 300px sidebar for the image, fluid 1fr for the text */
+    grid-template-columns: 300px 1fr; 
+    grid-column: 1 / 3;
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+}
+
+.about-image-column {
+    padding: 2rem;
+    border-right: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.about-text-column {
+    padding: 2rem 4rem; /* More horizontal padding for better readability */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#profile-img {
+    width: 250px; 
+    height: 250px;
+    object-fit: cover;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    
+    /* Starts grayscale, turns color on hover */
+    filter: grayscale(100%);
+    transition: filter 0.3s ease, transform 0.3s ease;
+    background-color: #222;
+}
+
+#profile-img:hover {
+    filter: grayscale(0%);
+    transform: scale(1.02);
+}
+
+/* --- Remove Art Mode Stretching --- */
+/* Ensure these overrides are GONE or match the above */
+body.art-mode .about-wrapper {
+    grid-template-columns: 300px 1fr; 
+}
+
+body.art-mode #profile-img {
+    width: 250px;
+    height: 250px;
+    /* You can choose if Art mode starts in color or stays grayscale until hover */
+    filter: grayscale(100%); 
+}
+
+body.art-mode #profile-img:hover {
+    filter: grayscale(0%);
+}
+
+/* Mobile: Stack vertically but keep image size controlled */
+@media (max-width: 768px) {
+    .about-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .about-image-column {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+}
+
+/* --- Unified About Section (Locked for both modes) --- */
+.about-wrapper {
+    display: grid;
+    /* This fixed 300px ensures the vertical line never moves */
+    grid-template-columns: 300px 1fr; 
+    grid-column: 1 / 3;
+    width: 100%;
+}
+
+.about-image-column {
+    padding: 2rem;
+    border-right: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.about-text-column {
+    padding: 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#profile-img {
+    width: 250px; 
+    height: 250px;
+    object-fit: cover;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    filter: grayscale(100%);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+#profile-img:hover {
+    filter: grayscale(0%);
+    transform: scale(1.02);
+}
+
+/* --- Remove Mode-Specific Movement --- */
+
+/* Delete any 'body.art-mode .about-wrapper' or 
+   'body.art-mode #profile-img' blocks that change 
+   width, height, grid-template, or padding. */
+
+body.art-mode #profile-img {
+    /* Only change things that don't affect layout/size */
+    filter: grayscale(0%); 
+}
