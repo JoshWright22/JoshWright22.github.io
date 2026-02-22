@@ -14,19 +14,19 @@ const content = {
         {
             title: 'ASU VGDC Game 2025-26',
             desc: 'Collaborated with the Systems Team to integrate core mechanics including physics-based forces and player movement.',
-            img: 'assets/ezgif-1804722bd5a82cf8.webm',
+            img: './assets/ezgif-1804722bd5a82cf8.webm',
             link: 'https://github.com/GDCASU/VGDC-Game-2025-26'
         },
         {
             title: 'Anime Card Battler',
             desc: 'A networked multiplayer card game utilizing a custom REST API for secure server requests and game state synchronization.',
-            img: 'assets/project3.webm',
+            img: './assets/project3.webm',
             link: 'https://github.com/JoshWright22/animecardbattler'
         },
         {
             title: '3D Dungeon Game',
             desc: 'An exploration of 3D environment design and dungeon crawling mechanics. Developed with a focus on level geometry and lighting.',
-            img: 'assets/project2.webm',
+            img: './assets/project2.webm',
             link: 'https://github.com/JoshWright22/3dFungeonGame'
         }
     ]
