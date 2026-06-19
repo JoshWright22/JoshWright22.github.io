@@ -12,6 +12,12 @@ const content = {
     stack: ['C#', '.NET', 'Python', 'Git', 'SQL', 'Azure', 'Java', 'C++', 'Javascript', 'HTML/CSS'],
     projects: [
         {
+            title: 'Slush Rush',
+            desc: 'Designed and implemented core game mechanics while directing a small team. Built polished, engaging gameplay systems for this game jam entry.',
+            img: './assets/slush-rush.webm',
+            link: 'https://joshwright.itch.io/slush-rush'
+        },
+        {
             title: 'ASU VGDC Game 2025-26',
             desc: 'Collaborated with the Systems Team to integrate core mechanics including physics-based forces and player movement.',
             img: './assets/ezgif-1804722bd5a82cf8.webm',
