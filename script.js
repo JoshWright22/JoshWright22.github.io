@@ -1,15 +1,16 @@
 const content = {
     accent: '#0073e6',
     hero: 'ENGINEERING<br><span style="color:#0073e6">SYSTEMS</span>',
-    aboutH: 'Software/AI Engineer',
-    aboutT: 'Building scalable solutions and optimizing AI workflows. Junior at ASU with a focus on C# and Python development.',
+    aboutH: 'Software & Game Developer',
+    aboutT: 'Designing and building games and software with other talented people. Focused on building fun, polished experiences that people actually want to play and use. Senior at ASU and always open to collaborating on something interesting.',
     links: [
         { text: 'GitHub ↗', url: 'https://github.com/JoshWright22' },
         { text: 'LinkedIn ↗', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' },
-        { text: 'Twitter ↗', url: 'https://twitter.com/yourhandle' }
+        { text: 'Twitter ↗', url: 'https://x.com/joshwright_anim' },
+        { text: 'YouTube ↗', url: 'https://www.youtube.com/@JoshWright_Anim' }
     ],
     profileImg: 'assets/me.jpg',
-    stack: ['C#', '.NET', 'Python', 'Git', 'SQL', 'Azure', 'Java', 'C++', 'Javascript', 'HTML/CSS'],
+    stack: ['C#', 'Unity', 'GDScript', 'Godot', 'Java', 'Python', 'JavaScript', 'HTML/CSS', 'ShaderLab', 'HLSL', 'REST APIs', 'Multiplayer Networking', 'Procedural Generation', 'Git', 'SQL', '.NET', 'Chrome Extensions', 'JSON'],
     projects: [
         {
             title: 'Slush Rush',
