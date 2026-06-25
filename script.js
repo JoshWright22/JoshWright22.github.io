@@ -81,7 +81,9 @@ function initPage() {
     root.style.setProperty('--accent', content.accent);
 
     // Update Text & Images
-    document.getElementById('hero-title').innerHTML = content.hero;
+    if (document.getElementById('hero-title')) {
+        document.getElementById('hero-title').innerHTML = content.hero;
+    }
     document.getElementById('about-heading').innerText = content.aboutH;
     document.getElementById('about-text').innerText = content.aboutT;
     document.getElementById('profile-img').src = content.profileImg;
@@ -103,6 +105,10 @@ function initPage() {
     }
 
     renderProjects(content.projects);
+
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        document.querySelectorAll('.project-video').forEach(v => v.play());
+    }
 }
 
 window.onload = initPage;
