@@ -1,6 +1,6 @@
 const content = {
     accent: '#0073e6',
-    hero: 'ENGINEERING<br><span style="color:#0073e6">SYSTEMS</span>',
+    hero: '',
     aboutH: 'Software & Game Developer',
     aboutT: 'Designing and building games and software with other talented people. Focused on building fun, polished experiences that people actually want to play and use. Senior at ASU and always open to collaborating on something interesting.',
     links: [
@@ -17,6 +17,12 @@ const content = {
             desc: 'Designed and implemented core game mechanics while directing a small team. Built polished, engaging gameplay systems for this game jam entry.',
             img: './assets/slush-rush.webm',
             link: 'https://joshwright.itch.io/slush-rush'
+        },
+        {
+            title: 'Gob Spin',
+            desc: 'Led a small team through the development of this one week game jam entry. A physics-based action game where you play as a goblin who spins, helped implement systems and directed gameplay design.',
+            img: './assets/gobspin.webm',
+            link: 'https://hozer347.itch.io/gobspin'
         },
         {
             title: 'ASU VGDC Game 2025-26',
