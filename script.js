@@ -7,7 +7,7 @@ const content = {
         { text: 'GitHub ↗', url: 'https://github.com/JoshWright22' },
         { text: 'LinkedIn ↗', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' },
         { text: 'Twitter ↗', url: 'https://x.com/joshwright_dev' },
-        { text: 'YouTube ↗', url: 'https://www.youtube.com/@JoshWright_Anim' }
+        { text: 'YouTube ↗', url: 'https://www.youtube.com/@JoshWright_Dev' }
     ],
     profileImg: 'assets/me.jpg',
     stack: ['C#', 'Unity', 'GDScript', 'Godot', 'Java', 'Python', 'JavaScript', 'HTML/CSS', 'ShaderLab', 'HLSL', 'REST APIs', 'Multiplayer Networking', 'Procedural Generation', 'Git', 'SQL', '.NET', 'Chrome Extensions', 'JSON'],
