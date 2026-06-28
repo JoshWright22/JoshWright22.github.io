@@ -6,7 +6,7 @@ const content = {
     links: [
         { text: 'GitHub ↗', url: 'https://github.com/JoshWright22' },
         { text: 'LinkedIn ↗', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' },
-        { text: 'Twitter ↗', url: 'https://x.com/joshwright_anim' },
+        { text: 'Twitter ↗', url: 'https://x.com/joshwright_dev' },
         { text: 'YouTube ↗', url: 'https://www.youtube.com/@JoshWright_Anim' }
     ],
     profileImg: 'assets/me.jpg',
