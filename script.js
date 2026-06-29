@@ -14,7 +14,7 @@ const content = {
     projects: [
         {
             title: 'Slush Rush',
-            desc: 'Designed and implemented core game mechanics while directing a small team. Built polished, engaging gameplay systems for this game jam entry.',
+            desc: 'Designed and implemented core game mechanics while directing a small team. Built polished, engaging gameplay systems for this game jam entry. Placed top 15% in the jam.',
             img: './assets/slush-rush.webm',
             link: 'https://joshwright.itch.io/slush-rush'
         },
