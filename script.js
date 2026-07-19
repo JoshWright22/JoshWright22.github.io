@@ -10,7 +10,7 @@ const content = {
         { text: 'YouTube ↗', url: 'https://www.youtube.com/@JoshWright_Dev' }
     ],
     profileImg: 'assets/me.jpg',
-    stack: ['C#', 'Unity', 'GDScript', 'Godot', 'Java', 'Python', 'JavaScript', 'HTML/CSS', 'ShaderLab', 'HLSL', 'REST APIs', 'Multiplayer Networking', 'Procedural Generation', 'Git', 'SQL', '.NET', 'Chrome Extensions', 'JSON'],
+    stack: ['C#', 'Unity', 'GDScript', 'Godot', 'Java', 'Python', 'JavaScript', 'HTML/CSS', 'HLSL', 'REST APIs', 'Multiplayer Networking', 'Procedural Generation', 'Git', 'SQL', '.NET', 'JSON', 'Game Design', 'Gameplay Programming', 'Level Design', 'UI/UX Design', 'Web Design', 'Team Leadership'],
     projects: [
         {
             title: 'Slush Rush',
@@ -60,8 +60,12 @@ function renderProjects(projects) {
         const isVideo = proj.img.endsWith('.webm') || proj.img.endsWith('.mp4');
         const linkHTML = proj.link ? `<a href="${proj.link}" target="_blank" class="project-link">VIEW PROJECT ↗</a>` : '';
 
+        // Still frame shown until the video itself is ready, so cards never flash black.
+        // Convention: foo.webm -> foo-poster.jpg (override per project with `poster`).
+        const poster = proj.poster || proj.img.replace(/\.(webm|mp4)$/, '-poster.jpg');
+
         const mediaHTML = isVideo
-            ? `<video muted loop playsinline class="project-video" onmouseenter="this.play()" onmouseleave="this.pause()">
+            ? `<video muted loop playsinline preload="none" poster="${poster}" class="project-video" onmouseenter="this.play().catch(() => {})" onmouseleave="this.pause()">
                 <source src="${proj.img}" type="video/webm">
                </video>`
             : `<div class="project-image" style="background-image: url('${proj.img}');"></div>`;
@@ -86,6 +90,28 @@ function renderProjects(projects) {
                 </div>
             </div>`;
     });
+}
+
+/* Nothing downloads on page load. Once a card gets close to the viewport its clip
+   starts buffering, so it is ready to play the moment the user hovers. */
+function warmVideosOnApproach() {
+    const videos = document.querySelectorAll('.project-video');
+    if (!('IntersectionObserver' in window)) {
+        videos.forEach(v => { v.preload = 'auto'; v.load(); });
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const video = entry.target;
+            video.preload = 'auto';
+            video.load();
+            obs.unobserve(video);
+        });
+    }, { rootMargin: '400px 0px' }); // start early, before the card is on screen
+
+    videos.forEach(v => observer.observe(v));
 }
 
 function initPage() {
@@ -122,6 +148,7 @@ function initPage() {
     }
 
     renderProjects(content.projects);
+    warmVideosOnApproach();
 
     if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
         document.querySelectorAll('.project-video').forEach(v => v.play());
