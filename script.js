@@ -66,13 +66,18 @@ function renderProjects(projects) {
                </video>`
             : `<div class="project-image" style="background-image: url('${proj.img}');"></div>`;
 
+        // Clicking the media opens the project too, same as the VIEW PROJECT button
+        const mediaBlock = proj.link
+            ? `<a href="${proj.link}" target="_blank" class="project-media-link" aria-label="${proj.title} — view project">${mediaHTML}</a>`
+            : mediaHTML;
+
         container.innerHTML += `
             <div class="grid-section">
                 <div class="grid-block" style="grid-column: 1 / 3;">
                     <div class="project-wrapper">
                         <span class="label">02.${index + 1} / Project</span>
                         <h2 class="dynamic-proj-title">${proj.title}</h2>
-                        ${mediaHTML}
+                        ${mediaBlock}
                         <div class="project-meta-row">
                             <p class="dynamic-proj-desc">${proj.desc}</p>
                             ${linkHTML}

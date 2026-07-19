@@ -419,6 +419,12 @@ body.art-mode .project-image {
     backface-visibility: hidden;
 }
 
+/* Wrapper that makes the media itself a link to the project */
+.project-media-link {
+    display: block;
+    line-height: 0; /* kill the inline-descender gap under the media */
+}
+
 /* Hover effect */
 .project-image:hover,
 .project-video:hover {
