@@ -31,10 +31,10 @@ const content = {
             link: 'https://gamedevclubclub.com/contact-us'
         },
         {
-            title: 'ASU VGDC Game 2025-26',
+            title: 'GRAV-AND-GO (ASU VGDC Game 2025-26)',
             desc: 'Collaborated with the Systems Team to integrate core mechanics including physics-based forces and player movement.',
             img: './assets/ezgif-1804722bd5a82cf8.webm',
-            link: 'https://github.com/GDCASU/VGDC-Game-2025-26'
+            link: 'https://heatwave-studios.itch.io/grav-and-go'
         },
         {
             title: 'Anime Card Battler',
