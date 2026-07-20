@@ -28,7 +28,7 @@ const content = {
             title: 'Game Dev Club Club Website',
             desc: 'Worked with the team behind Game Dev Club Club, a global network of student game developers from over 70 university clubs. Bridged the design and website teams and developed the design for the Contact Us page, an interactive solar system where the sun opens a message form and each orbiting planet links to a platform.',
             img: './assets/gdcc-contact.webm',
-            link: 'https://gamedevclubclub.com/contact-us'
+            link: 'https://gamedevclubclub.com/'
         },
         {
             title: 'GRAV-AND-GO (ASU VGDC Game 2025-26)',
