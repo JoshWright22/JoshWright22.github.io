@@ -195,6 +195,11 @@ body {
     transition: border-color 0.2s ease, color 0.2s ease;
 }
 
+.project-expertise {
+    margin-top: 1rem;
+    margin-left: -0.2rem;
+}
+
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
     .grid-section {
