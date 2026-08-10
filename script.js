@@ -13,6 +13,13 @@ const content = {
     stack: ['Python', 'TypeScript', 'JavaScript', 'React', 'Node.js', 'Flask', 'Django', 'REST APIs', 'Docker', 'SQL', 'Java', 'C#', '.NET', 'JSON', 'Git', 'HTML/CSS', 'Web Design', 'UI/UX Design', 'Team Leadership', 'Multiplayer Networking', 'Unity', 'Godot', 'GDScript', 'HLSL', 'Procedural Generation', 'Game Design', 'Gameplay Programming', 'Level Design'],
     projects: [
         {
+            title: 'AtOMoC SHeLiS',
+            desc: 'Designed and built this auto-battler solo, where players buy elements each round and connect them into a growing molecule. Made for the Club Club Jam Jam, which I also helped organize.',
+            expertise: ['Godot', 'GDScript', 'Game Design', 'Gameplay Programming', 'Procedural Generation', 'Systems Design'],
+            img: './assets/atomoc-shelis.webm',
+            link: 'https://joshwright.itch.io/atomoc-shelis'
+        },
+        {
             title: 'Slush Rush',
             desc: 'Designed and implemented core application logic and systems while directing a small team under a one-week deadline. Placed top 15% in the jam.',
             expertise: ['Python', 'Godot', 'Team Leadership', 'Systems Design'],
