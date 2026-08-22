@@ -47,7 +47,7 @@ const content = {
         {
             title: 'GRAV-AND-GO (ASU VGDC Game 2025-26)',
             category: 'Systems Engineering',
-            desc: 'I was Systems Lead on the ASU VGDC team game. I architected a component-based movement system in C# so the rest of the team could build on it without stepping on each other, and tuned the physics controllers and collision logic to hold 90+ FPS on mid-range hardware.',
+            desc: 'I was worked on the Systems Team on the ASU VGDC yearly game. I architected a component-based movement system in C# so the rest of the team could build on it without stepping on each other, and tuned the physics controllers and collision logic to hold 90+ FPS on mid-range hardware.',
             expertise: ['C#', 'Unity', 'Physics Systems', 'Team Leadership', 'Git'],
             img: './assets/ezgif-1804722bd5a82cf8.webm',
             link: 'https://heatwave-studios.itch.io/grav-and-go'
