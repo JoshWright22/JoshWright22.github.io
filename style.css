@@ -1,1103 +1,901 @@
+/* =============================================================
+   Josh Wright — portfolio
+   High-contrast, code-driven minimalism. Hairline rules, huge
+   editorial type, mono labels, motion that stays out of the way.
+   ============================================================= */
+
 :root {
-    /* Default: Engineering Mode (Black) */
-    --bg: #1a1a1a;
-    --text: #ffffff;
-    --border: #333333;
+    --bg: #0f0f0f;
+    --fg: #fdfdfd;
+    --muted: #7a7a7a;
+    --line: rgba(253, 253, 253, 0.14);
+    --line-soft: rgba(253, 253, 253, 0.07);
     --accent: #0073e6;
-    --transition-fast: 0.2s ease;
+
+    --pad: clamp(1.25rem, 4vw, 4rem);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --slow: 0.9s var(--ease);
+}
+
+/* Light variant: flip these two and the whole site inverts. */
+body.light {
+    --bg: #fdfdfd;
+    --fg: #0f0f0f;
+    --muted: #8a8a8a;
+    --line: rgba(15, 15, 15, 0.16);
+    --line-soft: rgba(15, 15, 15, 0.08);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
     background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    transition: background 0.2s cubic-bezier(0.19, 1, 0.22, 1), 
-                color 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+    color: var(--fg);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
 }
 
-
-.mode-switch {
-    cursor: pointer;
-    padding: 0.7rem 1.4rem;
-    border: 2px solid var(--text);
-    background: transparent;
-    color: var(--text);
-    border-radius: 100px;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: 0.2s cubic-bezier(0.19, 1, 0.22, 1), color 0.2s ease, border-color 0.2s ease;
+body.loading {
+    overflow: hidden;
 }
 
-.mode-switch:hover {
-    background: var(--text);
+img,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+::selection {
+    background: var(--fg);
     color: var(--bg);
-    transform: scale(1.05);
 }
 
-/* --- Hero --- */
-.hero {
-    padding: 8vw 2rem;
-    border-bottom: 1px solid var(--border);
-}
+/* ---------- Type primitives ---------- */
 
-.hero h1 {
-    font-size: 10vw;
-    line-height: 0.8;
-    margin: 0;
+.mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    letter-spacing: -5px;
 }
 
-#role-text {
-    transition: color 0.2s ease;
+.muted {
+    color: var(--muted);
 }
 
-/* --- Grid System --- */
-.grid-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-bottom: 1px solid var(--border);
-}
+/* =============================================================
+   Preloader
+   ============================================================= */
 
-.grid-block {
-    padding: 4rem 2rem;
-    border-right: 1px solid var(--border);
-}
-
-.grid-block:last-child {
-    border-right: none;
-}
-
-/* --- Combined About Section --- */
-.about-wrapper {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    grid-column: 1 / 3;
-    width: 100%;
-}
-
-.about-image-column {
-    padding: 4rem 2rem;
-    border-right: 1px solid var(--border);
-}
-
-.about-text-column {
-    padding: 4rem 2rem;
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--bg);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
+    padding: var(--pad);
+    transition: transform 1s var(--ease);
 }
 
-#profile-img {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 2px;
-    filter: grayscale(100%);
-    transition: filter var(--transition-fast);
-    background-color: #222;
-    /* Darker placeholder for Engineering */
+.loader.done {
+    transform: translateY(-101%);
 }
 
-#profile-img:hover {
-    filter: grayscale(0%);
+.loader-inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
-.label {
+.loader-label {
     font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    font-size: 0.75rem;
-    color: #888;
-    margin-bottom: 1.5rem;
-    display: block;
+    color: var(--muted);
 }
 
-/* --- Projects --- */
-.project-display {
-    width: 100%;
+.loader-count {
+    font-size: clamp(4rem, 18vw, 14rem);
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
 }
 
-.project-image {
-    width: 100%;
-    height: 500px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #222;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    filter: grayscale(100%);
-    transition: filter var(--transition-fast), border-color 0.2s ease;
-    /* Add this to fix laggy playback */
-    transform: translateZ(0);
-    backface-visibility: hidden;
-}
-
-.project-image:hover {
-    filter: grayscale(0%);
-}
-
-.dynamic-proj-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    margin: 1.5rem 0 0.5rem 0;
-    letter-spacing: -1px;
-    text-transform: uppercase;
-}
-
-.project-link {
-    display: inline-block;
+.loader-bar {
     margin-top: 1.5rem;
-    padding: 0.8rem 1.6rem;
-    border: 1px solid var(--text);
-    color: var(--text);
-    text-decoration: none;
+    height: 1px;
+    background: var(--line);
+}
+
+.loader-bar span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--fg);
+}
+
+/* =============================================================
+   Nav
+   ============================================================= */
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem var(--pad);
+    mix-blend-mode: difference;
+    transition: transform 0.5s var(--ease);
+}
+
+.nav.hidden {
+    transform: translateY(-110%);
+}
+
+.nav-logo {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    transition: 0.3s ease, color 0.2s ease, border-color 0.2s ease;
+    letter-spacing: 0.14em;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
 }
 
-.project-link:hover {
-    background-color: var(--text);
-    color: var(--bg);
-}
-
-/* --- Skills & Links --- */
-.nav-link {
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    margin-top: 1rem;
-    font-weight: 700;
-    transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-    color: var(--accent);
-}
-
-.skills-tag {
+.nav-star {
     display: inline-block;
-    border: 1px solid var(--border);
-    padding: 0.4rem 0.8rem;
-    margin: 0.2rem;
-    border-radius: 100px;
-    font-size: 0.85rem;
-    font-family: 'JetBrains Mono';
-    background: transparent;
-    color: var(--text);
-    transition: border-color 0.2s ease, color 0.2s ease;
+    animation: spin 6s linear infinite;
 }
 
-.project-expertise {
-    margin-top: 1rem;
-    margin-left: -0.2rem;
-}
-
-/* --- Mobile Responsiveness --- */
-@media (max-width: 768px) {
-    .grid-section {
-        grid-template-columns: 1fr;
-    }
-
-    .grid-block {
-        border-right: none;
-    }
-
-    .about-wrapper {
-        grid-template-columns: 1fr;
-    }
-
-    .about-image-column {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-    }
-
-    .project-image {
-        height: 300px;
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }
 
-/* --- Hero --- */
-.hero {
-    padding: 3rem 2rem; /* Was 8vw - now fixed to a smaller height */
-    border-bottom: 1px solid var(--border);
+.nav-links {
+    display: flex;
+    gap: clamp(0.9rem, 2.5vw, 2.2rem);
 }
 
-.hero h1 {
-    font-size: 7vw; /* Was 10vw - smaller title fits more on screen */
-    line-height: 0.8;
-    margin: 0;
+.nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    letter-spacing: -3px; /* Slightly tighter for the smaller size */
+    position: relative;
+    padding-bottom: 2px;
 }
 
-.about-image-column, 
-.about-text-column {
-    padding: 2rem; /* Was 4rem - smaller padding keeps content "above the fold" */
-}
-
-.about-wrapper {
-    display: grid;
-    /* Changed from 0.8fr to 0.6fr to shrink the image column width */
-    grid-template-columns: 0.6fr 1.4fr; 
-    grid-column: 1 / 3;
+/* Underline sweeps in from the left on hover */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
     width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s var(--ease);
 }
 
-#profile-img {
-    width: 100%;
-    /* Locked size for the profile photo */
-    max-width: 280px; 
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 2px;
-    filter: grayscale(100%);
-    transition: filter var(--transition-fast);
-    background-color: #222;
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
-.project-image {
-    width: 100%;
-    /* Locked height for consistency */
-    height: 400px; 
-    /* "contain" ensures you see the whole GIF content without cropping */
-    background-size: contain; 
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #111; /* Darker background to frame the GIF */
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    filter: grayscale(100%);
-    transition: filter var(--transition-fast), border-color 0.2s ease;
-    transform: translateZ(0);
-    backface-visibility: hidden;
+.nav-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
 }
 
-.about-wrapper {
-    display: grid;
-    /* Adjusting the ratio so the text column has more room */
-    grid-template-columns: 300px 1fr; 
-    grid-column: 1 / 3;
-    width: 100%;
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse 2s ease-in-out infinite;
 }
 
-#profile-img {
-    /* Fixed size for a perfect square */
-    width: 250px; 
-    height: 250px;
-    object-fit: cover;
-    border-radius: 2px;
-    filter: grayscale(100%);
-    transition: filter var(--transition-fast);
-    background-color: #222;
-}
+@keyframes pulse {
 
-/* --- Art Mode Overrides --- */
+    0%,
+    100% {
+        opacity: 1;
+    }
 
-/* Allow the profile image to stretch/fill again */
-body.art-mode .about-wrapper {
-    grid-template-columns: 0.8fr 1.2fr; /* Back to fluid ratio */
-}
-
-body.art-mode #profile-img {
-    width: 100%;
-    max-width: none;
-    height: auto; 
-    filter: grayscale(0%); /* Art mode is full color */
-}
-
-/* Allow project GIFs to stretch to the screen width */
-body.art-mode .project-image {
-    max-width: none;
-    aspect-ratio: auto; /* Remove the locked square constraint */
-    height: 60vh; /* Make them large and cinematic */
-    filter: grayscale(0%);
-}
-
-body.art-mode .hero h1 {
-    letter-spacing: 2px; /* Open up the typography */
-    transition: all 0.5s ease;
-}
-
-#profile-img {
-    /* Ensure it starts locked and grey */
-    width: 250px; 
-    height: 250px;
-    filter: grayscale(100%); 
-    display: block; /* Ensures it's visible immediately in the right spot */
-}
-
-.project-image {
-    /* Ensure GIFs start locked and grey */
-    max-width: 400px;
-    aspect-ratio: 1 / 1;
-    filter: grayscale(100%);
-}
-
-/* --- Projects --- */
-.project-display {
-    width: 100%;
-}
-
-.project-image {
-    width: 100%;
-    /* Increased locked size from 400px to 550px to make them bigger */
-    max-width: 550px; 
-    aspect-ratio: 1 / 1; 
-    
-    /* "cover" stretches the GIF to fill the box, removing the black bars */
-    background-size: cover; 
-    background-position: center;
-    background-repeat: no-repeat;
-    
-    /* Matches the UI background so edges blend perfectly */
-    background-color: var(--bg); 
-    
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    filter: grayscale(100%);
-    transition: filter var(--transition-fast), border-color 0.2s ease, transform 0.3s ease;
-    
-    /* Optimization for GIF playback */
-    transform: translateZ(0);
-    backface-visibility: hidden;
-}
-
-/* Optional: Slight lift on hover to make the larger GIFs feel interactive */
-.project-image:hover {
-    filter: grayscale(0%);
-    transform: scale(1.02) translateZ(0);
-}
-
-/* Art Mode Overrides: Let them go full-screen/fluid */
-body.art-mode .project-image {
-    max-width: 100%;
-    height: 70vh; /* Very large cinematic view */
-    aspect-ratio: auto;
-    filter: grayscale(0%);
-}
-
-#profile-img {
-    width: 250px; 
-    height: 250px;
-    object-fit: cover;
-    border-radius: 2px;
-    filter: grayscale(100%);
-    /* Added transform and scale to the transition list */
-    transition: filter var(--transition-fast), 
-                transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-    background-color: #222;
-    /* Keeps the animation smooth */
-    transform: scale(1) translateZ(0); 
-    cursor: pointer;
-}
-
-#profile-img:hover {
-    filter: grayscale(0%);
-    /* Matches the 'pop' scale of your projects */
-    transform: scale(1.05) translateZ(0); 
-}
-
-/* This applies to both the old <div> and the new <video> tag */
-.project-image, 
-.project-video {
-    width: 100%;
-    /* 16:9 is the standard for gameplay and cinematic renders */
-    aspect-ratio: 16 / 9; 
-    object-fit: cover; 
-    background-position: center;
-    background-color: var(--bg); 
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    filter: grayscale(100%);
-    transition: filter var(--transition-fast), border-color 0.2s ease, transform 0.3s ease;
-    
-    /* Hardware acceleration */
-    transform: translateZ(0);
-    backface-visibility: hidden;
-}
-
-/* Wrapper that makes the media itself a link to the project */
-.project-media-link {
-    display: block;
-    line-height: 0; /* kill the inline-descender gap under the media */
-}
-
-/* Hover effect */
-.project-image:hover,
-.project-video:hover {
-    filter: grayscale(0%);
-    transform: scale(1.01) translateZ(0); /* Subtle lift */
-}
-
-/* Mobile: Adjust ratio so it doesn't get too thin */
-@media (max-width: 768px) {
-    .project-image, 
-    .project-video {
-        aspect-ratio: 4 / 3; 
+    50% {
+        opacity: 0.25;
     }
 }
 
-.project-video {
-    cursor: pointer;
-    background-color: #000; /* Ensure black background while paused */
+@media (max-width: 720px) {
+    .nav-status {
+        display: none;
+    }
 }
 
-/* Optional: add a slight brightness boost on hover to signal it's "waking up" */
-.project-video:hover {
-    filter: grayscale(0%) brightness(1.1);
+/* =============================================================
+   Hero
+   ============================================================= */
+
+.hero {
+    min-height: 100svh;
+    padding: 5rem var(--pad) var(--pad);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
 }
 
-/* --- Compact Project Container --- */
-.grid-block {
-    padding: 1.5rem 2rem; /* Reduced from 4rem to pull content up */
+.hero-top {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line-soft);
 }
 
-.project-display {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr; /* Video on left, Text on right */
+/* Name on the left, portrait on the right, baselines aligned. */
+.hero-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: clamp(1.5rem, 5vw, 5rem);
+    margin: clamp(2rem, 6vh, 4.5rem) 0;
+}
+
+/* min-width lets the name shrink instead of shoving the portrait off-screen */
+.hero-title {
+    min-width: 0;
+}
+
+.hero-portrait {
+    margin: 0;
+    flex-shrink: 0;
+    width: clamp(130px, 18vw, 290px);
+}
+
+/* The mask clips the image, which slides up out of it with the name lines. */
+.hero-portrait-mask {
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+
+.hero-portrait img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.05);
+    transform: translateY(102%);
+    transition: transform 1.1s var(--ease) 0.24s,
+        filter 0.6s var(--ease),
+        scale 0.6s var(--ease);
+}
+
+.ready .hero-portrait img {
+    transform: translateY(0);
+}
+
+.hero-portrait:hover img {
+    filter: grayscale(0%);
+    scale: 1.03;
+}
+
+.hero-portrait figcaption {
+    display: block;
+    margin-top: 0.75rem;
+    line-height: 1.6;
+    opacity: 0;
+    transition: opacity var(--slow) 0.6s;
+}
+
+.ready .hero-portrait figcaption {
+    opacity: 1;
+}
+
+.hero-title {
+    margin: 0;
+    font-size: clamp(3rem, 13vw, 14rem);
+    font-weight: 800;
+    line-height: 0.82;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+    .hero-main {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .hero-portrait {
+        width: 46vw;
+        max-width: 210px;
+    }
+
+    .hero-title {
+        font-size: 17vw;
+    }
+}
+
+/* Mask + inner span: the inner slides up out of the clip */
+.line {
+    display: block;
+    overflow: hidden;
+}
+
+.line-in {
+    display: block;
+    transform: translateY(105%);
+    transition: transform 1.1s var(--ease);
+}
+
+.ready .line-in {
+    transform: translateY(0);
+}
+
+.ready .line:nth-child(2) .line-in {
+    transition-delay: 0.09s;
+}
+
+.ready .line:nth-child(3) .line-in {
+    transition-delay: 0.18s;
+}
+
+.hero-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
     gap: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line-soft);
+}
+
+.hero-lede {
+    max-width: 42ch;
+    margin: 0;
+    font-size: clamp(0.95rem, 1.5vw, 1.25rem);
+    line-height: 1.45;
+    color: var(--fg);
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: opacity var(--slow) 0.35s, transform var(--slow) 0.35s;
+}
+
+.ready .hero-lede {
+    opacity: 1;
+    transform: none;
+}
+
+.hero-scroll {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.scroll-line {
+    display: block;
+    width: 70px;
+    height: 1px;
+    background: var(--line);
+    overflow: hidden;
+}
+
+.scroll-line i {
+    display: block;
+    width: 30%;
+    height: 100%;
+    background: var(--fg);
+    animation: slide 2.2s var(--ease) infinite;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(340%);
+    }
+}
+
+@media (max-width: 720px) {
+    .hero-scroll {
+        display: none;
+    }
+}
+
+/* =============================================================
+   Marquee
+   ============================================================= */
+
+.marquee {
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    padding: 1.1rem 0;
+    white-space: nowrap;
+}
+
+.marquee-track {
+    display: inline-flex;
+    gap: 2.5rem;
+    padding-right: 2.5rem;
+    animation: marquee 38s linear infinite;
+    will-change: transform;
+}
+
+.marquee span {
+    font-size: clamp(1.1rem, 2.6vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+.marquee .sep {
+    color: var(--muted);
+    font-weight: 400;
+}
+
+@keyframes marquee {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* =============================================================
+   Sections
+   ============================================================= */
+
+.section {
+    padding: clamp(4rem, 10vw, 9rem) var(--pad);
+    border-bottom: 1px solid var(--line);
+}
+
+.section--flush {
+    padding-bottom: 0;
+}
+
+.section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+    border-bottom: 1px solid var(--line-soft);
+}
+
+.section-head .index {
+    color: var(--muted);
+}
+
+.section-head .count {
+    margin-left: auto;
+}
+
+/* Scroll reveal */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(2rem);
+    transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+
+[data-reveal].in {
+    opacity: 1;
+    transform: none;
+}
+
+/* =============================================================
+   About
+   ============================================================= */
+
+.about {
+    display: grid;
+    grid-template-columns: minmax(180px, 300px) 1fr;
+    gap: clamp(2rem, 6vw, 6rem);
     align-items: start;
 }
 
-.project-video, 
-.project-image {
+.about-media {
+    position: sticky;
+    top: 6rem;
+}
+
+#profile-img {
     width: 100%;
-    aspect-ratio: 16 / 9; /* Cinematic but compact */
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    filter: grayscale(100%);
-    transition: all 0.3s ease;
+    filter: grayscale(100%) contrast(1.05);
+    transition: filter 0.6s var(--ease), transform 0.6s var(--ease);
 }
 
-/* --- Hover Logic --- */
-.project-video:hover,
-.project-image:hover {
+#profile-img:hover {
     filter: grayscale(0%);
-    transform: scale(1.02);
+    transform: scale(1.015);
 }
 
-/* --- Typography Scaling --- */
-.dynamic-proj-title {
-    font-size: clamp(1.2rem, 3vw, 1.8rem); /* Smaller, more professional font size */
-    margin: 0 0 0.5rem 0;
+.caption {
+    display: block;
+    margin-top: 0.75rem;
 }
 
-.dynamic-proj-desc {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #ccc;
-    margin-bottom: 1rem;
+.about-heading {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.9rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
 }
 
-.project-link {
-    margin-top: 0;
-    padding: 0.5rem 1rem;
-    font-size: 0.75rem;
+.about-text {
+    margin: 0;
+    max-width: 60ch;
+    font-size: clamp(1rem, 1.35vw, 1.15rem);
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--fg) 82%, transparent);
+    transition-delay: 0.12s;
 }
 
-/* Mobile: Stack them back vertically */
-@media (max-width: 900px) {
-    .project-display {
+/* Big list-style external links */
+.link-list {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    border-top: 1px solid var(--line-soft);
+}
+
+.link-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 0.25rem;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: clamp(1.1rem, 2.2vw, 1.7rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition: padding-left 0.5s var(--ease), color 0.4s var(--ease);
+}
+
+/* Fill sweeps up from the bottom */
+.link-row::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--fg);
+    transform: translateY(101%);
+    transition: transform 0.5s var(--ease);
+    z-index: -1;
+}
+
+.link-row:hover {
+    padding-left: 1.25rem;
+    color: var(--bg);
+}
+
+.link-row:hover::before {
+    transform: translateY(0);
+}
+
+.link-row .arrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    transition: transform 0.4s var(--ease);
+}
+
+.link-row:hover .arrow {
+    transform: translate(4px, -4px);
+}
+
+@media (max-width: 860px) {
+    .about {
         grid-template-columns: 1fr;
-        gap: 1rem;
     }
-    .project-video {
-        aspect-ratio: 16 / 10;
+
+    .about-media {
+        position: static;
+        max-width: 260px;
     }
 }
-/* --- Title Above Image --- */
-.dynamic-proj-title {
-    font-size: clamp(1.5rem, 4vw, 2.2rem);
-    margin: 0.5rem 0 1rem 0; /* Tight spacing between title and image */
-    text-transform: uppercase;
+
+/* =============================================================
+   Projects
+   ============================================================= */
+
+.project {
+    padding: clamp(3rem, 7vw, 6rem) 0;
+    border-top: 1px solid var(--line-soft);
 }
 
-/* --- The Media Box --- */
-.project-video, 
-.project-image {
-    width: 100%;
-    aspect-ratio: 21 / 9; /* Ultrawide fits more content on one page */
-    object-fit: cover;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    filter: grayscale(100%);
-    transition: all 0.3s ease;
-    display: block;
+.project:first-child {
+    border-top: none;
+    padding-top: 0;
 }
 
-.project-video:hover {
-    filter: grayscale(0%);
-}
-
-/* --- Info Row Below Image --- */
-.project-info-row {
+.project-head {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 0.75rem;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
 }
 
-.dynamic-proj-desc {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #888;
-    margin: 0;
-    max-width: 75%;
+.project-num {
+    color: var(--muted);
 }
 
-.project-link {
-    margin-top: 0;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.75rem;
-    white-space: nowrap;
-}
-
-/* --- Art Mode Override --- */
-body.art-mode .project-video {
-    aspect-ratio: 16 / 9; /* Slightly taller for cinematic art */
-    filter: grayscale(0%);
-}
-/* --- Title Above Image --- */
-.dynamic-proj-title {
-    font-size: clamp(1.5rem, 4vw, 2.2rem);
-    margin: 0.5rem 0 1rem 0; /* Tight spacing between title and image */
+.project-title {
+    width: 100%;
+    margin: 0.25rem 0 1.75rem;
+    font-size: clamp(2rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
     text-transform: uppercase;
 }
 
-/* --- The Media Box --- */
-.project-video, 
+.project-media-link {
+    display: block;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+
+.project-video,
 .project-image {
     width: 100%;
-    aspect-ratio: 21 / 9; /* Ultrawide fits more content on one page */
+    aspect-ratio: 16 / 9;
     object-fit: cover;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    filter: grayscale(100%);
-    transition: all 0.3s ease;
-    display: block;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%) contrast(1.05);
+    transform: scale(1) translateZ(0);
+    backface-visibility: hidden;
+    transition: filter 0.7s var(--ease), transform 0.7s var(--ease);
 }
 
-.project-video:hover {
+.project-media-link:hover .project-video,
+.project-media-link:hover .project-image {
     filter: grayscale(0%);
+    transform: scale(1.03) translateZ(0);
 }
 
-/* --- Info Row Below Image --- */
-.project-info-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 0.75rem;
+/* Media takes the larger column so the description reads beside it. */
+.project-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: start;
 }
 
-.dynamic-proj-desc {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #888;
+.project-desc {
     margin: 0;
-    max-width: 75%;
+    font-size: clamp(0.95rem, 1.25vw, 1.08rem);
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--fg) 78%, transparent);
+    max-width: 62ch;
 }
 
-.project-link {
-    margin-top: 0;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.75rem;
-    white-space: nowrap;
-}
-
-/* --- Art Mode Override --- */
-body.art-mode .project-video {
-    aspect-ratio: 16 / 9; /* Slightly taller for cinematic art */
-    filter: grayscale(0%);
-}
-
-/* --- Center the project content --- */
-.project-wrapper {
-    max-width: 550px; /* Locked to your preferred size */
-    margin: 0; /* Keep it left-aligned to match your grid style */
-}
-
-.dynamic-proj-title {
-    font-size: 1.8rem;
-    text-transform: uppercase;
-    margin: 0.5rem 0 1.2rem 0;
-    letter-spacing: -1px;
-}
-
-/* --- Media Styling (Locked Size) --- */
-.project-video, 
-.project-image {
-    width: 100%;
-    max-width: 550px; 
-    aspect-ratio: 1 / 1; /* Reverting to the square size you had last */
-    object-fit: cover;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    filter: grayscale(100%);
-    transition: all 0.3s ease;
-    display: block;
-    background-color: var(--bg);
-}
-
-.project-video:hover {
-    filter: grayscale(0%);
-    transform: scale(1.02);
-}
-
-/* --- Metadata (Description & Link) --- */
-.project-meta {
-    margin-top: 1rem;
+.project-side {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-}
-
-.dynamic-proj-desc {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: #888;
-    margin: 0;
-}
-
-.project-link {
-    align-self: flex-start;
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.75rem;
-}
-
-/* Art Mode: Allow it to expand */
-body.art-mode .project-wrapper {
-    max-width: 100%;
-}
-body.art-mode .project-video {
-    max-width: 100%;
-    height: 70vh;
-    aspect-ratio: auto;
-}
-
-/* --- Project Wrapper (Fixed Width) --- */
-.project-wrapper {
-    max-width: 550px; /* Limits the size as requested */
-    width: 100%;
-}
-
-.dynamic-proj-title {
-    font-size: 1.8rem;
-    text-transform: uppercase;
-    margin: 0.4rem 0 1rem 0; /* Space between title and video */
-    letter-spacing: -1px;
-}
-
-/* --- The Video/Image (16:9 Widescreen) --- */
-.project-video, 
-.project-image {
-    width: 100%;
-    aspect-ratio: 16 / 9; /* The "Correct" size for video content */
-    object-fit: cover;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    filter: grayscale(100%);
-    transition: all 0.3s ease;
-    display: block;
-    background-color: #000;
-}
-
-.project-video:hover {
-    filter: grayscale(0%);
-    transform: scale(1.01); /* Subtle lift */
-}
-
-/* --- Metadata Row --- */
-.project-meta-row {
-    margin-top: 0.8rem;
-    display: flex;
-    justify-content: space-between;
     align-items: flex-start;
     gap: 1.5rem;
 }
 
-.dynamic-proj-desc {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #888;
-    margin: 0;
-    flex: 1;
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+/* Outlined pill, inverts on hover */
+.tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: color-mix(in srgb, var(--fg) 75%, transparent);
+    transition: background 0.3s var(--ease), color 0.3s var(--ease),
+        border-color 0.3s var(--ease);
+}
+
+.tag:hover {
+    background: var(--fg);
+    border-color: var(--fg);
+    color: var(--bg);
 }
 
 .project-link {
-    white-space: nowrap;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
 }
 
-/* Art Mode Overrides */
-body.art-mode .project-wrapper {
-    max-width: 800px; /* Slightly wider for Art mode impact */
-}
-body.art-mode .project-video {
-    filter: grayscale(0%);
-}
-
-/* Ensure the grid doesn't collapse */
-#projects-container {
-    width: 100%;
+.project-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--fg);
+    transform: translateY(101%);
+    transition: transform 0.45s var(--ease);
+    z-index: -1;
 }
 
-.project-wrapper {
-    max-width: 550px; /* Locked as requested */
-    width: 100%;
-    margin-bottom: 2rem;
+.project-link:hover {
+    color: var(--bg);
+    border-color: var(--fg);
 }
 
-/* Force the video and image to the same size */
-.project-video, 
-.project-image {
-    width: 100%;
-    aspect-ratio: 16 / 9; /* Professional widescreen */
-    object-fit: cover;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    filter: grayscale(100%);
-    transition: all 0.3s ease;
+.project-link:hover::before {
+    transform: translateY(0);
+}
+
+@media (max-width: 860px) {
+    .project-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =============================================================
+   Stack
+   ============================================================= */
+
+.stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* =============================================================
+   Footer
+   ============================================================= */
+
+.footer {
+    padding: clamp(4rem, 10vw, 9rem) var(--pad) var(--pad);
+}
+
+.footer-cta {
     display: block;
-    background-color: #000;
+    margin: clamp(1rem, 4vw, 3rem) 0 clamp(3rem, 8vw, 6rem);
+    font-size: clamp(3rem, 15vw, 15rem);
+    font-weight: 800;
+    line-height: 0.84;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
 }
 
-.project-video:hover,
-.project-image:hover {
-    filter: grayscale(0%);
-    transform: scale(1.01);
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line-soft);
 }
 
-/* Info row below the media */
-.project-meta-row {
-    margin-top: 1rem;
+.footer-grid>div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: flex-start;
+}
+
+.footer-link {
+    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    position: relative;
+}
+
+a.footer-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s var(--ease);
+}
+
+a.footer-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.footer-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.footer-base {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    flex-wrap: wrap;
     gap: 1rem;
+    padding-top: 1.5rem;
 }
 
-.dynamic-proj-desc {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: var(--text);
-    opacity: 0.8;
-    margin: 0;
-}
+/* =============================================================
+   Reduced motion
+   ============================================================= */
 
-#primary-links-container {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* Space between links */
-}
+@media (prefers-reduced-motion: reduce) {
 
-.nav-link {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 700;
-    transition: color 0.2s ease;
-}
-
-.nav-link:hover {
-    color: var(--accent);
-}
-
-#primary-links-container {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* Space between links */
-}
-
-.nav-link {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 700;
-    transition: color 0.2s ease;
-}
-
-.nav-link:hover {
-    color: var(--accent);
-}
-
-/* --- Locked Profile Image (Both Modes) --- */
-.about-wrapper {
-    display: grid;
-    /* Locked column widths: 300px for image, the rest for text */
-    grid-template-columns: 300px 1fr; 
-    grid-column: 1 / 3;
-    width: 100%;
-}
-
-#profile-img {
-    /* Fixed square dimensions */
-    width: 250px; 
-    height: 250px;
-    object-fit: cover;
-    border-radius: 2px;
-    border: 1px solid var(--border);
-    
-    /* Animation settings */
-    filter: grayscale(100%);
-    transition: filter 0.3s ease, transform 0.3s ease;
-    background-color: #222;
-}
-
-#profile-img:hover {
-    filter: grayscale(0%);
-    transform: scale(1.02);
-}
-
-/* --- Remove or Comment Out Art Mode Stretch --- */
-/* Ensure your 'body.art-mode' section DOES NOT contain these: */
-body.art-mode .about-wrapper {
-    grid-template-columns: 300px 1fr; /* Keep it the same as dev mode */
-}
-
-body.art-mode #profile-img {
-    width: 250px; /* Force size consistency */
-    height: 250px;
-    filter: grayscale(0%); /* Full color in art mode */
-}
-
-/* --- Locked Layout for Both Modes --- */
-.about-wrapper {
-    display: grid;
-    /* Fixed 300px sidebar for the image, fluid 1fr for the text */
-    grid-template-columns: 300px 1fr; 
-    grid-column: 1 / 3;
-    width: 100%;
-    border-bottom: 1px solid var(--border);
-}
-
-.about-image-column {
-    padding: 2rem;
-    border-right: 1px solid var(--border);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.about-text-column {
-    padding: 2rem 4rem; /* More horizontal padding for better readability */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#profile-img {
-    width: 250px; 
-    height: 250px;
-    object-fit: cover;
-    border-radius: 2px;
-    border: 1px solid var(--border);
-    
-    /* Starts grayscale, turns color on hover */
-    filter: grayscale(100%);
-    transition: filter 0.3s ease, transform 0.3s ease;
-    background-color: #222;
-}
-
-#profile-img:hover {
-    filter: grayscale(0%);
-    transform: scale(1.02);
-}
-
-/* --- Remove Art Mode Stretching --- */
-/* Ensure these overrides are GONE or match the above */
-body.art-mode .about-wrapper {
-    grid-template-columns: 300px 1fr; 
-}
-
-body.art-mode #profile-img {
-    width: 250px;
-    height: 250px;
-    /* You can choose if Art mode starts in color or stays grayscale until hover */
-    filter: grayscale(100%); 
-}
-
-body.art-mode #profile-img:hover {
-    filter: grayscale(0%);
-}
-
-/* Mobile: Stack vertically but keep image size controlled */
-@media (max-width: 768px) {
-    .about-wrapper {
-        grid-template-columns: 1fr;
-    }
-    .about-image-column {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-    }
-}
-
-/* --- Unified About Section (Locked for both modes) --- */
-.about-wrapper {
-    display: grid;
-    /* This fixed 300px ensures the vertical line never moves */
-    grid-template-columns: 300px 1fr; 
-    grid-column: 1 / 3;
-    width: 100%;
-}
-
-.about-image-column {
-    padding: 2rem;
-    border-right: 1px solid var(--border);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.about-text-column {
-    padding: 2rem 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#profile-img {
-    width: 250px; 
-    height: 250px;
-    object-fit: cover;
-    border-radius: 2px;
-    border: 1px solid var(--border);
-    filter: grayscale(100%);
-    transition: filter 0.3s ease, transform 0.3s ease;
-}
-
-#profile-img:hover {
-    filter: grayscale(0%);
-    transform: scale(1.02);
-}
-
-/* --- Remove Mode-Specific Movement --- */
-
-/* Delete any 'body.art-mode .about-wrapper' or 
-   'body.art-mode #profile-img' blocks that change 
-   width, height, grid-template, or padding. */
-
-body.art-mode #profile-img {
-    filter: grayscale(0%);
-}
-
-/* --- Hero Layout --- */
-.hero-inner {
-    display: flex;
-    align-items: flex-end;
-    gap: 2.5rem;
-}
-
-#hero-name {
-    font-size: 8vw;
-    font-weight: 800;
-    line-height: 0.85;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: -3px;
-    flex-shrink: 0;
-}
-
-.hero-subtitle {
-    font-size: 2vw;
-    font-weight: 700;
-    line-height: 1;
-    text-transform: uppercase;
-    letter-spacing: -0.5px;
-    padding-bottom: 0.4rem;
-}
-
-/* === MOBILE === */
-@media (max-width: 768px) {
-    nav {
-        padding: 0.9rem 1.25rem;
+    html {
+        scroll-behavior: auto;
     }
 
-    .hero-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 
-    #hero-name {
-        font-size: 13vw;
-        letter-spacing: -1px;
+    .line-in {
+        transform: none;
     }
 
-    .hero-subtitle {
-        font-size: 5.5vw;
-        letter-spacing: -0.5px;
-        padding-bottom: 0;
-    }
-
-    .about-wrapper {
-        grid-template-columns: 1fr;
-    }
-
-    .about-image-column {
-        padding: 1.5rem;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-    }
-
-    .about-text-column {
-        padding: 1.25rem 1.5rem;
-    }
-
-    #about-heading {
-        font-size: 1.2rem;
-        margin: 0.5rem 0;
-    }
-
-    #about-text {
-        font-size: 0.95rem;
-        line-height: 1.6;
-    }
-
-    #profile-img {
-        width: 160px;
-        height: 160px;
-    }
-
-    .project-wrapper {
-        max-width: 100%;
-    }
-
-    .project-meta-row {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    .dynamic-proj-title {
-        font-size: 1.3rem;
-        letter-spacing: -0.5px;
-    }
-
-    .grid-block {
-        padding: 1.25rem;
-    }
-
-    #primary-links-container {
-        gap: 10px;
-    }
-
-    .nav-link {
-        font-size: 0.8rem;
+    [data-reveal] {
+        opacity: 1;
+        transform: none;
     }
 }
