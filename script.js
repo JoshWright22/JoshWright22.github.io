@@ -333,7 +333,6 @@ function runLoader(done) {
 
 function init() {
     document.documentElement.style.setProperty('--accent', content.accent);
-    document.getElementById('year').textContent = new Date().getFullYear();
 
     renderAbout();
     renderMarquee();

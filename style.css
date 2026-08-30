@@ -864,14 +864,6 @@ a.footer-link:hover::after {
     align-items: flex-start;
 }
 
-.footer-base {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding-top: 1.5rem;
-}
-
 /* =============================================================
    Reduced motion
    ============================================================= */
