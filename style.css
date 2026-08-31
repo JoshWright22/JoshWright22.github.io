@@ -10,7 +10,13 @@
     --muted: #7a7a7a;
     --line: rgba(253, 253, 253, 0.14);
     --line-soft: rgba(253, 253, 253, 0.07);
-    --accent: #0073e6;
+
+    /* Sampled from the sky in assets/me.jpg. --accent is the true color and
+       carries fills, rules and large type; --accent-bright lifts it to a
+       readable contrast for small text on the dark ground. */
+    --accent: #4776ca;
+    --accent-bright: #7ba6e8;
+    --accent-soft: rgba(71, 118, 202, 0.16);
 
     --pad: clamp(1.25rem, 4vw, 4rem);
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -24,6 +30,8 @@ body.light {
     --muted: #8a8a8a;
     --line: rgba(15, 15, 15, 0.16);
     --line-soft: rgba(15, 15, 15, 0.08);
+    --accent-bright: #2f5ba8;
+    --accent-soft: rgba(71, 118, 202, 0.14);
 }
 
 *,
@@ -62,8 +70,14 @@ a {
 }
 
 ::selection {
-    background: var(--fg);
-    color: var(--bg);
+    background: var(--accent);
+    color: #fff;
+}
+
+/* Keyboard focus is the one place the accent is allowed to shout. */
+:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 3px;
 }
 
 /* ---------- Type primitives ---------- */
@@ -132,7 +146,7 @@ a {
     display: block;
     height: 100%;
     width: 0%;
-    background: var(--fg);
+    background: var(--accent);
 }
 
 /* =============================================================
@@ -169,6 +183,7 @@ a {
 
 .nav-star {
     display: inline-block;
+    color: var(--accent);
     animation: spin 6s linear infinite;
 }
 
@@ -212,6 +227,11 @@ a {
     transform-origin: left;
 }
 
+.nav-links a.active::after {
+    height: 2px;
+    background: var(--accent);
+}
+
 .nav-status {
     display: flex;
     align-items: center;
@@ -226,7 +246,7 @@ a {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: currentColor;
+    background: var(--accent);
     animation: pulse 2s ease-in-out infinite;
 }
 
@@ -294,6 +314,18 @@ a {
     aspect-ratio: 1 / 1;
     border: 1px solid var(--line);
     background: color-mix(in srgb, var(--fg) 6%, transparent);
+    cursor: zoom-in;
+    transition: border-color 0.5s var(--ease);
+}
+
+/* A portrait counts as picked out when it is the thing you are looking at:
+   scrolled into view, hovered, tapped, or focused. Scroll is what carries it
+   on a phone, where there is no hover to lean on. */
+.hero-portrait.is-onscreen .hero-portrait-mask,
+.hero-portrait:hover .hero-portrait-mask,
+.hero-portrait.is-selected .hero-portrait-mask,
+.hero-portrait-mask:focus-within {
+    border-color: var(--accent);
 }
 
 .hero-portrait img {
@@ -312,8 +344,16 @@ a {
     transform: translateY(0);
 }
 
-.hero-portrait:hover img {
+.hero-portrait.is-onscreen img,
+.hero-portrait:hover img,
+.hero-portrait.is-selected img,
+.hero-portrait img:focus-visible {
     filter: grayscale(0%);
+}
+
+/* The nudge stays a pointer/tap reward — scrolling past should not resize it. */
+.hero-portrait:hover img,
+.hero-portrait.is-selected img {
     scale: 1.03;
 }
 
@@ -423,7 +463,7 @@ a {
     display: block;
     width: 30%;
     height: 100%;
-    background: var(--fg);
+    background: var(--accent);
     animation: slide 2.2s var(--ease) infinite;
 }
 
@@ -470,7 +510,7 @@ a {
 }
 
 .marquee .sep {
-    color: var(--muted);
+    color: var(--accent);
     font-weight: 400;
 }
 
@@ -503,7 +543,22 @@ a {
 }
 
 .section-head .index {
-    color: var(--muted);
+    color: var(--accent-bright);
+}
+
+/* Accent tick that anchors each section rule to the left edge. */
+.section-head {
+    position: relative;
+}
+
+.section-head::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 3rem;
+    height: 1px;
+    background: var(--accent);
 }
 
 .section-head .count {
@@ -543,11 +598,23 @@ a {
     aspect-ratio: 1 / 1;
     object-fit: cover;
     filter: grayscale(100%) contrast(1.05);
-    transition: filter 0.6s var(--ease), transform 0.6s var(--ease);
+    cursor: zoom-in;
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+    transition: filter 0.6s var(--ease), transform 0.6s var(--ease),
+        outline-color 0.6s var(--ease);
 }
 
-#profile-img:hover {
+#profile-img.is-onscreen,
+#profile-img:hover,
+#profile-img.is-selected,
+#profile-img:focus-visible {
     filter: grayscale(0%);
+    outline-color: var(--accent);
+}
+
+#profile-img:hover,
+#profile-img.is-selected {
     transform: scale(1.015);
 }
 
@@ -601,7 +668,7 @@ a {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--fg);
+    background: var(--accent);
     transform: translateY(101%);
     transition: transform 0.5s var(--ease);
     z-index: -1;
@@ -609,7 +676,7 @@ a {
 
 .link-row:hover {
     padding-left: 1.25rem;
-    color: var(--bg);
+    color: #fff;
 }
 
 .link-row:hover::before {
@@ -660,7 +727,7 @@ a {
 }
 
 .project-num {
-    color: var(--muted);
+    color: var(--accent-bright);
 }
 
 .project-title {
@@ -673,10 +740,37 @@ a {
     text-transform: uppercase;
 }
 
+/* Wrapper exists so the expand button can sit over the media without
+   living inside the project link. */
+.project-media {
+    position: relative;
+    min-width: 0;
+}
+
 .project-media-link {
     display: block;
     overflow: hidden;
     background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+
+/* The frame has to be an overlay: a <video> composites its own layer and
+   paints straight over an inset outline on the box behind it. */
+.project-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    transition: border-color 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+
+/* The clip that is actually running is the highlighted one, whether it got
+   there by scrolling into view or by being hovered. */
+.project-media:hover::after,
+.project-media.is-playing::after {
+    border-color: var(--accent);
+    box-shadow: inset 0 0 0 1px var(--accent);
 }
 
 .project-video,
@@ -692,10 +786,15 @@ a {
     transition: filter 0.7s var(--ease), transform 0.7s var(--ease);
 }
 
-.project-media-link:hover .project-video,
-.project-media-link:hover .project-image {
+.project-media:hover .project-video,
+.project-media:hover .project-image {
     filter: grayscale(0%);
     transform: scale(1.03) translateZ(0);
+}
+
+/* Color returns as soon as the clip plays itself into view. */
+.project-media.is-playing .project-video {
+    filter: grayscale(0%);
 }
 
 /* Media takes the larger column so the description reads beside it. */
@@ -741,9 +840,9 @@ a {
 }
 
 .tag:hover {
-    background: var(--fg);
-    border-color: var(--fg);
-    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
 }
 
 .project-link {
@@ -767,15 +866,15 @@ a {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--fg);
+    background: var(--accent);
     transform: translateY(101%);
     transition: transform 0.45s var(--ease);
     z-index: -1;
 }
 
 .project-link:hover {
-    color: var(--bg);
-    border-color: var(--fg);
+    color: #fff;
+    border-color: var(--accent);
 }
 
 .project-link:hover::before {
@@ -846,7 +945,7 @@ a.footer-link::after {
     bottom: -3px;
     width: 100%;
     height: 1px;
-    background: currentColor;
+    background: var(--accent);
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.45s var(--ease);
@@ -890,4 +989,201 @@ a.footer-link:hover::after {
         opacity: 1;
         transform: none;
     }
+}
+
+/* =============================================================
+   Media expand button
+   Project media is wrapped in an external link, so the popup gets
+   its own control rather than stealing the tap. On touch it is
+   always visible; on desktop it fades in with the card.
+   ============================================================= */
+
+.media-expand {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    background: rgba(15, 15, 15, 0.62);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: var(--fg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: zoom-in;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease),
+        background 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.project-media:hover .media-expand,
+.media-expand:focus-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.media-expand:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* No hover on touch, so the affordance has to stay put. */
+@media (hover: none),
+(pointer: coarse) {
+    .media-expand {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* =============================================================
+   Lightbox
+   ============================================================= */
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(0.75rem, 4vw, 3rem);
+    background: rgba(8, 8, 8, 0.9);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    backdrop-filter: blur(14px) saturate(1.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s var(--ease), visibility 0.4s;
+}
+
+.lightbox.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-inner {
+    position: relative;
+    max-width: min(1200px, 100%);
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    transform: scale(0.94) translateY(12px);
+    transition: transform 0.5s var(--ease);
+}
+
+.lightbox.open .lightbox-inner {
+    transform: none;
+}
+
+/* The sky hairline is what frames the popup. */
+.lightbox-stage {
+    position: relative;
+    min-height: 0;
+    border: 1px solid var(--accent);
+    box-shadow: 0 30px 90px -30px var(--accent);
+    background: #0b0b0b;
+    overflow: hidden;
+}
+
+.lightbox-stage img,
+.lightbox-stage video {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: calc(100svh - 11rem);
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.lightbox-caption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--muted);
+}
+
+.lightbox-caption .name {
+    color: var(--fg);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    z-index: 2;
+    width: 2.6rem;
+    height: 2.6rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: rgba(15, 15, 15, 0.65);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: var(--fg);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.3s var(--ease), border-color 0.3s var(--ease),
+        transform 0.3s var(--ease);
+}
+
+.lightbox-close:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+/* Full-bleed on phones, with the close button clear of the notch. */
+@media (max-width: 720px) {
+    .lightbox {
+        padding: 0;
+    }
+
+    .lightbox-inner {
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .lightbox-stage {
+        border-left: none;
+        border-right: none;
+        box-shadow: none;
+    }
+
+    .lightbox-stage img,
+    .lightbox-stage video {
+        max-height: 78svh;
+    }
+
+    .lightbox-caption {
+        padding: 1rem var(--pad) calc(1rem + env(safe-area-inset-bottom));
+    }
+
+    .lightbox-close {
+        top: calc(0.75rem + env(safe-area-inset-top));
+        right: 0.75rem;
+    }
+}
+
+/* Swipe-to-dismiss follows the finger; the class is dropped on release. */
+.lightbox.dragging .lightbox-inner {
+    transition: none;
+}
+
+body.lightbox-open {
+    overflow: hidden;
 }

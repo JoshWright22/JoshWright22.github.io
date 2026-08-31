@@ -5,7 +5,8 @@
    ============================================================= */
 
 const content = {
-    accent: '#0073e6',
+    // Sky from assets/me.jpg. Mirrors --accent in style.css.
+    accent: '#4776ca',
     aboutH: 'Game Developer',
     aboutT: 'Hey I\'m Josh. I\'m a game developer and software engineer with a passion for creating interesting, fun experiences and solving problems for artists, developers, and end users. I have experience creating games and engineering systems in a variety of frameworks and in dynamic team environments. I\'m currently a student at Arizona State University studying Computer Science with a focus on Game Development, and I\'m always looking for new opportunities to learn and grow as a developer. Please let me know if you want to collaborate on a project, or if you have any questions about my work!',
     links: [
@@ -68,7 +69,7 @@ const content = {
             title: 'GRAV-AND-GO (ASU VGDC Game 2025-26)',
             category: 'Systems Engineering',
             date: '2025 - 2026',
-            desc: 'I was worked on the Systems Team on the ASU VGDC yearly game. I architected a component-based movement system in C# so the rest of the team could build on it without stepping on each other, and tuned the physics controllers and collision logic to hold 90+ FPS on mid-range hardware.',
+            desc: 'I worked on the Systems Team on the ASU VGDC yearly game. I architected a component-based movement system in C# so the rest of the team could build on it without stepping on each other, and tuned the physics controllers and collision logic to hold 90+ FPS on mid-range hardware.',
             expertise: ['C#', 'Unity', 'Physics Systems', 'Team Leadership', 'Git'],
             img: './assets/ezgif-1804722bd5a82cf8.webm',
             link: 'https://heatwave-studios.itch.io/grav-and-go'
@@ -102,7 +103,11 @@ const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 function renderAbout() {
     document.getElementById('about-heading').textContent = content.aboutH;
     document.getElementById('about-text').textContent = content.aboutT;
-    document.getElementById('profile-img').src = content.profileImg;
+
+    const profile = document.getElementById('profile-img');
+    profile.src = content.profileImg;
+    profile.dataset.lightbox = content.profileImg;
+    profile.dataset.lightboxLabel = 'Josh Wright / ASU Computer Science';
 
     document.getElementById('primary-links-container').innerHTML = content.links.map(l => `
         <a class="link-row" href="${l.url}" target="_blank" rel="noopener">
@@ -147,9 +152,22 @@ function renderProjects(projects) {
                </video>`
             : `<div class="project-image" style="background-image:url('${proj.img}')"></div>`;
 
-        const mediaBlock = proj.link
+        // Stills get a popup; clips play themselves in place and don't need one.
+        // The button sits beside the link, so a tap on mobile is never an
+        // ambiguous "expand or leave the site".
+        const expand = isVideo ? '' : `
+            <button type="button" class="media-expand"
+                    data-lightbox="${proj.img}"
+                    data-lightbox-label="${proj.title}"
+                    aria-label="Expand ${proj.title}">⤢ Expand</button>`;
+
+        // The button is a sibling of the anchor, not a child — nesting a
+        // control inside a link is invalid and swallows the tap.
+        const inner = proj.link
             ? `<a href="${proj.link}" target="_blank" rel="noopener" class="project-media-link" aria-label="${proj.title}, view project">${media}</a>`
             : `<div class="project-media-link">${media}</div>`;
+
+        const mediaBlock = `<div class="project-media">${inner}${expand}</div>`;
 
         const tags = (proj.expertise || [])
             .map(s => `<span class="tag">${s}</span>`).join('');
@@ -178,14 +196,49 @@ function renderProjects(projects) {
     }).join('');
 }
 
-/* ---------- Video: buffer on approach, play on hover ---------- */
+/* ---------- Video: buffer on approach, play while on screen ---------- */
 
 function initVideos() {
     const videos = [...document.querySelectorAll('.project-video')];
     if (!videos.length) return;
 
+    const card = v => v.closest('.project-media') || v;
+
+    // The lightbox pauses the page behind it; this flag keeps the observer
+    // from restarting clips while the popup is open.
+    const blocked = () => document.body.classList.contains('lightbox-open');
+
+    // Which clip is meant to be running. start()/stop() only state intent;
+    // the accent mark below follows what the element actually does.
+    let current = null;
+
+    function start(v) {
+        if (blocked()) return;
+        current = v;
+        const p = v.play();
+        if (p && p.catch) p.catch(() => {
+            // Warming a clip with load() aborts its first play(). Once it has
+            // data, try again — but only if it is still the chosen one.
+            v.addEventListener('canplay', () => {
+                if (current === v && !blocked()) v.play().catch(() => { });
+            }, { once: true });
+        });
+    }
+
+    function stop(v) {
+        if (current === v) current = null;
+        v.pause();
+    }
+
+    // Driving the class off real play/pause events means it can never claim a
+    // clip is running when the browser quietly refused to start it.
+    videos.forEach(v => {
+        v.addEventListener('play', () => card(v).classList.add('is-playing'));
+        v.addEventListener('pause', () => card(v).classList.remove('is-playing'));
+    });
+
     // Nothing downloads on load. A clip starts buffering once its card is near
-    // the viewport, so it is ready the moment the pointer arrives.
+    // the viewport, so it is ready by the time it scrolls in.
     if ('IntersectionObserver' in window) {
         const warm = new IntersectionObserver((entries, obs) => {
             entries.forEach(e => {
@@ -194,32 +247,304 @@ function initVideos() {
                 e.target.load();
                 obs.unobserve(e.target);
             });
-        }, { rootMargin: '400px 0px' });
+        }, { rootMargin: '600px 0px' });
         videos.forEach(v => warm.observe(v));
     } else {
         videos.forEach(v => { v.preload = 'auto'; v.load(); });
     }
 
-    if (isTouch) {
-        // No hover on touch: play whatever is on screen, pause the rest.
-        if (!('IntersectionObserver' in window)) {
-            videos.forEach(v => v.play().catch(() => { }));
-            return;
-        }
-        const play = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-                if (e.isIntersecting) e.target.play().catch(() => { });
-                else e.target.pause();
-            });
-        }, { threshold: 0.35 });
-        videos.forEach(v => play.observe(v));
+    // Autoplaying video is motion: if the visitor asked for less of it, clips
+    // stay on their poster until deliberately hovered or opened.
+    if (reduceMotion) {
+        videos.forEach(v => {
+            const c = card(v);
+            c.addEventListener('mouseenter', () => start(v));
+            c.addEventListener('mouseleave', () => stop(v));
+        });
         return;
     }
 
+    if (!('IntersectionObserver' in window)) {
+        videos.forEach(v => { v.muted = true; v.playsInline = true; });
+        start(videos[0]);
+        return;
+    }
+
+    // Autoplay on scroll, but only ever one clip at a time: the one nearest
+    // the middle of the viewport wins and every other clip is paused. Muted +
+    // playsinline is what makes this allowed on mobile.
+    const visible = new Set();
+
+    function nearestToCentre() {
+        const mid = window.innerHeight / 2;
+        let best = null;
+        let bestGap = Infinity;
+        visible.forEach(v => {
+            const r = v.getBoundingClientRect();
+            const gap = Math.abs((r.top + r.bottom) / 2 - mid);
+            if (gap < bestGap) { bestGap = gap; best = v; }
+        });
+        return best;
+    }
+
+    let hovered = null;
+
+    // The single source of truth for what is playing. Everything else just
+    // changes the inputs and calls this.
+    function sync() {
+        const winner = blocked() ? null : (hovered || nearestToCentre());
+        videos.forEach(v => { if (v !== winner) stop(v); });
+        if (winner) start(winner);
+    }
+
+    const play = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) visible.add(e.target);
+            else visible.delete(e.target);
+        });
+        sync();
+    }, { threshold: 0.28, rootMargin: '-6% 0px -6% 0px' });
+
     videos.forEach(v => {
-        const card = v.closest('.project-media-link') || v;
-        card.addEventListener('mouseenter', () => v.play().catch(() => { }));
-        card.addEventListener('mouseleave', () => v.pause());
+        v.muted = true;
+        v.playsInline = true;
+        play.observe(v);
+    });
+
+    // The observer only fires when a clip crosses the threshold, so scrolling
+    // between two clips that are both on screen needs its own re-check.
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => { ticking = false; sync(); });
+    }, { passive: true });
+
+    // Hover overrides the pick on desktop, so pointing at a clip plays that
+    // one and pauses whatever the scroll position had chosen.
+    if (!isTouch) {
+        videos.forEach(v => {
+            const c = card(v);
+            c.addEventListener('mouseenter', () => { hovered = v; sync(); });
+            c.addEventListener('mouseleave', () => { hovered = null; sync(); });
+        });
+    }
+
+    // A backgrounded tab keeps decoding otherwise.
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) videos.forEach(stop);
+        else sync();
+    });
+
+    // Nothing plays behind the popup; on close the winner is recomputed.
+    document.addEventListener('lightbox:open', () => videos.forEach(stop));
+    document.addEventListener('lightbox:close', sync);
+
+    return { videos, start, stop };
+}
+
+/* ---------- Portraits: whatever is on screen is the selected one ----------
+   Same rule the clips follow, so scrolling is what drives the page on a
+   phone and on a desktop alike: the portrait you are looking at comes up
+   in color behind the sky frame, and drops back out as it leaves.
+   ------------------------------------------------------------------------ */
+
+function initPortraits() {
+    const shots = [...document.querySelectorAll('.hero-portrait img, #profile-img')];
+    if (!shots.length) return;
+
+    // The hero frame is a wrapper, so the class has to land on both.
+    const mark = (el, on) => {
+        el.classList.toggle('is-onscreen', on);
+        const frame = el.closest('.hero-portrait');
+        if (frame) frame.classList.toggle('is-onscreen', on);
+    };
+
+    if (!('IntersectionObserver' in window)) {
+        shots.forEach(el => mark(el, true));
+        return;
+    }
+
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => mark(e.target, e.isIntersecting));
+    }, { threshold: 0.35, rootMargin: '-8% 0px -8% 0px' });
+
+    shots.forEach(el => obs.observe(el));
+}
+
+/* ---------- Lightbox ----------
+   One popup, reused. Opened by anything carrying [data-lightbox]:
+   the two portraits and the expand button on every project card.
+   Closes on the button, the backdrop, Escape, back-gesture history,
+   or a downward swipe — the last one is what phones expect.
+   ------------------------------------------------------------- */
+
+const lightbox = (() => {
+    let root, stage, caption, closeBtn, inner;
+    let lastFocus = null;
+    let open = false;
+    // close() pops the history entry show() pushed. That popstate is async, so
+    // without this flag a close-then-reopen would be shut again by the pop of
+    // the *previous* entry landing after the new one opened.
+    let popping = false;
+
+    function build() {
+        root = document.createElement('div');
+        root.className = 'lightbox';
+        root.setAttribute('role', 'dialog');
+        root.setAttribute('aria-modal', 'true');
+        root.setAttribute('aria-hidden', 'true');
+        root.innerHTML = `
+            <div class="lightbox-inner">
+                <button class="lightbox-close" type="button" aria-label="Close">✕</button>
+                <div class="lightbox-stage"></div>
+                <div class="lightbox-caption mono">
+                    <span class="name"></span>
+                    <span class="hint muted">Esc / tap outside to close</span>
+                </div>
+            </div>`;
+        document.body.appendChild(root);
+
+        inner = root.querySelector('.lightbox-inner');
+        stage = root.querySelector('.lightbox-stage');
+        caption = root.querySelector('.lightbox-caption .name');
+        closeBtn = root.querySelector('.lightbox-close');
+
+        closeBtn.addEventListener('click', close);
+        // Only a click on the backdrop itself, not on the media inside it.
+        root.addEventListener('click', e => {
+            if (e.target === root || e.target === inner) close();
+        });
+        document.addEventListener('keydown', e => {
+            if (open && e.key === 'Escape') close();
+        });
+
+        initSwipe();
+    }
+
+    // Drag down past a threshold to dismiss; anything shorter snaps back.
+    function initSwipe() {
+        let startY = null;
+        let dy = 0;
+
+        inner.addEventListener('touchstart', e => {
+            if (e.touches.length !== 1) return;
+            startY = e.touches[0].clientY;
+            dy = 0;
+            root.classList.add('dragging');
+        }, { passive: true });
+
+        inner.addEventListener('touchmove', e => {
+            if (startY === null) return;
+            dy = e.touches[0].clientY - startY;
+            if (dy < 0) dy = 0;
+            inner.style.transform = `translateY(${dy}px)`;
+            root.style.opacity = String(Math.max(0.25, 1 - dy / 420));
+        }, { passive: true });
+
+        inner.addEventListener('touchend', () => {
+            root.classList.remove('dragging');
+            inner.style.transform = '';
+            root.style.opacity = '';
+            if (dy > 110) close();
+            startY = null;
+        });
+    }
+
+    function show(src, { label = '' } = {}) {
+        if (!root) build();
+
+        stage.innerHTML = `<img src="${src}" alt="${label}">`;
+        caption.textContent = label;
+
+        lastFocus = document.activeElement;
+        open = true;
+        document.body.classList.add('lightbox-open');
+        root.setAttribute('aria-hidden', 'false');
+        // Flush the closed state before flipping the class, otherwise a freshly
+        // built element goes straight to open with no transition to run.
+        void root.offsetWidth;
+        root.classList.add('open');
+        closeBtn.focus({ preventScroll: true });
+
+        // Give the phone back-gesture something to pop instead of leaving.
+        history.pushState({ lightbox: true }, '');
+
+        document.dispatchEvent(new CustomEvent('lightbox:open'));
+    }
+
+    function close(fromPop) {
+        if (!open) return;
+        open = false;
+        root.classList.remove('open');
+        root.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+
+        // Empty it after the fade so the image does not vanish mid-transition.
+        setTimeout(() => { if (!open) stage.innerHTML = ''; }, 420);
+
+        if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+        if (!fromPop && history.state && history.state.lightbox) {
+            popping = true;
+            history.back();
+        }
+
+        // The observer will not fire again on its own, so the cards behind
+        // need an explicit nudge to pick back up.
+        document.dispatchEvent(new CustomEvent('lightbox:close'));
+    }
+
+    window.addEventListener('popstate', () => {
+        // Our own back() — already closed, so swallow it.
+        if (popping) { popping = false; return; }
+        if (open) close(true);
+    });
+
+    return { show, close, isOpen: () => open };
+})();
+
+function initLightbox() {
+    const triggers = [...document.querySelectorAll('[data-lightbox]')];
+
+    // These open a dialog, so they need to behave like controls: reachable by
+    // keyboard and announced as buttons, not decorative images.
+    triggers.forEach(t => {
+        if (t.tagName === 'IMG') {
+            t.tabIndex = 0;
+            t.setAttribute('role', 'button');
+        }
+    });
+
+    // There is no hover on a phone, so a tap is what "selected" means there.
+    // The class drives the same color + sky frame that a mouse hover does.
+    function select(trigger) {
+        document.querySelectorAll('.is-selected')
+            .forEach(el => el.classList.remove('is-selected'));
+        trigger.classList.add('is-selected');
+        const frame = trigger.closest('.hero-portrait');
+        if (frame) frame.classList.add('is-selected');
+    }
+
+    function open(trigger) {
+        select(trigger);
+        lightbox.show(trigger.dataset.lightbox, {
+            label: trigger.dataset.lightboxLabel || ''
+        });
+    }
+
+    document.addEventListener('click', e => {
+        const trigger = e.target.closest('[data-lightbox]');
+        if (!trigger) return;
+        e.preventDefault();
+        open(trigger);
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const trigger = e.target.closest && e.target.closest('[data-lightbox]');
+        if (!trigger) return;
+        e.preventDefault();
+        open(trigger);
     });
 }
 
@@ -340,6 +665,8 @@ function init() {
     renderProjects(content.projects);
 
     initVideos();
+    initPortraits();
+    initLightbox();
     initReveal();
     initNav();
     initClock();
