@@ -75,6 +75,15 @@ const content = {
             link: 'https://heatwave-studios.itch.io/grav-and-go'
         },
         {
+            title: '3D Animation Reel',
+            category: '3D Animation',
+            date: 'September 2025',
+            desc: 'Every shot in this reel is hand keyframed, with no motion capture anywhere in it. I worked on the posing, timing, and weight of each performance so the acting reads clearly without dialogue.',
+            expertise: ['3D Animation', 'Keyframe Animation', 'Character Animation', 'Rigging', 'Lighting', 'Posing & Timing'],
+            img: './assets/animation.webm',
+            link: 'https://vimeo.com/1035906176'
+        },
+        {
             title: 'Anime Card Battler',
             category: 'Backend & Networking',
             date: '2024',
