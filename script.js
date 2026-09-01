@@ -18,13 +18,13 @@ const content = {
     ],
     profileImg: 'assets/me-hero.jpg',
     marquee: ['Game Development', 'Systems Engineering', 'Gameplay Programming', 'Procedural Generation', 'Multiplayer Networking', 'Tools & Pipelines', 'Web Development'],
-    stack: ['C#', '.NET', 'Python', 'C++', 'JavaScript', 'TypeScript', 'Node.js', 'Java', 'SQL', 'x86 Assembly', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'REST APIs', 'Client-Server Architecture', 'P2P Networking', 'State Synchronization', 'Steamworks API', 'Multiplayer Networking', 'Flask', 'Django', 'React', 'HTML/CSS', 'JSON', 'Docker', 'Microsoft Azure', 'Git', 'Unity', 'Unreal Engine', 'Godot', 'GDScript', 'HLSL', 'Procedural Generation', 'Game Design', 'Gameplay Programming', 'Level Design', 'Web Design', 'UI/UX Design', 'Team Leadership', 'Agile/Scrum', 'Debugging & Optimization'],
+    stack: ['C#', '.NET', 'Python', 'C++', 'JavaScript', 'TypeScript', 'Node.js', 'Java', 'SQL', 'x86 Assembly', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'REST APIs', 'Client-Server Architecture', 'P2P Networking', 'State Synchronization', 'Steamworks API', 'Multiplayer Networking', 'Flask', 'Django', 'React', 'HTML/CSS', 'JSON', 'Docker', 'Microsoft Azure', 'Git', 'Unity', 'Unreal Engine', 'Godot', 'GDScript', 'HLSL', 'Blender', 'Maya', 'Cinema 4D', '3D Modeling & Animation', 'Rigging', 'Plugin & Tool Development', 'Scripting Pipelines', 'Cross-Platform Testing', 'QA & Debugging', 'Real-Time Rendering', 'Procedural Generation', 'Game Design', 'Gameplay Programming', 'Level Design', 'Web Design', 'UI/UX Design', 'Team Leadership', 'Agile/Scrum', 'Debugging & Optimization'],
     projects: [
         {
             title: 'Trust No One',
             category: 'Game Development',
             date: 'August 2026',
-            desc: 'I worked with a team of six as a designer, programmer, and writer on this psychedelic roguelike dungeon crawl, built in one week for the Brackeys Game Jam 2026.2. I balanced the encounters so all three core actions stay real decisions instead of one dominant strategy, and built thematic character builds where party members and upgrades carry their own depth and story arcs, which I wrote the dialogue for.',
+            desc: 'I worked with a team of six as a designer, programmer, and writer on this psychedelic roguelike dungeon crawl, built in one week for the Brackeys Game Jam 2026.2, where it finished 14th most popular out of 2,291 entries. I balanced the encounters so all three core actions stay real decisions instead of one dominant strategy, and built thematic character builds where party members and upgrades carry their own depth and story arcs, which I wrote the dialogue for.',
             expertise: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Systems Design', 'Narrative Writing'],
             img: './assets/trust-no-one.webm',
             link: 'https://hozer347.itch.io/trust-no-one'
