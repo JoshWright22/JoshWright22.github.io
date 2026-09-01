@@ -24,7 +24,7 @@ const content = {
             title: 'Trust No One',
             category: 'Game Development',
             date: 'August 2026',
-            desc: 'I worked with a team of six as a designer, programmer, and writer on this psychedelic roguelike dungeon crawl, built in one week for the Brackeys Game Jam 2026.2, where it finished 14th most popular out of 2,291 entries, the top 0.6%. I balanced the combat so all three actions stay useful, designed the party members and their upgrades, and wrote all the dialogue.',
+            desc: 'I worked with a team of six as a designer, programmer, and writer on this psychedelic roguelike dungeon crawl, built in one week for the Brackeys Game Jam 2026.2, where it finished 14th most popular out of 2,291 entries. I designed and balanced the combat, programmed the party members and their upgrades, drew some of the items, and wrote all the dialogue.',
             expertise: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Systems Design', 'Narrative Writing'],
             img: './assets/trust-no-one.webm',
             link: 'https://hozer347.itch.io/trust-no-one'
