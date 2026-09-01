@@ -18,7 +18,7 @@ const content = {
     ],
     profileImg: 'assets/me-hero.jpg',
     marquee: ['Game Development', 'Systems Engineering', 'Gameplay Programming', 'Procedural Generation', 'Multiplayer Networking', 'Tools & Pipelines', 'Web Development'],
-    stack: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Godot', 'GDScript', 'Git', 'Debugging & Optimization', 'Team Leadership', 'Agile/Scrum', 'Procedural Generation', 'Level Design', '3D Modeling & Animation', 'Blender', 'Rigging', 'Maya', 'Cinema 4D', 'Real-Time Rendering', 'Python', 'JavaScript', 'HTML/CSS', 'React', 'Web Design', 'UI/UX Design', 'Node.js', 'REST APIs', 'JSON', 'Multiplayer Networking', 'Client-Server Architecture', 'State Synchronization', 'P2P Networking', 'Steamworks API', 'C++', 'Java', '.NET', 'TypeScript', 'SQL', 'x86 Assembly', 'HLSL', 'Unreal Engine', 'Plugin & Tool Development', 'Scripting Pipelines', 'Cross-Platform Testing', 'QA & Debugging', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Flask', 'Django', 'Docker', 'Microsoft Azure'],
+    stack: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Godot', 'GDScript', 'Git', 'Debugging & Optimization', 'Team Leadership', 'Agile/Scrum', 'Procedural Generation', 'Level Design', '3D Animation', 'Keyframe Animation', 'Motion Capture', 'Blender', 'Rigging', 'Maya', 'Cinema 4D', 'Real-Time Rendering', 'Python', 'JavaScript', 'HTML/CSS', 'React', 'Web Design', 'UI/UX Design', 'Node.js', 'REST APIs', 'JSON', 'Multiplayer Networking', 'Client-Server Architecture', 'State Synchronization', 'P2P Networking', 'Steamworks API', 'C++', 'Java', '.NET', 'TypeScript', 'SQL', 'x86 Assembly', 'HLSL', 'Unreal Engine', 'Plugin & Tool Development', 'Scripting Pipelines', 'Cross-Platform Testing', 'QA & Debugging', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Flask', 'Django', 'Docker', 'Microsoft Azure'],
     projects: [
         {
             title: 'Trust No One',
@@ -97,7 +97,7 @@ const content = {
             category: 'Game Development',
             date: 'October 2025',
             desc: 'I explored 3D environment design and dungeon crawling mechanics, with procedurally laid out floors, focusing on level geometry and lighting throughout.',
-            expertise: ['C#', 'Unity', 'Level Design', 'Procedural Generation', 'Game Design', '3D Modeling & Animation'],
+            expertise: ['C#', 'Unity', 'Level Design', 'Procedural Generation', 'Game Design', 'Environment Design'],
             img: './assets/project2.webm',
             link: 'https://github.com/JoshWright22/3dFungeonGame'
         }
