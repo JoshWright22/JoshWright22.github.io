@@ -18,14 +18,14 @@ const content = {
     ],
     profileImg: 'assets/me-hero.jpg',
     marquee: ['Game Development', 'Systems Engineering', 'Gameplay Programming', 'Procedural Generation', 'Multiplayer Networking', 'Tools & Pipelines', 'Web Development'],
-    stack: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Godot', 'GDScript', 'Git', 'Debugging & Optimization', 'Team Leadership', 'Agile/Scrum', 'Procedural Generation', 'Level Design', 'Python', 'JavaScript', 'HTML/CSS', 'React', 'Web Design', 'UI/UX Design', 'Node.js', 'REST APIs', 'JSON', 'Multiplayer Networking', 'Client-Server Architecture', 'State Synchronization', 'P2P Networking', 'Steamworks API', 'C++', 'Java', '.NET', 'TypeScript', 'SQL', 'x86 Assembly', 'Blender', '3D Modeling & Animation', 'Real-Time Rendering', 'HLSL', 'Unreal Engine', 'Plugin & Tool Development', 'Scripting Pipelines', 'Cross-Platform Testing', 'QA & Debugging', 'Rigging', 'Maya', 'Cinema 4D', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Flask', 'Django', 'Docker', 'Microsoft Azure'],
+    stack: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Godot', 'GDScript', 'Git', 'Debugging & Optimization', 'Team Leadership', 'Agile/Scrum', 'Procedural Generation', 'Level Design', '3D Modeling & Animation', 'Blender', 'Rigging', 'Maya', 'Cinema 4D', 'Real-Time Rendering', 'Python', 'JavaScript', 'HTML/CSS', 'React', 'Web Design', 'UI/UX Design', 'Node.js', 'REST APIs', 'JSON', 'Multiplayer Networking', 'Client-Server Architecture', 'State Synchronization', 'P2P Networking', 'Steamworks API', 'C++', 'Java', '.NET', 'TypeScript', 'SQL', 'x86 Assembly', 'HLSL', 'Unreal Engine', 'Plugin & Tool Development', 'Scripting Pipelines', 'Cross-Platform Testing', 'QA & Debugging', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Flask', 'Django', 'Docker', 'Microsoft Azure'],
     projects: [
         {
             title: 'Trust No One',
             category: 'Game Development',
             date: 'August 2026',
             desc: 'I worked with a team of six as a designer, programmer, and writer on this psychedelic roguelike dungeon crawl, built in one week for the Brackeys Game Jam 2026.2, where it finished 14th most popular out of 2,291 entries. I designed and balanced the combat, programmed the party members and their upgrades, drew some of the items, and wrote all the dialogue.',
-            expertise: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Systems Design', 'Narrative Writing'],
+            expertise: ['C#', 'Unity', 'Game Design', 'Gameplay Programming'],
             img: './assets/trust-no-one.webm',
             link: 'https://hozer347.itch.io/trust-no-one'
         },
@@ -34,7 +34,7 @@ const content = {
             category: 'Game Development',
             date: 'August 2026',
             desc: 'I designed and built this chemistry-themed roguelike auto-battler solo, where you buy elements each round and connect them into a growing molecule that fights for you. It handles dozens of dynamic molecular combinations a run. I made it for the Club Club Jam Jam, which I also helped organize and run, and placed #12.',
-            expertise: ['Godot', 'GDScript', 'Game Design', 'Gameplay Programming', 'Procedural Generation', 'Systems Design'],
+            expertise: ['Godot', 'GDScript', 'Game Design', 'Gameplay Programming'],
             img: './assets/atomoc-shelis.webm',
             link: 'https://joshwright.itch.io/atomoc-shelis'
         },
@@ -70,7 +70,7 @@ const content = {
             category: 'Systems Engineering',
             date: '2025 - 2026',
             desc: 'I worked on the Systems Team on the ASU VGDC yearly game. I architected a component-based movement system in C# so the rest of the team could build on it without stepping on each other, and tuned the physics controllers and collision logic to hold 90+ FPS on mid-range hardware.',
-            expertise: ['C#', 'Unity', 'Physics Systems', 'Team Leadership', 'Git'],
+            expertise: ['C#', 'Unity', 'Physics Systems', 'Team Leadership'],
             img: './assets/ezgif-1804722bd5a82cf8.webm',
             link: 'https://heatwave-studios.itch.io/grav-and-go'
         },
