@@ -25,7 +25,7 @@ const content = {
             category: 'Game Development',
             date: 'August 2026',
             desc: 'I worked with a team of six as a designer, programmer, and writer on this psychedelic roguelike dungeon crawl, built in one week for the Brackeys Game Jam 2026.2, where it finished 14th most popular out of 2,291 entries. I designed and balanced the combat, programmed the party members and their upgrades, drew some of the items, and wrote all the dialogue.',
-            expertise: ['C#', 'Unity', 'Game Design', 'Gameplay Programming'],
+            expertise: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Systems Design', 'Narrative Writing'],
             img: './assets/trust-no-one.webm',
             link: 'https://hozer347.itch.io/trust-no-one'
         },
@@ -34,7 +34,7 @@ const content = {
             category: 'Game Development',
             date: 'August 2026',
             desc: 'I designed and built this chemistry-themed roguelike auto-battler solo, where you buy elements each round and connect them into a growing molecule that fights for you. It handles dozens of dynamic molecular combinations a run. I made it for the Club Club Jam Jam, which I also helped organize and run, and placed #12.',
-            expertise: ['Godot', 'GDScript', 'Game Design', 'Gameplay Programming'],
+            expertise: ['Godot', 'GDScript', 'Game Design', 'Gameplay Programming', 'Procedural Generation', 'Systems Design'],
             img: './assets/atomoc-shelis.webm',
             link: 'https://joshwright.itch.io/atomoc-shelis'
         },
@@ -43,7 +43,7 @@ const content = {
             category: 'Game Development',
             date: 'June 2026',
             desc: 'I designed and implemented the core game mechanics while directing a small team through a one-week jam. I built polished, engaging gameplay systems under a tight deadline, and we placed top 15% in the jam.',
-            expertise: ['Python', 'Godot', 'Team Leadership', 'Systems Design'],
+            expertise: ['Python', 'Godot', 'Game Design', 'Gameplay Programming', 'Team Leadership', 'Systems Design'],
             img: './assets/slush-rush.webm',
             link: 'https://joshwright.itch.io/slush-rush'
         },
@@ -52,7 +52,7 @@ const content = {
             category: 'Game Development',
             date: 'June 2026',
             desc: 'I led a small team through the development of this one-week game jam entry, a physics-based action game where you play as a goblin who spins. I helped implement core systems and directed the gameplay design, and we placed top 5% in the jam.',
-            expertise: ['C#', 'Unity', 'Physics Systems', 'Team Leadership'],
+            expertise: ['C#', 'Unity', 'Game Design', 'Physics Systems', 'Gameplay Programming', 'Team Leadership'],
             img: './assets/gobspin.webm',
             link: 'https://hozer347.itch.io/gobspin'
         },
@@ -61,7 +61,7 @@ const content = {
             category: 'Web Development',
             date: '2026',
             desc: 'I worked with the team behind Game Dev Club Club, a global network of student game developers from over 70 university clubs. I bridged the design and website teams and built the Contact Us page, an interactive solar system where the sun opens a message form and each orbiting planet links to a platform.',
-            expertise: ['React', 'JavaScript', 'Web Design', 'UI/UX Design'],
+            expertise: ['React', 'JavaScript', 'HTML/CSS', 'Web Design', 'UI/UX Design', 'Front-End Development'],
             img: './assets/gdcc-contact.webm',
             link: 'https://gamedevclubclub.com/'
         },
@@ -70,7 +70,7 @@ const content = {
             category: 'Systems Engineering',
             date: '2025 - 2026',
             desc: 'I worked on the Systems Team on the ASU VGDC yearly game. I architected a component-based movement system in C# so the rest of the team could build on it without stepping on each other, and tuned the physics controllers and collision logic to hold 90+ FPS on mid-range hardware.',
-            expertise: ['C#', 'Unity', 'Physics Systems', 'Team Leadership'],
+            expertise: ['C#', 'Unity', 'Physics Systems', 'Systems Design', 'Team Leadership', 'Debugging & Optimization'],
             img: './assets/ezgif-1804722bd5a82cf8.webm',
             link: 'https://heatwave-studios.itch.io/grav-and-go'
         },
@@ -79,7 +79,7 @@ const content = {
             category: 'Backend & Networking',
             date: '2024',
             desc: 'I built a networked multiplayer card game with a custom REST API for secure server requests and real-time game state synchronization between players.',
-            expertise: ['REST APIs', 'Multiplayer Networking', 'C#', 'Node.js'],
+            expertise: ['C#', 'Node.js', 'REST APIs', 'Multiplayer Networking', 'Client-Server Architecture', 'JSON'],
             img: './assets/project3.webm',
             link: 'https://github.com/JoshWright22/animecardbattler'
         },
@@ -88,7 +88,7 @@ const content = {
             category: 'Game Development',
             date: 'October 2025',
             desc: 'I explored 3D environment design and dungeon crawling mechanics, with procedurally laid out floors, focusing on level geometry and lighting throughout.',
-            expertise: ['C#', 'Unity', 'Procedural Generation', 'Level Design'],
+            expertise: ['C#', 'Unity', 'Level Design', 'Procedural Generation', 'Game Design', '3D Modeling & Animation'],
             img: './assets/project2.webm',
             link: 'https://github.com/JoshWright22/3dFungeonGame'
         }
