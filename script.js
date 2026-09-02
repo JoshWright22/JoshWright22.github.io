@@ -78,8 +78,8 @@ const content = {
             title: '3D Animation Reel',
             category: '3D Animation',
             date: 'September 2025',
-            desc: 'Every shot in this reel is hand keyframed, with no motion capture anywhere in it. I worked on the posing, timing, and weight of each performance so the acting reads clearly without dialogue.',
-            expertise: ['3D Animation', 'Keyframe Animation', 'Character Animation', 'Rigging', 'Lighting', 'Posing & Timing'],
+            desc: 'Every shot in this reel is hand keyframed on existing rigs, with no motion capture anywhere in it. I applied the 12 principles of animation to get the posing, timing, and weight of each performance reading clearly without dialogue.',
+            expertise: ['3D Animation', 'Keyframe Animation', 'Character Animation', 'Maya', 'Acting', '12 Principles of Animation'],
             img: './assets/animation.webm',
             link: 'https://vimeo.com/1035906176'
         },
