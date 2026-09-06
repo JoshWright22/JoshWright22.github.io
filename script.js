@@ -8,7 +8,7 @@ const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
     aboutH: 'Software Developer',
-    aboutT: 'Hey I\'m Josh. I\'m a software developer with a passion for creating interesting, fun experiences and solving problems for artists, developers, and end users. I have experience building software and engineering systems in a variety of frameworks and in dynamic team environments, where I like being the one who builds the foundation the rest of the team works on top of. I\'m currently a student at Arizona State University studying Computer Science, and I\'m always looking for new opportunities to learn and grow as a developer. Please let me know if you want to collaborate on a project, or if you have any questions about my work!',
+    aboutT: 'Hey I\'m Josh. I\'m a software developer with a passion for creating interesting, fun experiences and solving problems for artists, developers, and end users. I have experience building software and engineering systems in a variety of frameworks and in dynamic team environments. I\'m currently a student at Arizona State University studying Computer Science, and I\'m always looking for new opportunities to learn and grow as a developer. Please let me know if you want to collaborate on a project, or if you have any questions about my work!',
     links: [
         { text: 'GitHub', url: 'https://github.com/JoshWright22' },
         { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' },
@@ -618,11 +618,11 @@ function initClock() {
 
     const fmt = new Intl.DateTimeFormat('en-US', {
         hour: '2-digit', minute: '2-digit', second: '2-digit',
-        hour12: false, timeZone: 'America/Phoenix'
+        hour12: true, timeZone: 'America/Phoenix'
     });
 
     const tick = () => {
-        const t = fmt.format(new Date()) + ' MST';
+        const t = fmt.format(new Date());
         targets.forEach(el => el.textContent = t);
     };
     tick();
