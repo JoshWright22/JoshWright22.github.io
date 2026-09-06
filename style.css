@@ -273,7 +273,7 @@ a {
    ============================================================= */
 
 .hero {
-    min-height: 100svh;
+    min-height: 84svh;
     padding: 5rem var(--pad) var(--pad);
     display: flex;
     flex-direction: column;
@@ -294,7 +294,8 @@ a {
     align-items: flex-end;
     justify-content: space-between;
     gap: clamp(1.5rem, 5vw, 5rem);
-    margin: clamp(2rem, 6vh, 4.5rem) 0;
+    margin: auto 0;
+    padding: clamp(2rem, 6vh, 4.5rem) 0;
 }
 
 /* min-width lets the name shrink instead of shoving the portrait off-screen */
@@ -417,70 +418,6 @@ a {
 
 .ready .line:nth-child(3) .line-in {
     transition-delay: 0.18s;
-}
-
-.hero-bottom {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 2rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--line-soft);
-}
-
-.hero-lede {
-    max-width: 42ch;
-    margin: 0;
-    font-size: clamp(0.95rem, 1.5vw, 1.25rem);
-    line-height: 1.45;
-    color: var(--fg);
-    opacity: 0;
-    transform: translateY(1rem);
-    transition: opacity var(--slow) 0.35s, transform var(--slow) 0.35s;
-}
-
-.ready .hero-lede {
-    opacity: 1;
-    transform: none;
-}
-
-.hero-scroll {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-shrink: 0;
-}
-
-.scroll-line {
-    display: block;
-    width: 70px;
-    height: 1px;
-    background: var(--line);
-    overflow: hidden;
-}
-
-.scroll-line i {
-    display: block;
-    width: 30%;
-    height: 100%;
-    background: var(--accent);
-    animation: slide 2.2s var(--ease) infinite;
-}
-
-@keyframes slide {
-    0% {
-        transform: translateX(-100%);
-    }
-
-    100% {
-        transform: translateX(340%);
-    }
-}
-
-@media (max-width: 720px) {
-    .hero-scroll {
-        display: none;
-    }
 }
 
 /* =============================================================

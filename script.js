@@ -7,8 +7,8 @@
 const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
-    aboutH: 'Game Developer',
-    aboutT: 'Hey I\'m Josh. I\'m a game developer and software engineer with a passion for creating interesting, fun experiences and solving problems for artists, developers, and end users. I have experience creating games and engineering systems in a variety of frameworks and in dynamic team environments. I\'m currently a student at Arizona State University studying Computer Science with a focus on Game Development, and I\'m always looking for new opportunities to learn and grow as a developer. Please let me know if you want to collaborate on a project, or if you have any questions about my work!',
+    aboutH: 'Software Developer',
+    aboutT: 'Hey I\'m Josh. I\'m a software developer with a passion for creating interesting, fun experiences and solving problems for artists, developers, and end users. I have experience building software and engineering systems in a variety of frameworks and in dynamic team environments, where I like being the one who builds the foundation the rest of the team works on top of. I\'m currently a student at Arizona State University studying Computer Science, and I\'m always looking for new opportunities to learn and grow as a developer. Please let me know if you want to collaborate on a project, or if you have any questions about my work!',
     links: [
         { text: 'GitHub', url: 'https://github.com/JoshWright22' },
         { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' },
@@ -17,8 +17,8 @@ const content = {
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' }
     ],
     profileImg: 'assets/me-hero.jpg',
-    marquee: ['Game Development', 'Systems Engineering', 'Gameplay Programming', 'Procedural Generation', 'Multiplayer Networking', 'Tools & Pipelines', 'Web Development'],
-    stack: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Godot', 'GDScript', 'Git', 'Debugging & Optimization', 'Team Leadership', 'Agile/Scrum', 'Procedural Generation', 'Level Design', '3D Animation', 'Keyframe Animation', 'Motion Capture', 'Blender', 'Rigging', 'Maya', 'Cinema 4D', 'Real-Time Rendering', 'Python', 'JavaScript', 'HTML/CSS', 'React', 'Web Design', 'UI/UX Design', 'Node.js', 'REST APIs', 'JSON', 'Multiplayer Networking', 'Client-Server Architecture', 'State Synchronization', 'P2P Networking', 'Steamworks API', 'C++', 'Java', '.NET', 'TypeScript', 'SQL', 'x86 Assembly', 'HLSL', 'Unreal Engine', 'Plugin & Tool Development', 'Scripting Pipelines', 'Cross-Platform Testing', 'QA & Debugging', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Flask', 'Django', 'Docker', 'Microsoft Azure'],
+    marquee: ['Software Development', 'Systems Engineering', 'Full-Stack Web', 'Backend & APIs', 'Gameplay Programming', 'Tools & Pipelines', 'Debugging & Optimization'],
+    stack: ['C#', 'Unity', 'Gameplay Programming', 'Godot', 'GDScript', 'Git', 'Debugging & Optimization', 'Procedural Generation', 'Python', 'JavaScript', 'HTML/CSS', 'React', 'Web Design', 'UI/UX Design', 'Game Design', 'Level Design', 'Team Leadership', 'Agile/Scrum', '3D Animation', 'Keyframe Animation', 'Motion Capture', 'Blender', 'Rigging', 'Maya', 'Cinema 4D', 'Real-Time Rendering', 'Node.js', 'REST APIs', 'JSON', 'Multiplayer Networking', 'Client-Server Architecture', 'State Synchronization', 'P2P Networking', 'Plugin & Tool Development', 'Scripting Pipelines', 'QA & Debugging', 'Cross-Platform Testing', 'C++', 'Java', 'TypeScript', '.NET', 'SQL', 'HLSL', 'x86 Assembly', 'Unreal Engine', 'Steamworks API', 'Flask', 'Django', 'Docker', 'Microsoft Azure', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama'],
     projects: [
         {
             title: 'Trust No One',
@@ -39,15 +39,6 @@ const content = {
             link: 'https://joshwright.itch.io/atomoc-shelis'
         },
         {
-            title: 'Slush Rush',
-            category: 'Game Development',
-            date: 'June 2026',
-            desc: 'I designed and implemented the core game mechanics while directing a small team through a one-week jam. I built polished, engaging gameplay systems under a tight deadline, and we placed top 15% in the jam.',
-            expertise: ['Python', 'Godot', 'Game Design', 'Gameplay Programming', 'Team Leadership', 'Systems Design'],
-            img: './assets/slush-rush.webm',
-            link: 'https://joshwright.itch.io/slush-rush'
-        },
-        {
             title: 'Gob Spin',
             category: 'Game Development',
             date: 'June 2026',
@@ -55,6 +46,15 @@ const content = {
             expertise: ['C#', 'Unity', 'Game Design', 'Physics Systems', 'Gameplay Programming', 'Team Leadership'],
             img: './assets/gobspin.webm',
             link: 'https://hozer347.itch.io/gobspin'
+        },
+        {
+            title: 'Slush Rush',
+            category: 'Game Development',
+            date: 'June 2026',
+            desc: 'I designed and implemented the core game mechanics while directing a small team through a one-week jam. I built polished, engaging gameplay systems under a tight deadline, and we placed top 15% in the jam.',
+            expertise: ['Python', 'Godot', 'Game Design', 'Gameplay Programming', 'Team Leadership', 'Systems Design'],
+            img: './assets/slush-rush.webm',
+            link: 'https://joshwright.itch.io/slush-rush'
         },
         {
             title: 'Game Dev Club Club Website',
