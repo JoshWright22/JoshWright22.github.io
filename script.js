@@ -26,7 +26,8 @@ const content = {
             date: 'September 2026',
             desc: 'I built and hosted the Gob Gang Games website on Cloudflare to showcase Trust No One. The site brings the game\'s pixel-art style to the web with animated backgrounds, gameplay previews, an overview of its three-button mechanics, and links to play and follow the team.',
             expertise: ['Web Development', 'Web Design', 'Cloudflare'],
-            img: './assets/gob-gang-games.webm',
+            img: './assets/gob-gang-games-scroll.webm',
+            poster: './assets/gob-gang-games-poster.jpg',
             link: 'https://www.gobganggames.com/'
         },
         {
