@@ -21,6 +21,15 @@ const content = {
     stack: ['C#', 'Unity', 'Gameplay Programming', 'Godot', 'GDScript', 'Git', 'Debugging & Optimization', 'Procedural Generation', 'Python', 'JavaScript', 'HTML/CSS', 'React', 'Web Design', 'UI/UX Design', 'Game Design', 'Level Design', 'Team Leadership', 'Agile/Scrum', '3D Animation', 'Keyframe Animation', 'Motion Capture', 'Blender', 'Rigging', 'Maya', 'Cinema 4D', 'Real-Time Rendering', 'Node.js', 'REST APIs', 'JSON', 'Multiplayer Networking', 'Client-Server Architecture', 'State Synchronization', 'P2P Networking', 'Plugin & Tool Development', 'Scripting Pipelines', 'QA & Debugging', 'Cross-Platform Testing', 'C++', 'Java', 'TypeScript', '.NET', 'SQL', 'HLSL', 'x86 Assembly', 'Unreal Engine', 'Steamworks API', 'Flask', 'Django', 'Docker', 'Microsoft Azure', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama'],
     projects: [
         {
+            title: 'Gob Gang Games Website',
+            category: 'Web Development',
+            date: 'September 2026',
+            desc: 'I built and hosted the Gob Gang Games website on Cloudflare to showcase Trust No One. The site brings the game\'s pixel-art style to the web with animated backgrounds, gameplay previews, an overview of its three-button mechanics, and links to play and follow the team.',
+            expertise: ['Web Development', 'Web Design', 'Cloudflare'],
+            img: './assets/gob-gang-games.webm',
+            link: 'https://www.gobganggames.com/'
+        },
+        {
             title: 'Trust No One',
             category: 'Game Development',
             date: 'August 2026',
