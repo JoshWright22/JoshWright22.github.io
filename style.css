@@ -763,14 +763,14 @@ a {
     gap: 0.4rem;
 }
 
-/* Outlined pill, inverts on hover */
+/* Outlined tag, inverts on hover */
 .tag {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
     letter-spacing: 0.06em;
     padding: 0.4rem 0.75rem;
     border: 1px solid var(--line);
-    border-radius: 100px;
+    border-radius: 0;
     color: color-mix(in srgb, var(--fg) 75%, transparent);
     transition: background 0.3s var(--ease), color 0.3s var(--ease),
         border-color 0.3s var(--ease);
@@ -788,7 +788,7 @@ a {
     gap: 0.6rem;
     padding: 0.85rem 1.5rem;
     border: 1px solid var(--line);
-    border-radius: 100px;
+    border-radius: 0;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
     letter-spacing: 0.12em;
