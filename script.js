@@ -21,21 +21,11 @@ const content = {
     stack: ['C#', 'Unity', 'Gameplay Programming', 'Godot', 'GDScript', 'Git', 'Debugging & Optimization', 'Procedural Generation', 'Python', 'JavaScript', 'HTML/CSS', 'React', 'Web Design', 'UI/UX Design', 'Game Design', 'Level Design', 'Team Leadership', 'Agile/Scrum', '3D Animation', 'Keyframe Animation', 'Motion Capture', 'Blender', 'Rigging', 'Maya', 'Cinema 4D', 'Real-Time Rendering', 'Node.js', 'REST APIs', 'JSON', 'Multiplayer Networking', 'Client-Server Architecture', 'State Synchronization', 'P2P Networking', 'Plugin & Tool Development', 'Scripting Pipelines', 'QA & Debugging', 'Cross-Platform Testing', 'C++', 'Java', 'TypeScript', '.NET', 'SQL', 'HLSL', 'x86 Assembly', 'Unreal Engine', 'Steamworks API', 'Flask', 'Django', 'Docker', 'Microsoft Azure', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama'],
     projects: [
         {
-            title: 'Gob Gang Games Website',
-            category: 'Web Development',
-            date: 'September 2026',
-            desc: 'I built and hosted the Gob Gang Games website on Cloudflare to showcase Trust No One. The site brings the game\'s pixel-art style to the web with animated backgrounds, gameplay previews, an overview of its three-button mechanics, and links to play the game and follow the team.',
-            expertise: ['Web Development', 'Web Design', 'Cloudflare'],
-            img: './assets/gob-gang-games-browse.webm',
-            poster: './assets/gob-gang-games-poster.jpg',
-            link: 'https://www.gobganggames.com/'
-        },
-        {
             title: 'Trust No One',
             category: 'Game Development',
             date: 'August 2026',
-            desc: 'I worked with a team of six as a designer, programmer, and writer on this psychedelic roguelike dungeon crawl, built in one week for the Brackeys Game Jam 2026.2, where it finished 14th most popular out of 2,291 entries. I designed and balanced the combat, programmed the party members and their upgrades, drew some of the items, and wrote all the dialogue.',
-            expertise: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Systems Design', 'Narrative Writing'],
+            desc: 'I worked with a team of six as a designer and programmer on this psychedelic roguelike dungeon crawl, built in one week for the Brackeys Game Jam 2026.2, where it ranked #9 overall out of 2,253 entries, placing in the top 0.4%, and was the 14th most popular entry. I designed the game from the ground up, including its core combat, programmed the party members and their upgrades, and drew some of the items.',
+            expertise: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Systems Design', 'Combat Design'],
             img: './assets/trust-no-one.webm',
             link: 'https://hozer347.itch.io/trust-no-one'
         },
@@ -43,7 +33,7 @@ const content = {
             title: 'AtOMoC SHeLiS',
             category: 'Game Development',
             date: 'August 2026',
-            desc: 'I designed and built this chemistry-themed roguelike auto-battler solo, where you buy elements each round and connect them into a growing molecule that fights for you. It handles dozens of dynamic molecular combinations a run. I made it for the Club Club Jam Jam, which I also helped organize and run, and placed #12.',
+            desc: 'I designed and built this chemistry-themed roguelike auto-battler solo, where you buy elements each round and connect them into a growing molecule that fights for you. I made it for the Club Club Jam Jam, which I also helped organize and run, and placed #12. Since the jam, I\'ve been expanding it into a Steam release with all 118 elements.',
             expertise: ['Godot', 'GDScript', 'Game Design', 'Gameplay Programming', 'Procedural Generation', 'Systems Design'],
             img: './assets/atomoc-shelis.webm',
             link: 'https://joshwright.itch.io/atomoc-shelis'
@@ -58,6 +48,25 @@ const content = {
             link: 'https://hozer347.itch.io/gobspin'
         },
         {
+            title: 'Game Dev Club Club Website',
+            category: 'Web Development',
+            date: '2026',
+            desc: 'I helped create Game Dev Club Club, a global network of student game developers from over 70 university clubs, and I help run its game jams. On the website, I bridged the design and website teams and built the Contact Us page, an interactive solar system where the sun opens a message form and each orbiting planet links to a platform.',
+            expertise: ['React', 'JavaScript', 'HTML/CSS', 'Web Design', 'UI/UX Design', 'Front-End Development'],
+            img: './assets/gdcc-contact.webm',
+            link: 'https://gamedevclubclub.com/'
+        },
+        {
+            title: 'Gob Gang Games Website',
+            category: 'Web Development',
+            date: 'September 2026',
+            desc: 'I built and hosted the Gob Gang Games website on Cloudflare to showcase Trust No One. The site brings the game\'s pixel-art style to the web with animated backgrounds, gameplay previews, an overview of its three-button mechanics, and links to play the game and follow the team.',
+            expertise: ['Web Development', 'Web Design', 'Cloudflare'],
+            img: './assets/gob-gang-games-browse.webm',
+            poster: './assets/gob-gang-games-poster.jpg',
+            link: 'https://www.gobganggames.com/'
+        },
+        {
             title: 'Slush Rush',
             category: 'Game Development',
             date: 'June 2026',
@@ -67,31 +76,13 @@ const content = {
             link: 'https://joshwright.itch.io/slush-rush'
         },
         {
-            title: 'Game Dev Club Club Website',
-            category: 'Web Development',
-            date: '2026',
-            desc: 'I worked with the team behind Game Dev Club Club, a global network of student game developers from over 70 university clubs. I bridged the design and website teams and built the Contact Us page, an interactive solar system where the sun opens a message form and each orbiting planet links to a platform.',
-            expertise: ['React', 'JavaScript', 'HTML/CSS', 'Web Design', 'UI/UX Design', 'Front-End Development'],
-            img: './assets/gdcc-contact.webm',
-            link: 'https://gamedevclubclub.com/'
-        },
-        {
             title: 'GRAV-AND-GO (ASU VGDC Game 2025-26)',
             category: 'Systems Engineering',
             date: '2025 - 2026',
-            desc: 'I worked on the Systems Team on the ASU VGDC yearly game. I architected a component-based movement system in C# so the rest of the team could build on it without stepping on each other, and tuned the physics controllers and collision logic to hold 90+ FPS on mid-range hardware.',
-            expertise: ['C#', 'Unity', 'Physics Systems', 'Systems Design', 'Team Leadership', 'Debugging & Optimization'],
+            desc: 'This was my first time working on a game with a team. I joined the Systems Team for the ASU VGDC yearly game and learned how to divide tasks across a team and make sure everyone\'s work fits together.',
+            expertise: ['C#', 'Unity', 'Git', 'Team Collaboration', 'Agile/Scrum', 'Gameplay Programming'],
             img: './assets/ezgif-1804722bd5a82cf8.webm',
             link: 'https://heatwave-studios.itch.io/grav-and-go'
-        },
-        {
-            title: '3D Animation Reel',
-            category: '3D Animation',
-            date: 'September 2025',
-            desc: 'Every shot in this reel is hand keyframed on existing rigs, with no motion capture anywhere in it. I applied the 12 principles of animation to get the posing, timing, and weight of each performance reading clearly without dialogue.',
-            expertise: ['3D Animation', 'Keyframe Animation', 'Character Animation', 'Maya', 'Acting', '12 Principles of Animation'],
-            img: './assets/animation.webm',
-            link: 'https://vimeo.com/1035906176'
         },
         {
             title: 'Anime Card Battler',
@@ -101,6 +92,15 @@ const content = {
             expertise: ['C#', 'Node.js', 'REST APIs', 'Multiplayer Networking', 'Client-Server Architecture', 'JSON'],
             img: './assets/project3.webm',
             link: 'https://github.com/JoshWright22/animecardbattler'
+        },
+        {
+            title: '3D Animation Reel',
+            category: '3D Animation',
+            date: 'September 2025',
+            desc: 'Every shot in this reel is hand keyframed on existing rigs. I made these shots as practice pieces to sharpen my fundamentals, working through the 12 principles of animation and refining my posing, timing, and weight with each one.',
+            expertise: ['3D Animation', 'Keyframe Animation', 'Character Animation', 'Maya', 'Acting', '12 Principles of Animation'],
+            img: './assets/animation.webm',
+            link: 'https://vimeo.com/1035906176'
         },
         {
             title: '3D Dungeon Game',
