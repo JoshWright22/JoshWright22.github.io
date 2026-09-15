@@ -171,28 +171,6 @@ a {
     transform: translateY(-110%);
 }
 
-.nav-logo {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-}
-
-.nav-star {
-    display: inline-block;
-    color: var(--accent);
-    animation: spin 6s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 .nav-links {
     display: flex;
     gap: clamp(0.9rem, 2.5vw, 2.2rem);
@@ -433,6 +411,7 @@ a {
 
 .marquee-track {
     display: inline-flex;
+    align-items: center;
     gap: 2.5rem;
     padding-right: 2.5rem;
     animation: marquee 38s linear infinite;
@@ -449,6 +428,8 @@ a {
 .marquee .sep {
     color: var(--accent);
     font-weight: 400;
+    font-size: clamp(0.9rem, 2vw, 1.5rem);
+    line-height: 1;
 }
 
 @keyframes marquee {
