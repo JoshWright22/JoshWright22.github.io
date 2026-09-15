@@ -17,7 +17,7 @@ const content = {
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' }
     ],
     profileImg: 'assets/me-hero.jpg',
-    marquee: ['Software Development', 'Systems Engineering', 'Full-Stack Web', 'Backend & APIs', 'Gameplay Programming', 'Tools & Pipelines', 'Debugging & Optimization'],
+    marquee: ['Software Development', 'AI Implementation', 'AI Agents', 'Harness Building', 'Cybersecurity', 'Systems Engineering', 'Full-Stack Web', 'Backend & APIs', 'Gameplay Programming', 'Tools & Pipelines', 'Debugging & Optimization'],
     stack: ['C#', 'Unity', 'Gameplay Programming', 'Godot', 'GDScript', 'Git', 'Debugging & Optimization', 'Procedural Generation', 'Python', 'JavaScript', 'HTML/CSS', 'React', 'Web Design', 'UI/UX Design', 'Game Design', 'Level Design', 'Team Leadership', 'Agile/Scrum', '3D Animation', 'Keyframe Animation', 'Motion Capture', 'Blender', 'Rigging', 'Maya', 'Cinema 4D', 'Real-Time Rendering', 'Node.js', 'REST APIs', 'JSON', 'Multiplayer Networking', 'Client-Server Architecture', 'State Synchronization', 'P2P Networking', 'Plugin & Tool Development', 'Scripting Pipelines', 'QA & Debugging', 'Cross-Platform Testing', 'C++', 'Java', 'TypeScript', '.NET', 'SQL', 'HLSL', 'x86 Assembly', 'Unreal Engine', 'Steamworks API', 'Flask', 'Django', 'Docker', 'Microsoft Azure', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama'],
     projects: [
         {
@@ -141,7 +141,7 @@ function renderAbout() {
 function renderMarquee() {
     const track = document.getElementById('marquee-track');
     const half = content.marquee
-        .map(t => `<span>${t}</span><span class="sep">✳</span>`).join('');
+        .map(t => `<span>${t}</span><span class="sep">⬡</span>`).join('');
     track.innerHTML = half + half;
 }
 
