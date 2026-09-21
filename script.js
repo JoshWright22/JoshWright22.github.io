@@ -36,6 +36,7 @@ const content = {
             desc: 'I created and led the team that represented ASU at the AZ Game Cup 2026, directed the project, and gave the pitch that judges scored highest. Our submission, codeE.exe, took 2nd place and $150 per team member, and this is a modified version of it. It\'s a first-person shooter where you\'re a cleanup program deleting the files inside a PC being factory reset, always on a 10-second clock that only kills refill. Every run is five procedurally generated folders of upgrades, and the final boss is codeE.exe running the exact build you made on the way down. We built the original in 48 hours.',
             expertise: ['C#', 'Unity', 'Team Leadership', 'Game Design', 'Gameplay Programming', 'Procedural Generation'],
             img: './assets/codee.webm',
+            fit: 'contain',
             link: 'https://joshwright.itch.io/theres-no-place-like-127001'
         },
         {
@@ -174,8 +175,12 @@ function renderProjects(projects) {
         // Convention: foo.webm -> foo-poster.jpg (override per project with `poster`).
         const poster = proj.poster || proj.img.replace(/\.(webm|mp4)$/, '-poster.jpg');
 
+        // Ultrawide clips opt into `fit: 'contain'` so the whole frame shows
+        // instead of the sides being cropped to 16:9.
+        const fit = proj.fit === 'contain' ? ' is-contained' : '';
+
         const media = isVideo
-            ? `<video muted loop playsinline preload="none" poster="${poster}" class="project-video">
+            ? `<video muted loop playsinline preload="none" poster="${poster}" class="project-video${fit}">
                    <source src="${proj.img}" type="video/${proj.img.endsWith('.mp4') ? 'mp4' : 'webm'}">
                </video>`
             : `<div class="project-image" style="background-image:url('${proj.img}')"></div>`;

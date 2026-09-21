@@ -704,6 +704,12 @@ a {
     transition: filter 0.7s var(--ease), transform 0.7s var(--ease);
 }
 
+/* Letterboxed rather than cropped, for clips wider than the card. */
+.project-video.is-contained {
+    object-fit: contain;
+    background: #000;
+}
+
 .project-media:hover .project-video,
 .project-media:hover .project-image {
     filter: grayscale(0%);
