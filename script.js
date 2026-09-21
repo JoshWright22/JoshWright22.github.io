@@ -30,10 +30,10 @@ const content = {
             link: 'https://hozer347.itch.io/trust-no-one'
         },
         {
-            title: 'codeE.exe',
+            title: 'There\'s No Place Like 127.0.0.1',
             category: 'Game Development',
             date: 'September 2026',
-            desc: 'I created and led the team that represented ASU at the AZ Game Cup 2026, directed the project, and gave the pitch that judges scored highest. We took 2nd place and $150 per team member, with this first-person shooter where you\'re a cleanup program deleting the files inside a PC being factory reset, always on a 10-second clock that only kills refill. Every run is five procedurally generated folders of upgrades, and the final boss is codeE.exe running the exact build you made on the way down. We built the whole thing in 48 hours.',
+            desc: 'I created and led the team that represented ASU at the AZ Game Cup 2026, directed the project, and gave the pitch that judges scored highest. Our submission, codeE.exe, took 2nd place and $150 per team member, and this is a modified version of it. It\'s a first-person shooter where you\'re a cleanup program deleting the files inside a PC being factory reset, always on a 10-second clock that only kills refill. Every run is five procedurally generated folders of upgrades, and the final boss is codeE.exe running the exact build you made on the way down. We built the original in 48 hours.',
             expertise: ['C#', 'Unity', 'Team Leadership', 'Game Design', 'Gameplay Programming', 'Procedural Generation'],
             img: './assets/codee.webm',
             link: 'https://joshwright.itch.io/theres-no-place-like-127001'
