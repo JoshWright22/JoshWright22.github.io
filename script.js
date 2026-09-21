@@ -30,6 +30,15 @@ const content = {
             link: 'https://hozer347.itch.io/trust-no-one'
         },
         {
+            title: 'codeE.exe',
+            category: 'Game Development',
+            date: 'September 2026',
+            desc: 'I created and led the team that represented ASU at the AZ Game Cup 2026, directed the project, and gave the pitch that judges scored highest. We took 2nd place and $150 per team member, with this first-person shooter where you\'re a cleanup program deleting the files inside a PC being factory reset, always on a 10-second clock that only kills refill. Every run is five procedurally generated folders of upgrades, and the final boss is codeE.exe running the exact build you made on the way down. We built the whole thing in 48 hours.',
+            expertise: ['C#', 'Unity', 'Team Leadership', 'Game Design', 'Gameplay Programming', 'Procedural Generation'],
+            img: './assets/codee.webm',
+            link: 'https://joshwright.itch.io/theres-no-place-like-127001'
+        },
+        {
             title: 'AtOMoC SHeLiS',
             category: 'Game Development',
             date: 'August 2026',
