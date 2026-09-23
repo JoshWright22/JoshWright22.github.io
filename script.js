@@ -7,8 +7,8 @@
 const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
-    aboutH: 'Software Developer',
-    aboutT: 'Hey I\'m Josh. I\'m a software developer with a passion for creating interesting, fun experiences and solving problems for artists, developers, and end users. I have experience building software and engineering systems in a variety of frameworks and in dynamic team environments. I\'m currently a student at Arizona State University studying Computer Science, and I\'m always looking for new opportunities to learn and grow as a developer. Please let me know if you want to collaborate on a project, or if you have any questions about my work!',
+    aboutH: 'Software Engineer',
+    aboutT: 'Hey I\'m Josh. I\'m a software engineer with a passion for building things people actually use and solving problems for artists, developers, and end users. I have experience building software and systems in a variety of frameworks and in dynamic team environments, and I have led small teams through projects with hard deadlines, deciding what we build and then writing the code with them. I\'m currently a student at Arizona State University studying Computer Science, and I\'m always looking for new opportunities to learn and grow as a developer. Please let me know if you want to collaborate on a project, or if you have any questions about my work!',
     links: [
         { text: 'GitHub', url: 'https://github.com/JoshWright22' },
         { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' },
@@ -17,15 +17,15 @@ const content = {
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' }
     ],
     profileImg: 'assets/me-hero.jpg',
-    marquee: ['Software Development', 'AI Implementation', 'AI Agents', 'Harness Building', 'Cybersecurity', 'Systems Engineering', 'Full-Stack Web', 'Backend & APIs', 'Gameplay Programming', 'Tools & Pipelines', 'Debugging & Optimization'],
-    stack: ['C#', 'Unity', 'Gameplay Programming', 'Godot', 'GDScript', 'Git', 'Debugging & Optimization', 'Procedural Generation', 'Python', 'JavaScript', 'HTML/CSS', 'React', 'Web Design', 'UI/UX Design', 'Game Design', 'Level Design', 'Team Leadership', 'Agile/Scrum', '3D Animation', 'Keyframe Animation', 'Motion Capture', 'Blender', 'Rigging', 'Maya', 'Cinema 4D', 'Real-Time Rendering', 'Node.js', 'REST APIs', 'JSON', 'Multiplayer Networking', 'Client-Server Architecture', 'State Synchronization', 'P2P Networking', 'Plugin & Tool Development', 'Scripting Pipelines', 'QA & Debugging', 'Cross-Platform Testing', 'C++', 'Java', 'TypeScript', '.NET', 'SQL', 'HLSL', 'x86 Assembly', 'Unreal Engine', 'Steamworks API', 'Flask', 'Django', 'Docker', 'Microsoft Azure', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama'],
+    marquee: ['Software Engineering', 'Team Leadership', 'Python', 'Project Planning', 'Full-Stack Web', 'Cross-Functional Collaboration', 'React & Node.js', 'Agile/Scrum', 'REST APIs', 'Debugging & Optimization', 'Tools & Plugin Development', 'Cross-Platform Testing', 'Gameplay Programming', 'Procedural Generation'],
+    stack: ['Python', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'REST APIs', 'SQL', 'HTML/CSS', 'Git', 'Team Leadership', 'Docker', 'Microsoft Azure', 'Flask', 'Django', 'JSON', 'Project Planning', 'Client-Server Architecture', 'Multiplayer Networking', 'Debugging & Optimization', 'Agile/Scrum', 'QA & Debugging', 'Cross-Platform Testing', 'Cross-Functional Collaboration', 'Plugin & Tool Development', 'Scripting Pipelines', 'Technical Documentation', 'C#', 'C++', 'Java', '.NET', 'Unity', 'Godot', 'GDScript', 'Unreal Engine', 'Gameplay Programming', 'Procedural Generation', 'Systems Design', 'Game Design', 'Level Design', 'UI/UX Design', 'Web Design', 'HLSL', 'x86 Assembly', 'Steamworks API', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Blender', 'Maya', 'Cinema 4D', '3D Animation', 'Keyframe Animation', 'Rigging', 'Real-Time Rendering'],
     projects: [
         {
             title: 'Trust No One',
             category: 'Game Development',
             date: 'August 2026',
-            desc: 'I worked with a team of six as a designer and programmer on this psychedelic roguelike dungeon crawl, built in one week for the Brackeys Game Jam 2026.2, where it ranked #9 overall out of 2,253 entries, placing in the top 0.4%, and was the 14th most popular entry. I designed the game from the ground up, including its core combat, programmed the party members and their upgrades, and drew some of the items.',
-            expertise: ['C#', 'Unity', 'Game Design', 'Gameplay Programming', 'Systems Design', 'Combat Design'],
+            desc: 'I led design on a team of six we put together ourselves, and we shipped a finished game in one week for the Brackeys Game Jam 2026.2. It placed #9 out of 2,253 entries, which is the top 0.4%, and was the 14th most popular entry in the jam. I designed the game from the ground up, including its core combat, decided what made the cut under a one week deadline, programmed the party members and their upgrade systems, and drew some of the items.',
+            expertise: ['Team Leadership', 'Project Planning', 'C#', 'Unity', 'Gameplay Programming', 'Systems Design'],
             img: './assets/trust-no-one.webm',
             link: 'https://hozer347.itch.io/trust-no-one'
         },
@@ -33,18 +33,36 @@ const content = {
             title: 'There\'s No Place Like 127.0.0.1',
             category: 'Game Development',
             date: 'September 2026',
-            desc: 'I created and led the team that represented ASU at the AZ Game Cup 2026, directed the project, and gave the pitch that judges scored highest. Our submission, codeE.exe, took 2nd place and $150 per team member, and this is a modified version of it. It\'s a first-person shooter where you\'re a cleanup program deleting the files inside a PC being factory reset, always on a 10-second clock that only kills refill. Every run is five procedurally generated folders of upgrades, and the final boss is codeE.exe running the exact build you made on the way down. We built the original in 48 hours.',
-            expertise: ['C#', 'Unity', 'Team Leadership', 'Game Design', 'Gameplay Programming', 'Procedural Generation'],
+            desc: 'I created and led the five person team that represented ASU at the AZ Game Cup 2026, directed the project, and gave the pitch that judges scored highest. We took 2nd place and $150 per team member, and this is an expanded version of what we built. I scoped the work so five people could actually finish in 48 hours, and I programmed the procedural generation that lays out a new set of upgrade floors every run.',
+            expertise: ['Team Leadership', 'Project Planning', 'Pitching & Presenting', 'C#', 'Unity', 'Procedural Generation'],
             img: './assets/codee.webm',
             fit: 'contain',
             link: 'https://joshwright.itch.io/theres-no-place-like-127001'
         },
         {
+            title: 'UNOMi Plugin',
+            category: 'Software Internship',
+            date: 'August 2026 - Present',
+            desc: 'This is my current ASU capstone, an internship with Pixel Pirate Studio working on UNOMi, a plugin that uses machine learning to generate 3D lip sync animation from a voice recording. I build and test the plugin across Maya, Blender, Unreal Engine, and Cinema 4D, help implement and validate new features like auto facial expression generation and text to animation, debug scripts and track down performance bottlenecks, and document bugs and workflow improvements for the engineering team. I also sit in on code reviews and product evaluations. It runs through December 2026.',
+            expertise: ['Python', 'Blender API', 'Cross-Platform Testing', 'Debugging & Optimization', 'Technical Documentation', 'Cross-Functional Collaboration'],
+            img: './assets/unomi.webm',
+            link: 'https://getunomi.com/3d-lip-sync/'
+        },
+        {
+            title: 'Game Dev Club Club',
+            category: 'Web Development',
+            date: '2026',
+            desc: 'I helped create Game Dev Club Club, a network of student developers from over 70 university clubs, and I help run its events, which means scoping them, coordinating organizers across schools, and keeping participants unblocked. On the website I worked between the design and engineering teams and built the Contact Us page in React, an interactive solar system where the sun opens a message form and each orbiting planet links to a platform.',
+            expertise: ['React', 'JavaScript', 'HTML/CSS', 'Cross-Functional Collaboration', 'Team Leadership', 'UI/UX Design'],
+            img: './assets/gdcc-contact.webm',
+            link: 'https://gamedevclubclub.com/'
+        },
+        {
             title: 'AtOMoC SHeLiS',
             category: 'Game Development',
             date: 'August 2026',
-            desc: 'I designed and built this chemistry-themed roguelike auto-battler solo, where you buy elements each round and connect them into a growing molecule that fights for you. I made it for the Club Club Jam Jam, which I also helped organize and run, and placed #12. Since the jam, I\'ve been expanding it into a Steam release with all 118 elements.',
-            expertise: ['Godot', 'GDScript', 'Game Design', 'Gameplay Programming', 'Procedural Generation', 'Systems Design'],
+            desc: 'I designed and built this chemistry themed roguelike auto battler solo, where you buy elements each round and connect them into a growing molecule that fights for you. I made it for the Club Club Jam Jam, which I also helped organize and run, and it placed #12. Since the jam I have been turning playtest feedback into a roadmap and expanding it into a Steam release covering all 118 elements.',
+            expertise: ['Godot', 'GDScript', 'Systems Design', 'Procedural Generation', 'Roadmapping', 'Playtesting & Iteration'],
             img: './assets/atomoc-shelis.webm',
             link: 'https://joshwright.itch.io/atomoc-shelis'
         },
@@ -52,56 +70,38 @@ const content = {
             title: 'Gob Spin',
             category: 'Game Development',
             date: 'June 2026',
-            desc: 'I led a small team through the development of this one-week game jam entry, a physics-based action game where you play as a goblin who spins. I helped implement core systems and directed the gameplay design, and we placed top 5% in the jam.',
-            expertise: ['C#', 'Unity', 'Game Design', 'Physics Systems', 'Gameplay Programming', 'Team Leadership'],
+            desc: 'I led a small team through this one week build, a physics based action game where you play as a goblin who spins. I directed the design, split the work across the team, and implemented core systems alongside them. We placed in the top 5% of the jam.',
+            expertise: ['Team Leadership', 'C#', 'Unity', 'Physics Systems', 'Gameplay Programming', 'Game Design'],
             img: './assets/gobspin.webm',
             link: 'https://hozer347.itch.io/gobspin'
-        },
-        {
-            title: 'Game Dev Club Club Website',
-            category: 'Web Development',
-            date: '2026',
-            desc: 'I helped create Game Dev Club Club, a global network of student game developers from over 70 university clubs, and I help run its game jams. On the website, I bridged the design and website teams and built the Contact Us page, an interactive solar system where the sun opens a message form and each orbiting planet links to a platform.',
-            expertise: ['React', 'JavaScript', 'HTML/CSS', 'Web Design', 'UI/UX Design', 'Front-End Development'],
-            img: './assets/gdcc-contact.webm',
-            link: 'https://gamedevclubclub.com/'
-        },
-        {
-            title: 'Gob Gang Games Website',
-            category: 'Web Development',
-            date: 'September 2026',
-            desc: 'I built and hosted the Gob Gang Games website on Cloudflare to showcase Trust No One. The site brings the game\'s pixel-art style to the web with animated backgrounds, gameplay previews, an overview of its three-button mechanics, and links to play the game and follow the team.',
-            expertise: ['Web Development', 'Web Design', 'Cloudflare'],
-            img: './assets/gob-gang-games-browse.webm',
-            poster: './assets/gob-gang-games-poster.jpg',
-            link: 'https://www.gobganggames.com/'
         },
         {
             title: 'Slush Rush',
             category: 'Game Development',
             date: 'June 2026',
-            desc: 'I designed and implemented the core game mechanics while directing a small team through a one-week jam. I built polished, engaging gameplay systems under a tight deadline, and we placed top 15% in the jam.',
-            expertise: ['Python', 'Godot', 'Game Design', 'Gameplay Programming', 'Team Leadership', 'Systems Design'],
+            desc: 'I designed and implemented the core mechanics while directing a small team through a one week build. I set the scope, decided early what to leave out, and shipped polished systems under a tight deadline. We placed in the top 15% of the jam.',
+            expertise: ['Team Leadership', 'Project Planning', 'Python', 'Godot', 'Gameplay Programming', 'Systems Design'],
             img: './assets/slush-rush.webm',
             link: 'https://joshwright.itch.io/slush-rush'
+        },
+        {
+            title: 'Gob Gang Games Website',
+            category: 'Web Development',
+            date: 'September 2026',
+            desc: 'I built and hosted the Gob Gang Games site on Cloudflare to showcase Trust No One. It brings the game\'s pixel-art style to the web with animated backgrounds, gameplay previews, an overview of its three-button mechanics, and links to play the game and follow the team.',
+            expertise: ['HTML/CSS', 'JavaScript', 'Web Development', 'Cloudflare', 'Web Design'],
+            img: './assets/gob-gang-games-browse.webm',
+            poster: './assets/gob-gang-games-poster.jpg',
+            link: 'https://www.gobganggames.com/'
         },
         {
             title: 'GRAV-AND-GO (ASU VGDC Game 2025-26)',
             category: 'Systems Engineering',
             date: '2025 - 2026',
-            desc: 'This was my first time working on a game with a team. I joined the Systems Team for the ASU VGDC yearly game and learned how to divide tasks across a team and make sure everyone\'s work fits together.',
-            expertise: ['C#', 'Unity', 'Git', 'Team Collaboration', 'Agile/Scrum', 'Gameplay Programming'],
+            desc: 'My first time building software with a large team. I joined the Systems Team for the ASU VGDC yearly game and learned how work gets divided across a group and integrated back together, which is what everything I have led since is built on.',
+            expertise: ['C#', 'Unity', 'Git', 'Agile/Scrum', 'Team Collaboration', 'Gameplay Programming'],
             img: './assets/ezgif-1804722bd5a82cf8.webm',
             link: 'https://heatwave-studios.itch.io/grav-and-go'
-        },
-        {
-            title: 'Anime Card Battler',
-            category: 'Backend & Networking',
-            date: '2024',
-            desc: 'I built a networked multiplayer card game with a custom REST API for secure server requests and real-time game state synchronization between players.',
-            expertise: ['C#', 'Node.js', 'REST APIs', 'Multiplayer Networking', 'Client-Server Architecture', 'JSON'],
-            img: './assets/project3.webm',
-            link: 'https://github.com/JoshWright22/animecardbattler'
         },
         {
             title: '3D Animation Reel',
@@ -111,15 +111,6 @@ const content = {
             expertise: ['3D Animation', 'Keyframe Animation', 'Character Animation', 'Maya', 'Acting', '12 Principles of Animation'],
             img: './assets/animation.webm',
             link: 'https://vimeo.com/1035906176'
-        },
-        {
-            title: '3D Dungeon Game',
-            category: 'Game Development',
-            date: 'October 2025',
-            desc: 'I explored 3D environment design and dungeon crawling mechanics, with procedurally laid out floors, focusing on level geometry and lighting throughout.',
-            expertise: ['C#', 'Unity', 'Level Design', 'Procedural Generation', 'Game Design', 'Environment Design'],
-            img: './assets/project2.webm',
-            link: 'https://github.com/JoshWright22/3dFungeonGame'
         }
     ]
 };
@@ -197,7 +188,7 @@ function renderProjects(projects) {
         // The button is a sibling of the anchor, not a child — nesting a
         // control inside a link is invalid and swallows the tap.
         const inner = proj.link
-            ? `<a href="${proj.link}" target="_blank" rel="noopener" class="project-media-link" aria-label="${proj.title}, view project">${media}</a>`
+            ? `<a href="${proj.link}" target="_blank" rel="noopener" class="project-media-link" aria-label="${proj.title}, view product">${media}</a>`
             : `<div class="project-media-link">${media}</div>`;
 
         const mediaBlock = `<div class="project-media">${inner}${expand}</div>`;
@@ -206,7 +197,7 @@ function renderProjects(projects) {
             .map(s => `<span class="tag">${s}</span>`).join('');
 
         const link = proj.link
-            ? `<a class="project-link" href="${proj.link}" target="_blank" rel="noopener">View project ↗</a>`
+            ? `<a class="project-link" href="${proj.link}" target="_blank" rel="noopener">View product ↗</a>`
             : '';
 
         return `
