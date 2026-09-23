@@ -17,14 +17,14 @@ const content = {
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' }
     ],
     profileImg: 'assets/me-hero.jpg',
-    marquee: ['Software Engineering', 'Team Leadership', 'Python', 'Project Planning', 'Full-Stack Web', 'Cross-Functional Collaboration', 'React & Node.js', 'Agile/Scrum', 'REST APIs', 'Debugging & Optimization', 'Tools & Plugin Development', 'Cross-Platform Testing', 'Gameplay Programming', 'Procedural Generation'],
-    stack: ['Python', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'REST APIs', 'SQL', 'HTML/CSS', 'Git', 'Team Leadership', 'Docker', 'Microsoft Azure', 'Flask', 'Django', 'JSON', 'Project Planning', 'Client-Server Architecture', 'Multiplayer Networking', 'Debugging & Optimization', 'Agile/Scrum', 'QA & Debugging', 'Cross-Platform Testing', 'Cross-Functional Collaboration', 'Plugin & Tool Development', 'Scripting Pipelines', 'Technical Documentation', 'C#', 'C++', 'Java', '.NET', 'Unity', 'Godot', 'GDScript', 'Unreal Engine', 'Gameplay Programming', 'Procedural Generation', 'Systems Design', 'Game Design', 'Level Design', 'UI/UX Design', 'Web Design', 'HLSL', 'x86 Assembly', 'Steamworks API', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Blender', 'Maya', 'Cinema 4D', '3D Animation', 'Keyframe Animation', 'Rigging', 'Real-Time Rendering'],
+    marquee: ['Software Engineering', 'Team Leadership', 'Python', 'Project Planning', 'Full-Stack Web', 'Cross-Functional Collaboration', 'React & Node.js', 'REST APIs', 'Debugging & Optimization', 'Tools & Plugin Development', 'Cross-Platform Testing', 'Gameplay Programming', 'Procedural Generation'],
+    stack: ['Python', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'REST APIs', 'SQL', 'HTML/CSS', 'Git', 'Team Leadership', 'Docker', 'Microsoft Azure', 'Flask', 'Django', 'JSON', 'Project Planning', 'Client-Server Architecture', 'Multiplayer Networking', 'Debugging & Optimization', 'QA & Debugging', 'Cross-Platform Testing', 'Cross-Functional Collaboration', 'Plugin & Tool Development', 'Scripting Pipelines', 'Technical Documentation', 'C#', 'C++', 'Java', '.NET', 'Unity', 'Godot', 'GDScript', 'Unreal Engine', 'Gameplay Programming', 'Procedural Generation', 'Systems Design', 'Game Design', 'Level Design', 'UI/UX Design', 'Web Design', 'HLSL', 'x86 Assembly', 'Steamworks API', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Blender', 'Maya', 'Cinema 4D', '3D Animation', 'Keyframe Animation', 'Rigging', 'Real-Time Rendering'],
     projects: [
         {
             title: 'Trust No One',
             category: 'Game Development',
             date: 'August 2026',
-            desc: 'I led design on a team of six we put together ourselves, and we shipped a finished game in one week for the Brackeys Game Jam 2026.2. It placed #9 out of 2,253 entries, which is the top 0.4%, and was the 14th most popular entry in the jam. I designed the game from the ground up, including its core combat, decided what made the cut under a one week deadline, programmed the party members and their upgrade systems, and drew some of the items.',
+            desc: 'I led design on a team of six we put together ourselves, and we shipped a finished game in one week for the Brackeys Game Jam 2026.2. It placed #9 out of 2,253 entries, which is the top 0.4%, and was the 14th most popular entry in the jam. Brackeys also mentioned it in their video for the jam. I designed the game from the ground up, including its core combat, decided what made the cut under a one week deadline, programmed the party members and their upgrade systems, and drew some of the items.',
             expertise: ['Team Leadership', 'Project Planning', 'C#', 'Unity', 'Gameplay Programming', 'Systems Design'],
             img: './assets/trust-no-one.webm',
             link: 'https://hozer347.itch.io/trust-no-one'
@@ -99,7 +99,7 @@ const content = {
             category: 'Systems Engineering',
             date: '2025 - 2026',
             desc: 'My first time building software with a large team. I joined the Systems Team for the ASU VGDC yearly game and learned how work gets divided across a group and integrated back together, which is what everything I have led since is built on.',
-            expertise: ['C#', 'Unity', 'Git', 'Agile/Scrum', 'Team Collaboration', 'Gameplay Programming'],
+            expertise: ['C#', 'Unity', 'Git', 'Team Collaboration', 'Gameplay Programming'],
             img: './assets/ezgif-1804722bd5a82cf8.webm',
             link: 'https://heatwave-studios.itch.io/grav-and-go'
         },

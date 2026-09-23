@@ -414,7 +414,7 @@ a {
     align-items: center;
     gap: 2.5rem;
     padding-right: 2.5rem;
-    animation: marquee 52s linear infinite;
+    animation: marquee 48s linear infinite;
     will-change: transform;
 }
 
