@@ -33,7 +33,7 @@ const content = {
             title: 'There\'s No Place Like 127.0.0.1',
             category: 'Game Development',
             date: 'September 2026',
-            desc: 'I created and led the five person team that represented ASU at the AZ Game Cup 2026, directed the project, and gave the pitch that judges scored highest. We took 2nd place and $150 per team member, and this is an expanded version of what we built. I scoped the work so five people could actually finish in 48 hours, and I programmed the procedural generation that lays out a new set of upgrade floors every run.',
+            desc: 'I created and led the six person team that represented ASU at the AZ Game Cup 2026, directed the project, and gave the pitch that judges scored highest. We took 2nd place and $150 per team member, and this is an expanded version of what we built. I scoped the work so six people could actually finish in 48 hours, and I programmed the procedural generation that lays out a new set of upgrade floors every run.',
             expertise: ['Team Leadership', 'Project Planning', 'Pitching & Presenting', 'C#', 'Unity', 'Procedural Generation'],
             img: './assets/codee.webm',
             fit: 'contain',
