@@ -8,7 +8,7 @@ const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
     aboutH: 'Software Engineer',
-    aboutT: 'Hey I\'m Josh. I\'m a software engineer with a passion for building things people actually use and solving problems for artists, developers, and end users. I have experience building software and systems in a variety of frameworks and in dynamic team environments, and I have led small teams through projects with hard deadlines, deciding what we build and then writing the code with them. I\'m currently a student at Arizona State University studying Computer Science, and I\'m always looking for new opportunities to learn and grow as a developer. Please let me know if you want to collaborate on a project, or if you have any questions about my work!',
+    aboutT: 'Hey, I\'m Josh. I\'m a Computer Science student at Arizona State University, and I like building software people actually use, whether that\'s tools for artists, developers, or end users. I\'ve led small teams through projects with hard deadlines, deciding what we build and then writing the code alongside everyone. Right now I\'m most interested in computer vision and robotics, and I get to work on computer vision in my internship. If you want to collaborate on something or have questions about my work, reach out!',
     links: [
         { text: 'GitHub', url: 'https://github.com/JoshWright22' },
         { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' },
@@ -17,9 +17,18 @@ const content = {
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' }
     ],
     profileImg: 'assets/me-hero.jpg',
-    marquee: ['Software Engineering', 'Team Leadership', 'Python', 'Project Planning', 'Full-Stack Web', 'Cross-Functional Collaboration', 'React & Node.js', 'REST APIs', 'Debugging & Optimization', 'Tools & Plugin Development', 'Cross-Platform Testing', 'Gameplay Programming', 'Procedural Generation'],
-    stack: ['Python', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'REST APIs', 'SQL', 'HTML/CSS', 'Git', 'Team Leadership', 'Docker', 'Microsoft Azure', 'Flask', 'Django', 'JSON', 'Project Planning', 'Client-Server Architecture', 'Multiplayer Networking', 'Debugging & Optimization', 'QA & Debugging', 'Cross-Platform Testing', 'Cross-Functional Collaboration', 'Plugin & Tool Development', 'Scripting Pipelines', 'Technical Documentation', 'C#', 'C++', 'Java', '.NET', 'Unity', 'Godot', 'GDScript', 'Unreal Engine', 'Gameplay Programming', 'Procedural Generation', 'Systems Design', 'Game Design', 'Level Design', 'UI/UX Design', 'Web Design', 'HLSL', 'x86 Assembly', 'Steamworks API', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Blender', 'Maya', 'Cinema 4D', '3D Animation', 'Keyframe Animation', 'Rigging', 'Real-Time Rendering'],
+    marquee: ['Software Engineering', 'Machine Learning', 'Computer Vision', 'Team Leadership', 'Python', 'Project Planning', 'Full-Stack Web', 'Cross-Functional Collaboration', 'React & Node.js', 'REST APIs', 'Debugging & Optimization', 'Tools & Plugin Development', 'Cross-Platform Testing', 'Gameplay Programming', 'Procedural Generation'],
+    stack: ['Python', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'REST APIs', 'SQL', 'HTML/CSS', 'Git', 'Team Leadership', 'Docker', 'Microsoft Azure', 'Flask', 'Django', 'JSON', 'Project Planning', 'Client-Server Architecture', 'Multiplayer Networking', 'Debugging & Optimization', 'QA & Debugging', 'Cross-Platform Testing', 'Cross-Functional Collaboration', 'Plugin & Tool Development', 'Scripting Pipelines', 'Technical Documentation', 'C#', 'C++', 'Java', '.NET', 'Unity', 'Godot', 'GDScript', 'Unreal Engine', 'Gameplay Programming', 'Procedural Generation', 'Systems Design', 'Game Design', 'Level Design', 'UI/UX Design', 'Web Design', 'HLSL', 'x86 Assembly', 'Steamworks API', 'Machine Learning', 'Computer Vision', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Blender', 'Maya', 'Cinema 4D', '3D Animation', 'Keyframe Animation', 'Rigging', 'Real-Time Rendering'],
     projects: [
+        {
+            title: 'UNOMi',
+            category: 'Software Engineering Internship',
+            date: 'August 2026 - Present',
+            desc: 'I work as a software engineering intern at Pixel Pirate Studio on UNOMi, which uses machine learning to generate 3D character animation. I work on the machine learning and computer vision backend behind the markerless motion tracking coming in UNOMi 3D, which turns camera footage of a performer into animation, and my focus is making the tracking more accurate and the motion more stable. I also build and test the UNOMi plugins across Maya, Blender, Unreal Engine, and Cinema 4D, track down performance bottlenecks, and document bugs and workflow improvements for the engineering team. It runs through May 2027.',
+            expertise: ['Machine Learning', 'Computer Vision', 'Python', '3D Animation Pipelines', 'Debugging & Optimization', 'Cross-Functional Collaboration'],
+            img: './assets/unomi.webm',
+            link: 'https://getunomi.com/3d-lip-sync/'
+        },
         {
             title: 'Trust No One',
             category: 'Game Development',
@@ -40,21 +49,12 @@ const content = {
             link: 'https://joshwright.itch.io/theres-no-place-like-127001'
         },
         {
-            title: 'UNOMi Plugin',
-            category: 'Software Internship',
-            date: 'August 2026 - Present',
-            desc: 'This is my current ASU capstone, an internship with Pixel Pirate Studio working on UNOMi, a plugin that uses machine learning to generate 3D lip sync animation from a voice recording. I build and test the plugin across Maya, Blender, Unreal Engine, and Cinema 4D, help implement and validate new features like auto facial expression generation and text to animation, debug scripts and track down performance bottlenecks, and document bugs and workflow improvements for the engineering team. I also sit in on code reviews and product evaluations. It runs through December 2026.',
-            expertise: ['Python', 'Blender API', 'Cross-Platform Testing', 'Debugging & Optimization', 'Technical Documentation', 'Cross-Functional Collaboration'],
-            img: './assets/unomi.webm',
-            link: 'https://getunomi.com/3d-lip-sync/'
-        },
-        {
             title: 'Game Dev Club Club',
             category: 'Web Development',
             date: '2026',
-            desc: 'I helped create Game Dev Club Club, a network of student developers from over 70 university clubs, and I help run its events, which means scoping them, coordinating organizers across schools, and keeping participants unblocked. On the website I worked between the design and engineering teams and built the Contact Us page in React, an interactive solar system where the sun opens a message form and each orbiting planet links to a platform.',
+            desc: 'I helped create Game Dev Club Club, a network of student developers from 104 university clubs, and I help run its events by planning what each one covers and coordinating organizers across schools. On the website I worked between the design and engineering teams and built the Contact Us page in React, an interactive solar system where the sun opens a message form and each orbiting planet links to a platform.',
             expertise: ['React', 'JavaScript', 'HTML/CSS', 'Cross-Functional Collaboration', 'Team Leadership', 'UI/UX Design'],
-            img: './assets/gdcc-contact.webm',
+            img: './assets/gdcc-map.webm',
             link: 'https://gamedevclubclub.com/'
         },
         {
