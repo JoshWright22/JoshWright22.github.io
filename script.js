@@ -8,7 +8,7 @@ const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
     aboutH: 'Software Engineer',
-    aboutT: 'Hey, I\'m Josh. I\'m a Computer Science student at Arizona State University, and I like building software people actually use, whether that\'s tools for artists, developers, or end users. I\'ve led small teams through projects with hard deadlines, deciding what we build and then writing the code alongside everyone. Right now I\'m most interested in computer vision and robotics, and I get to work on computer vision in my internship. If you want to collaborate on something or have questions about my work, reach out!',
+    aboutT: 'Hey, I\'m Josh. I\'m a Computer Science student at Arizona State University, and I like building software people actually use, whether that\'s tools for artists, developers, or end users. I\'ve led small teams through projects with hard deadlines, deciding what we build and then writing the code alongside everyone. Right now my research focuses on computer vision applications in animation, which I also work on in my internship. I\'m also interested in game development and building the engines, tools, and platforms that support it. If you want to collaborate on something or have questions about my work, reach out!',
     links: [
         { text: 'GitHub', url: 'https://github.com/JoshWright22' },
         { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' },
