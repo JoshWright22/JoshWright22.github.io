@@ -7,17 +7,17 @@
 const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
-    aboutH: 'Software Engineer',
-    aboutT: 'Hey, I\'m Josh. I\'m a Computer Science student at Arizona State University, and I like building software people actually use, whether that\'s tools for artists, developers, or end users. I\'ve led small teams through projects with hard deadlines, deciding what we build and then writing the code alongside everyone. Right now my research focuses on computer vision applications in animation, which I also work on in my internship. I\'m also interested in game development and building the engines, tools, and platforms that support it. If you want to collaborate on something or have questions about my work, reach out!',
+    aboutH: 'Software Developer',
+    aboutT: 'Hey, I\'m Josh. I\'m a Computer Science student at Arizona State University, and I like making cool stuff, mostly games and the software behind them. I post what I\'m building on YouTube, including game jam projects and the tools I make along the way. My game Trust No One placed #9 out of 2,253 entries in the Brackeys Game Jam. I\'ve led small teams through projects with hard deadlines, deciding what we build and then writing the code alongside everyone. At my internship I work on computer vision for character animation at UNOMi. If you want to collaborate on something or have questions about my work, reach out!',
     links: [
-        { text: 'GitHub', url: 'https://github.com/JoshWright22' },
-        { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' },
+        { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' },
         { text: 'Twitter', url: 'https://x.com/joshwright_dev' },
         { text: 'Instagram', url: 'https://www.instagram.com/joshwrightisoninsta/' },
-        { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' }
+        { text: 'GitHub', url: 'https://github.com/JoshWright22' },
+        { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' }
     ],
     profileImg: 'assets/me-hero.jpg',
-    marquee: ['Software Engineering', 'Machine Learning', 'Computer Vision', 'Team Leadership', 'Python', 'Project Planning', 'Full-Stack Web', 'Cross-Functional Collaboration', 'React & Node.js', 'REST APIs', 'Debugging & Optimization', 'Tools & Plugin Development', 'Cross-Platform Testing', 'Gameplay Programming', 'Procedural Generation'],
+    marquee: ['Software Development', 'Game Development', 'Machine Learning', 'Computer Vision', 'Team Leadership', 'Python', 'C#', 'Unity', 'Godot', 'Project Planning', 'Full-Stack Web', 'React & Node.js', 'Tools & Plugin Development', 'Gameplay Programming', 'Procedural Generation', 'Devlogs'],
     stack: ['Python', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'REST APIs', 'SQL', 'HTML/CSS', 'Git', 'Team Leadership', 'Docker', 'Microsoft Azure', 'Flask', 'Django', 'JSON', 'Project Planning', 'Client-Server Architecture', 'Multiplayer Networking', 'Debugging & Optimization', 'QA & Debugging', 'Cross-Platform Testing', 'Cross-Functional Collaboration', 'Plugin & Tool Development', 'Scripting Pipelines', 'Technical Documentation', 'C#', 'C++', 'Java', '.NET', 'Unity', 'Godot', 'GDScript', 'Unreal Engine', 'Gameplay Programming', 'Procedural Generation', 'Systems Design', 'Game Design', 'Level Design', 'UI/UX Design', 'Web Design', 'HLSL', 'x86 Assembly', 'Steamworks API', 'Machine Learning', 'Computer Vision', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Blender', 'Maya', 'Cinema 4D', '3D Animation', 'Keyframe Animation', 'Rigging', 'Real-Time Rendering'],
     projects: [
         {
