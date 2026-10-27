@@ -24,9 +24,9 @@ const content = {
             title: 'UNOMi',
             category: 'Software Engineering Internship',
             date: 'August 2026 - Present',
-            desc: 'I work as a software engineering intern at Pixel Pirate Studio on UNOMi, which uses machine learning to generate 3D character animation. I work on the machine learning and computer vision backend behind the markerless motion tracking coming in UNOMi 3D, which turns camera footage of a performer into animation, and my focus is making the tracking more accurate and the motion more stable. I also build and test the UNOMi plugins across Maya, Blender, Unreal Engine, and Cinema 4D, track down performance bottlenecks, and document bugs and workflow improvements for the engineering team. It runs through May 2027.',
-            expertise: ['Machine Learning', 'Computer Vision', 'Python', '3D Animation Pipelines', 'Debugging & Optimization', 'Cross-Functional Collaboration'],
-            img: './assets/unomi.webm',
+            desc: 'I work as a software engineering intern at Pixel Pirate Studio on UNOMi, which uses machine learning to generate 3D character animation. I work on the machine learning and computer vision backend behind the markerless motion tracking coming in UNOMi 3D, which turns camera footage of a performer into animation. I fine-tune the vision-to-motion models behind the tracking and run them on Microsoft Azure, and my focus is making the tracking more accurate and the motion more stable. I also build and test the UNOMi plugins across Maya, Blender, Unreal Engine, and Cinema 4D, track down performance bottlenecks, and document bugs and workflow improvements for the engineering team. It runs through May 2027.',
+            expertise: ['Machine Learning', 'Computer Vision', 'Model Fine-Tuning', 'Microsoft Azure', 'Python', '3D Animation Pipelines', 'Debugging & Optimization'],
+            img: './assets/unomi-motion.webm',
             link: 'https://getunomi.com/3d-lip-sync/'
         },
         {
