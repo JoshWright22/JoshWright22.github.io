@@ -1,0 +1,41 @@
+{
+ "active": "i",
+ "versions": [
+  {
+   "id": "a",
+   "name": "Reference: the measured human landing on Jr's poses"
+  },
+  {
+   "id": "b",
+   "name": "Heavy: long deep landings, big antics, a lamp with real weight in the head"
+  },
+  {
+   "id": "c",
+   "name": "Snappy: Jr's own quick chain, no pause between hops, straight to the name"
+  },
+  {
+   "id": "d",
+   "name": "Follow through: head carries far past the base, drags and whips on every move"
+  },
+  {
+   "id": "e",
+   "name": "Snappy, five jumps: the film's whole hop chain, each hop a different size, ends standing tall over the base"
+  },
+  {
+   "id": "f",
+   "name": "Crouch up: five jumps refit to the new rest spot, ends crouched under the key looking up at it"
+  },
+  {
+   "id": "g",
+   "name": "Snap: five jumps on clean arcs, deep squash, long stretch, settles after every landing"
+  },
+  {
+   "id": "h",
+   "name": "One, hold, two, hold, one: last hop onto the mark, then the look and light"
+  },
+  {
+   "id": "i",
+   "name": "One, hold, two onto the mark, light straight away"
+  }
+ ]
+}

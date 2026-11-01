@@ -7,8 +7,8 @@
 const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
-    aboutH: 'Software Developer',
-    aboutT: 'Hey, I\'m Josh. I\'m a Computer Science student at Arizona State University, and I like making cool stuff, mostly games and the software behind them. I post what I\'m building on YouTube, including game jam projects and the tools I make along the way. My game Trust No One placed #9 out of 2,253 entries in the Brackeys Game Jam. I\'ve led small teams through projects with hard deadlines, deciding what we build and then writing the code alongside everyone. At my internship I work on computer vision for character animation at UNOMi. If you want to collaborate on something or have questions about my work, reach out!',
+    aboutH: 'Animation Engineer',
+    aboutT: 'Hey, I\'m Josh. I\'m an animation engineer and a Computer Science student at Arizona State University. I want to help create the next generation of high quality media. I learned to keyframe characters by hand. Now I have turned my efforts into creating models, platforms and research that anyone can use to make what they imagine. At my internship at UNOMi I fine-tune the vision models behind markerless motion capture and host them on Microsoft Azure. I want to do R&D at the top animation companies. Some of my personal work includes Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam, and AtOMoC SHeLiS, which will be on Steam shortly. I post what I\'m building on YouTube, so if you want to work on something together, reach out!',
     links: [
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' },
         { text: 'Twitter', url: 'https://x.com/joshwright_dev' },
@@ -17,20 +17,30 @@ const content = {
         { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' }
     ],
     profileImg: 'assets/me-hero.jpg',
-    marquee: ['Software Development', 'Game Development', 'Machine Learning', 'Computer Vision', 'Team Leadership', 'Python', 'C#', 'Unity', 'Godot', 'Project Planning', 'Full-Stack Web', 'React & Node.js', 'Tools & Plugin Development', 'Gameplay Programming', 'Procedural Generation', 'Devlogs'],
-    stack: ['Python', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'REST APIs', 'SQL', 'HTML/CSS', 'Git', 'Team Leadership', 'Docker', 'Microsoft Azure', 'Flask', 'Django', 'JSON', 'Project Planning', 'Client-Server Architecture', 'Multiplayer Networking', 'Debugging & Optimization', 'QA & Debugging', 'Cross-Platform Testing', 'Cross-Functional Collaboration', 'Plugin & Tool Development', 'Scripting Pipelines', 'Technical Documentation', 'C#', 'C++', 'Java', '.NET', 'Unity', 'Godot', 'GDScript', 'Unreal Engine', 'Gameplay Programming', 'Procedural Generation', 'Systems Design', 'Game Design', 'Level Design', 'UI/UX Design', 'Web Design', 'HLSL', 'x86 Assembly', 'Steamworks API', 'Machine Learning', 'Computer Vision', 'AI/ML Model Evaluation', 'LLM Benchmarking', 'Data Pipelines', 'Ollama', 'Blender', 'Maya', 'Cinema 4D', '3D Animation', 'Keyframe Animation', 'Rigging', 'Real-Time Rendering'],
+    marquee: ['Animation Engineering', 'Motion Tracking', 'AI for Animation', 'Animation Tools', 'Computer Vision', 'Machine Learning', 'Plugin Development', 'Python', 'C++', 'C#', 'HLSL', 'Unreal Engine', 'Maya', 'Blender', 'Procedural Generation', 'Devlogs'],
+    // art is one of: net, graph, game, code.
+    stack: [
+        { title: 'AI Systems', what: 'I turn AI research into systems that work, like motion capture pipelines, vision models fine-tuned on cloud GPUs and agents trained on custom GPU simulators. My next step is doing that research myself, focused on animation.', art: 'net', tools: ['PyTorch', 'CUDA', 'Python', 'Computer Vision', 'Machine Learning', 'Model Fine-Tuning', 'Reinforcement Learning'] },
+        { title: 'Animation Tools', what: 'Give me an animator\'s problem and I\'ll ship the plugin for it, in Maya, Blender, Cinema 4D or Unreal.', art: 'graph', tools: ['Python', 'Plugin Development', 'Maya', 'Blender', 'Cinema 4D', 'Unreal Engine', 'Keyframe Animation', 'Character Animation', 'Rigging'] },
+        { title: 'Gameplay Systems', what: 'I make games people want to play, from combat and upgrades to procedural levels, and I ship them on hard deadlines.', art: 'game', tools: ['C#', 'C++', 'Unity', 'Godot', 'Unreal Engine', 'Procedural Generation', 'Multiplayer Networking', 'Steamworks API'] },
+        { title: 'Software Engineering', what: 'I can own a product end to end, from a C++ game framework to the desktop app, the server and the cloud it runs on.', art: 'code', tools: ['C++', 'TypeScript', 'WebGPU', 'SDL3', 'HLSL', 'React', 'Next.js', 'Electron', 'PostgreSQL', 'Docker', 'Microsoft Azure', 'AWS', 'Git', 'Team Leadership', 'Agile Sprints'] }
+    ],
+    // To add a project, copy a block and put it where it belongs: the page order, numbers,
+    // top bar and scroll all follow this list. short is the top bar label and result is
+    // the one line pitch shown while the clip is in view. img goes in
+    // assets/, and a .webm also needs a matching -poster.jpg. fit: 'contain' is optional.
     projects: [
         {
-            title: 'UNOMi',
+            title: 'UNOMi', short: 'UNOMi', result: 'Two-time Emmy-nominated studio',
             category: 'Software Engineering Internship',
             date: 'August 2026 - Present',
-            desc: 'I work as a software engineering intern at Pixel Pirate Studio on UNOMi, which uses machine learning to generate 3D character animation. I work on the machine learning and computer vision backend behind the markerless motion tracking coming in UNOMi 3D, which turns camera footage of a performer into animation. I fine-tune the vision-to-motion models behind the tracking and run them on Microsoft Azure, and my focus is making the tracking more accurate and the motion more stable. I also build and test the UNOMi plugins across Maya, Blender, Unreal Engine, and Cinema 4D, track down performance bottlenecks, and document bugs and workflow improvements for the engineering team. It runs through May 2027.',
-            expertise: ['Machine Learning', 'Computer Vision', 'Model Fine-Tuning', 'Microsoft Azure', 'Python', '3D Animation Pipelines', 'Debugging & Optimization'],
-            img: './assets/unomi-motion.webm',
+            desc: 'I\'m a software engineering intern at Pixel Pirate Studio, a two-time Emmy-nominated animation studio in Los Angeles. The studio makes UNOMi, which uses machine learning to generate 3D character animation. I work on the markerless motion tracking coming in UNOMi 3D, which turns camera footage of a performer into animation. I fine-tune the vision-to-motion models and host them on Microsoft Azure. I also build and test the UNOMi plugins for Maya, Blender, Unreal Engine and Cinema 4D. The internship runs through May 2027.',
+            expertise: ['Animation Tools', 'Motion Tracking', 'Machine Learning', 'Computer Vision', 'Model Fine-Tuning', 'Microsoft Azure', 'Python', '3D Animation Pipelines', 'Debugging & Optimization'],
+            img: './assets/unomi-tracking.webm',
             link: 'https://getunomi.com/3d-lip-sync/'
         },
         {
-            title: 'Trust No One',
+            title: 'Trust No One', short: 'TNO', result: 'Placed top 0.4% of 2,253 games',
             category: 'Game Development',
             date: 'August 2026',
             desc: 'I led design on a team of six we put together ourselves, and we shipped a finished game in one week for the Brackeys Game Jam 2026.2. It placed #9 out of 2,253 entries, which is the top 0.4%, and was the 14th most popular entry in the jam. Brackeys also mentioned it in their video for the jam. I designed the game from the ground up, including its core combat, decided what made the cut under a one week deadline, programmed the party members and their upgrade systems, and drew some of the items.',
@@ -39,7 +49,7 @@ const content = {
             link: 'https://hozer347.itch.io/trust-no-one'
         },
         {
-            title: 'There\'s No Place Like 127.0.0.1',
+            title: 'There\'s No Place Like 127.0.0.1', short: '127', result: 'Highest scored pitch at the AZ Game Cup',
             category: 'Game Development',
             date: 'September 2026',
             desc: 'I created and led the six person team that represented ASU at the AZ Game Cup 2026, directed the project, and gave the pitch that judges scored highest. We took 2nd place and $150 per team member, and this is an expanded version of what we built. I scoped the work so six people could actually finish in 48 hours, and I programmed the procedural generation that lays out a new set of upgrade floors every run.',
@@ -49,7 +59,16 @@ const content = {
             link: 'https://joshwright.itch.io/theres-no-place-like-127001'
         },
         {
-            title: 'Game Dev Club Club',
+            title: '3D Animation Reel', short: 'Reel', result: 'TV quality animation',
+            category: '3D Animation',
+            date: 'September 2025',
+            desc: 'Every shot in this reel is hand keyframed on existing rigs. I made them to practice the 12 principles of animation, mostly posing, timing and weight. Doing this by hand is why I care how animation tools feel to use.',
+            expertise: ['3D Animation', 'Keyframe Animation', 'Character Animation', 'Maya', 'Acting', '12 Principles of Animation'],
+            img: './assets/animation.webm',
+            link: 'https://vimeo.com/1035906176'
+        },
+        {
+            title: 'Game Dev Club Club', short: 'GDCC', result: 'Created a club across 104 universities',
             category: 'Web Development',
             date: '2026',
             desc: 'I helped create Game Dev Club Club, a network of student developers from 104 university clubs, and I help run its events by planning what each one covers and coordinating organizers across schools. On the website I worked between the design and engineering teams and built the Contact Us page in React, an interactive solar system where the sun opens a message form and each orbiting planet links to a platform.',
@@ -58,7 +77,7 @@ const content = {
             link: 'https://gamedevclubclub.com/'
         },
         {
-            title: 'AtOMoC SHeLiS',
+            title: 'AtOMoC SHeLiS', short: 'AtOMoC', result: 'Placed #12 in the Club Club Jam Jam',
             category: 'Game Development',
             date: 'August 2026',
             desc: 'I designed and built this chemistry themed roguelike auto battler solo, where you buy elements each round and connect them into a growing molecule that fights for you. I made it for the Club Club Jam Jam, which I also helped organize and run, and it placed #12. Since the jam I have been turning playtest feedback into a roadmap and expanding it into a Steam release covering all 118 elements.',
@@ -67,7 +86,7 @@ const content = {
             link: 'https://joshwright.itch.io/atomoc-shelis'
         },
         {
-            title: 'Gob Spin',
+            title: 'Gob Spin', short: 'Gob', result: 'Placed top 5% of the jam',
             category: 'Game Development',
             date: 'June 2026',
             desc: 'I led a small team through this one week build, a physics based action game where you play as a goblin who spins. I directed the design, split the work across the team, and implemented core systems alongside them. We placed in the top 5% of the jam.',
@@ -76,41 +95,13 @@ const content = {
             link: 'https://hozer347.itch.io/gobspin'
         },
         {
-            title: 'Slush Rush',
+            title: 'Slush Rush', short: 'Slush', result: 'Placed top 15% of the jam',
             category: 'Game Development',
             date: 'June 2026',
             desc: 'I designed and implemented the core mechanics while directing a small team through a one week build. I set the scope, decided early what to leave out, and shipped polished systems under a tight deadline. We placed in the top 15% of the jam.',
             expertise: ['Team Leadership', 'Project Planning', 'Python', 'Godot', 'Gameplay Programming', 'Systems Design'],
             img: './assets/slush-rush.webm',
             link: 'https://joshwright.itch.io/slush-rush'
-        },
-        {
-            title: 'Gob Gang Games Website',
-            category: 'Web Development',
-            date: 'September 2026',
-            desc: 'I built and hosted the Gob Gang Games site on Cloudflare to showcase Trust No One. It brings the game\'s pixel-art style to the web with animated backgrounds, gameplay previews, an overview of its three-button mechanics, and links to play the game and follow the team.',
-            expertise: ['HTML/CSS', 'JavaScript', 'Web Development', 'Cloudflare', 'Web Design'],
-            img: './assets/gob-gang-games-browse.webm',
-            poster: './assets/gob-gang-games-poster.jpg',
-            link: 'https://www.gobganggames.com/'
-        },
-        {
-            title: 'GRAV-AND-GO (ASU VGDC Game 2025-26)',
-            category: 'Systems Engineering',
-            date: '2025 - 2026',
-            desc: 'My first time building software with a large team. I joined the Systems Team for the ASU VGDC yearly game and learned how work gets divided across a group and integrated back together, which is what everything I have led since is built on.',
-            expertise: ['C#', 'Unity', 'Git', 'Team Collaboration', 'Gameplay Programming'],
-            img: './assets/ezgif-1804722bd5a82cf8.webm',
-            link: 'https://heatwave-studios.itch.io/grav-and-go'
-        },
-        {
-            title: '3D Animation Reel',
-            category: '3D Animation',
-            date: 'September 2025',
-            desc: 'Every shot in this reel is hand keyframed on existing rigs. I made these shots as practice pieces to sharpen my fundamentals, working through the 12 principles of animation and refining my posing, timing, and weight with each one.',
-            expertise: ['3D Animation', 'Keyframe Animation', 'Character Animation', 'Maya', 'Acting', '12 Principles of Animation'],
-            img: './assets/animation.webm',
-            link: 'https://vimeo.com/1035906176'
         }
     ]
 };
@@ -142,13 +133,43 @@ function renderAbout() {
 function renderMarquee() {
     const track = document.getElementById('marquee-track');
     const half = content.marquee
-        .map(t => `<span>${t}</span><span class="sep">⬡</span>`).join('');
+        .map(t => `<span>${t}</span><span class="sep"></span>`).join('');
     track.innerHTML = half + half;
 }
 
 function renderStack() {
-    document.getElementById('stack-tags').innerHTML =
-        content.stack.map(s => `<span class="tag">${s}</span>`).join('');
+    const art = {
+        graph: `<svg class="art-graph" viewBox="0 0 320 240" aria-hidden="true">
+            <path class="art-curve" d="M44 176 C100 176 110 56 165 56 S236 170 276 96"/>
+            <line class="art-handle" x1="44" y1="176" x2="100" y2="176"/><circle class="art-handle-end" cx="100" cy="176" r="3"/><line class="art-handle" x1="165" y1="56" x2="110" y2="56"/><circle class="art-handle-end" cx="110" cy="56" r="3"/><line class="art-handle" x1="165" y1="56" x2="220" y2="56"/><circle class="art-handle-end" cx="220" cy="56" r="3"/><line class="art-handle" x1="276" y1="96" x2="236" y2="170"/><circle class="art-handle-end" cx="236" cy="170" r="3"/><rect class="art-key" x="40" y="172" width="8" height="8"/><rect class="art-key" x="161" y="52" width="8" height="8"/><rect class="art-key" x="272" y="92" width="8" height="8"/>
+            <line class="art-head" x1="0" y1="19" x2="0" y2="221"/><circle class="art-rider" r="6"/></svg>`,
+        net: '<canvas class="art-net" aria-hidden="true"></canvas>',
+        game: `<svg viewBox="0 0 320 240" aria-hidden="true">
+            <clipPath id="art-safe"><rect x="26" y="19" width="268" height="202"/></clipPath>
+            <g clip-path="url(#art-safe)">
+                <line class="art-floor" x1="26" y1="186" x2="294" y2="186"/>
+                <rect class="art-coin" x="-7" y="62" width="14" height="14"/><text class="art-plus" x="124" y="60">+1</text><rect class="art-bit art-bit--0" x="96" y="65" width="6" height="6"/><rect class="art-bit art-bit--1" x="96" y="65" width="6" height="6"/><rect class="art-bit art-bit--2" x="96" y="65" width="6" height="6"/><rect class="art-bit art-bit--3" x="96" y="65" width="6" height="6"/><rect class="art-bit art-bit--4" x="96" y="65" width="6" height="6"/><rect class="art-bit art-bit--5" x="96" y="65" width="6" height="6"/><rect class="art-bit art-bit--6" x="96" y="65" width="6" height="6"/><rect class="art-bit art-bit--7" x="96" y="65" width="6" height="6"/>
+                <rect class="art-spike" x="0" y="160" width="26" height="26"/>
+                <rect class="art-spike art-spike--late" x="0" y="160" width="26" height="26"/>
+                <rect class="art-hero" x="84" y="154" width="32" height="32"/>
+            </g></svg>`,
+        code: `<svg viewBox="0 0 320 240" aria-hidden="true">
+            <path class="art-link" d="M160 72 C160 104 70 100 70 138"/><path class="art-link" d="M160 72 C160 104 160 100 160 138"/><path class="art-link" d="M160 72 C160 104 250 100 250 138"/>
+            <g class="art-dispatch"><rect x="122" y="32" width="76" height="40" rx="6"/></g>
+            <g class="art-store" style="--slot:2;transform-origin:70px 200px"><ellipse cx="70" cy="150" rx="34" ry="10"/><rect class="art-job" style="--slot:2;offset-path:path('M160 66 C160 104 70 100 70 172')" x="-8" y="-8" width="16" height="16" rx="2"/><path d="M36 150 a34 10 0 0 0 68 0 v40 a34 10 0 0 1 -68 0 z"/></g><g class="art-store" style="--slot:1;transform-origin:160px 200px"><ellipse cx="160" cy="150" rx="34" ry="10"/><rect class="art-job" style="--slot:1;offset-path:path('M160 66 C160 104 160 100 160 172')" x="-8" y="-8" width="16" height="16" rx="2"/><path d="M126 150 a34 10 0 0 0 68 0 v40 a34 10 0 0 1 -68 0 z"/></g><g class="art-store" style="--slot:0;transform-origin:250px 200px"><ellipse cx="250" cy="150" rx="34" ry="10"/><rect class="art-job" style="--slot:0;offset-path:path('M160 66 C160 104 250 100 250 172')" x="-8" y="-8" width="16" height="16" rx="2"/><path d="M216 150 a34 10 0 0 0 68 0 v40 a34 10 0 0 1 -68 0 z"/></g></svg>`
+    };
+    const shots = content.stack.map(({ title, what, art: drawing, tools }, i) => `
+        <article class="shot${i ? '' : ' shot--lead'}" style="--d:${i * 110}ms">
+            <div class="shot-picture">
+                <div class="shot-frame">${art[drawing] || ''}</div>
+            </div>
+            <div class="shot-text">
+                <h3 class="shot-title">${title}</h3>
+                <p class="shot-what">${what}</p>
+                <p class="shot-tools">${tools.join(' / ')}</p>
+            </div>
+        </article>`).join('');
+    document.getElementById('stack-tags').innerHTML = `<div class="board">${shots}</div>`;
 }
 
 function renderProjects(projects) {
@@ -201,13 +222,14 @@ function renderProjects(projects) {
             : '';
 
         return `
-        <article class="project" data-reveal>
+        <article class="project" id="project-${i + 1}" data-short="${proj.short || proj.title}" data-result="${proj.result || ''}" data-reveal>
             <div class="project-head">
                 <span class="mono project-num">${num}</span>
                 <span class="mono muted">${proj.category || 'Project'}</span>
                 <span class="mono muted">${proj.date || ''}</span>
             </div>
             <h3 class="project-title">${proj.title}</h3>
+            ${proj.result ? '<div class="pitch-slot"></div>' : ''}
             <div class="project-body">
                 ${mediaBlock}
                 <div class="project-side">
@@ -479,6 +501,11 @@ const lightbox = (() => {
         if (!root) build();
 
         stage.innerHTML = `<img src="${src}" alt="${label}">`;
+        const image = stage.querySelector('img');
+        const ready = () => stage.classList.remove('is-loading');
+        stage.classList.toggle('is-loading', !image.complete);
+        image.addEventListener('load', ready, { once: true });
+        image.addEventListener('error', ready, { once: true });
         caption.textContent = label;
 
         lastFocus = document.activeElement;
@@ -529,6 +556,11 @@ const lightbox = (() => {
 
 function initLightbox() {
     const triggers = [...document.querySelectorAll('[data-lightbox]')];
+
+    // Fetched up front, so opening one is instant.
+    triggers.forEach(t => {
+        new Image().src = t.dataset.lightbox;
+    });
 
     // These open a dialog, so they need to behave like controls: reachable by
     // keyboard and announced as buttons, not decorative images.
@@ -644,40 +676,6 @@ function initClock() {
     setInterval(tick, 1000);
 }
 
-/* ---------- Preloader ---------- */
-
-function runLoader(done) {
-    const loader = document.getElementById('loader');
-    const count = document.getElementById('loader-count');
-    const fill = document.getElementById('loader-fill');
-
-    if (reduceMotion) {
-        loader.remove();
-        done();
-        return;
-    }
-
-    document.body.classList.add('loading');
-
-    let n = 0;
-    const timer = setInterval(() => {
-        // Uneven steps read as real loading rather than a linear sweep.
-        n = Math.min(100, n + Math.random() * 9 + 3);
-        const v = Math.floor(n);
-        count.textContent = String(v).padStart(3, '0');
-        fill.style.width = v + '%';
-
-        if (n < 100) return;
-        clearInterval(timer);
-        setTimeout(() => {
-            loader.classList.add('done');
-            document.body.classList.remove('loading');
-            done();
-            setTimeout(() => loader.remove(), 1200);
-        }, 320);
-    }, 90);
-}
-
 /* ---------- Boot ---------- */
 
 function init() {
@@ -695,7 +693,7 @@ function init() {
     initNav();
     initClock();
 
-    runLoader(() => document.body.classList.add('ready'));
+    window.siteLoader.finish(() => document.body.classList.add('ready'));
 }
 
 if (document.readyState === 'loading') {

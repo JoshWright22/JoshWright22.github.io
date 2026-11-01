@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lamp intro editor</title>
+    <meta name="robots" content="noindex">
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --panel: #171717;
+            --line: #333;
+            --fg: #fdfdfd;
+            --muted: #8a8a8a;
+            --blue: #7ba6e8;
+            --red: #ff4d5a;
+            --yellow: #ffd23f;
+            --green: #6dff9c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: grid;
+            grid-template-rows: minmax(0, 1fr) auto auto auto auto;
+            background: var(--bg);
+            color: var(--fg);
+            font: 12px/1.4 'JetBrains Mono', ui-monospace, monospace;
+            user-select: none;
+        }
+
+        #stagewrap {
+            display: flex;
+            min-height: 0;
+        }
+
+        #stage {
+            flex: 1;
+            min-width: 0;
+            height: 100%;
+            display: block;
+        }
+
+        #refpanel {
+            width: 42%;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+            border-left: 1px solid var(--line);
+        }
+
+        #refpanel[hidden] {
+            display: none;
+        }
+
+        #refvideo {
+            flex: 1;
+            min-height: 0;
+            width: 100%;
+            object-fit: contain;
+        }
+
+        #refinfo {
+            padding: 4px 8px;
+            color: var(--muted);
+        }
+
+        .floor {
+            stroke: var(--line);
+        }
+
+        .ghost-name {
+            fill: #1d1d1d;
+            font: 900 150px/1 Inter, system-ui, sans-serif;
+        }
+
+        .ghost-photo {
+            fill: #161616;
+            stroke: var(--line);
+        }
+
+        .bone {
+            stroke: var(--fg);
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+
+        .part {
+            fill: var(--bg);
+            stroke: var(--fg);
+            stroke-width: 2;
+            stroke-linejoin: round;
+        }
+
+        .bulb {
+            fill: var(--fg);
+        }
+
+        .joint {
+            fill: var(--bg);
+            stroke: var(--fg);
+            stroke-width: 2;
+        }
+
+        .onion .bone,
+        .onion .part,
+        .onion .joint {
+            stroke: var(--blue);
+            fill: none;
+            stroke-width: 1;
+        }
+
+        .onion .bulb {
+            fill: none;
+        }
+
+        .onion {
+            opacity: 0.32;
+        }
+
+        .onion--next .bone,
+        .onion--next .part,
+        .onion--next .joint {
+            stroke: var(--green);
+        }
+
+        .ctrl {
+            fill: transparent;
+            stroke-width: 2;
+            cursor: grab;
+        }
+
+        .ctrl:hover,
+        .ctrl.active {
+            stroke: var(--green) !important;
+        }
+
+        .ctrl--head {
+            stroke: var(--red);
+        }
+
+        .ctrl--aim {
+            stroke: var(--yellow);
+        }
+
+        .ctrl--spin {
+            stroke: var(--green);
+        }
+
+        .ctrl--base {
+            stroke: var(--yellow);
+        }
+
+        .arc {
+            pointer-events: none;
+            fill: none;
+            stroke: var(--blue);
+            stroke-dasharray: 2 5;
+            opacity: 0.6;
+        }
+
+        .arc-dots {
+            fill: none;
+            stroke: var(--blue);
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+
+        .bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 10px;
+            align-items: center;
+            padding: 8px 12px;
+            background: var(--panel);
+            border-top: 1px solid var(--line);
+        }
+
+        button,
+        select {
+            font: inherit;
+            color: var(--fg);
+            background: #222;
+            border: 1px solid var(--line);
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            border-color: var(--blue);
+        }
+
+        button.on {
+            background: #2c4a7a;
+        }
+
+        .readout {
+            min-width: 8.5em;
+            color: var(--blue);
+        }
+
+        .hint {
+            margin-left: auto;
+            color: var(--muted);
+        }
+
+        input[type='number'],
+        input[type='text'] {
+            font: inherit;
+            color: var(--fg);
+            background: #222;
+            border: 1px solid var(--line);
+            padding: 3px 6px;
+        }
+
+        label {
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+            color: var(--muted);
+        }
+
+        #timeline {
+            display: block;
+            width: 100%;
+            height: 104px;
+            background: var(--bg);
+            cursor: ew-resize;
+        }
+
+        #status {
+            color: var(--green);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="stagewrap">
+        <svg id="stage" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid meet"></svg>
+        <div id="refpanel" hidden>
+            <video id="refvideo" muted playsinline preload="auto"></video>
+            <div id="refinfo"></div>
+        </div>
+    </div>
+
+    <div class="bar">
+        <button id="play" title="Space">Play</button>
+        <button id="undo" title="Ctrl+Z">Undo</button>
+        <button id="redo" title="Ctrl+Y">Redo</button>
+        <button id="prev" title=",">&larr; Key</button>
+        <button id="next" title=".">Key &rarr;</button>
+        <span class="readout" id="readout">f 0</span>
+        <button id="set" title="S">Set key</button>
+        <button id="del" title="X">Delete key</button>
+        <button id="copy" title="C">Copy pose</button>
+        <button id="paste" title="V">Paste pose</button>
+        <button id="note" title="N">Add note</button>
+        <label>Key type
+            <select id="ease">
+                <option value="pose">Pose</option>
+                <option value="antic">Antic</option>
+                <option value="bd-a">Breakdown 1 (bias A)</option>
+                <option value="bd-b">Breakdown 2 (bias B)</option>
+                <option value="mid">Middle breakdown</option>
+                <option value="ease-out">Ease out</option>
+                <option value="ease-in">Ease in</option>
+                <option value="hold">Moving hold</option>
+                <option value="nudge">Frame nudge</option>
+            </select>
+        </label>
+        <button id="contact" title="Base stops dead on this key">Contact</button>
+        <label>Tween
+            <button data-tween="0.15">15</button>
+            <button data-tween="0.33">33</button>
+            <button data-tween="0.5">50</button>
+            <button data-tween="0.67">67</button>
+            <button data-tween="0.85">85</button>
+        </label>
+        <label>Workflow
+            <select id="step">
+                <option value="1">1 Story poses + antics, stepped</option>
+                <option value="2">2 Breakdown 1: lead + arcs</option>
+                <option value="3">3 Breakdown 2: drag + arcs</option>
+                <option value="4">4 Middle breakdown</option>
+                <option value="5">5 Ease outs + ease ins</option>
+                <option value="6">6 Moving holds</option>
+                <option value="7" selected>Final: all keys</option>
+            </select>
+        </label>
+        <label>Spacing of
+            <select id="spacing">
+                <option value="head">Head</option>
+                <option value="base">Base</option>
+                <option value="aim">Head rotation</option>
+                <option value="lean">Base rotation</option>
+                <option value="curve-x">Curve: x</option>
+                <option value="curve-y">Curve: y</option>
+                <option value="curve-lean">Curve: lean</option>
+                <option value="curve-hx">Curve: head x</option>
+                <option value="curve-hy">Curve: head y</option>
+                <option value="curve-aim">Curve: aim</option>
+            </select>
+        </label>
+        <label>Source <input id="source" type="text" size="24" placeholder="film 1284" title="The reference frame this key came from"></label>
+        <label title="Frames this channel lands early (-) or late (+) against the key, so the axes don't all arrive together">Shift
+            <input data-shift="x" type="number" step="1" placeholder="x" style="width:3.6em">
+            <input data-shift="y" type="number" step="1" placeholder="y" style="width:3.6em">
+            <input data-shift="lean" type="number" step="1" placeholder="lean" style="width:3.6em">
+            <input data-shift="hx" type="number" step="1" placeholder="hx" style="width:3.6em">
+            <input data-shift="hy" type="number" step="1" placeholder="hy" style="width:3.6em">
+            <input data-shift="aim" type="number" step="1" placeholder="aim" style="width:3.6em">
+        </label>
+        <button id="refload" title="Pick a video from disk. It stays on this machine.">Reference video</button>
+        <label>Name <input id="refname" type="text" size="7" title="Keys whose Source starts with this name jump to that frame"></label>
+        <label>Offset <input id="refoffset" type="number" step="1" value="0" title="Used before the first key from this video: reference frame = lamp frame + offset"></label>
+        <label>Rotate <input id="lean" type="range" min="-180" max="180" step="1"></label>
+        <button id="onion" class="on" title="O">Onion skin</button>
+        <button id="speed">Speed 100%</button>
+        <span class="hint" id="hint"></span>
+    </div>
+
+    <canvas id="timeline"></canvas>
+
+    <div class="bar" id="notes"></div>
+
+    <div class="bar">
+        <label>Version <select id="version"></select></label>
+        <button id="save" title="Ctrl+S">Save to site</button>
+        <button id="download">Download JSON</button>
+        <button id="import">Import JSON</button>
+        <button id="copynotes">Copy notes</button>
+        <button id="reset">Reset to site file</button>
+        <input id="file" type="file" accept=".json" hidden>
+        <input id="reffile" type="file" accept="video/*" hidden>
+        <span id="status"></span>
+    </div>
+
+    <script src="lamp-intro.js"></script>
+    <script src="lamp-editor.js"></script>
+</body>
+
+</html>

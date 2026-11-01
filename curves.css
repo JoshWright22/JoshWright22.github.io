@@ -1,0 +1,2035 @@
+/* =============================================================
+   Graph-editor graphics: hero graph, page thread, timeline nav
+   ============================================================= */
+
+/* The whole site is sized in rem, so setting this scales everything to the screen.
+   16px at 1440x900. Phones keep the normal size. */
+html {
+    font-size: clamp(13px, min(1.111vw, 1.778vh), 34px);
+}
+
+@media (max-width: 720px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* The hero and banner fill the first screen, so the next section waits for a scroll */
+:root {
+    --banner: clamp(3.75rem, 6vw, 5rem);
+    --banner-gap: 1.25rem;
+    --nav-text: 0.7rem;
+    --nav-h: calc(var(--nav-text) * 5.72);
+}
+
+.hero {
+    position: relative;
+    min-height: calc(100svh - var(--banner) - var(--banner-gap));
+    padding-top: calc(var(--nav-h) + 1rem);
+    border-bottom: 0;
+}
+
+.section,
+.footer {
+    position: relative;
+    z-index: 1;
+}
+
+.hero > :not(.curve-field):not(.lamp):not(.rig-layer):not(.lamp-glow):not(.tag-fly) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Nav links stop with the section right under the bar, on that section's key */
+.section,
+.footer,
+.project {
+    scroll-margin-top: var(--nav-h);
+}
+
+/* The billboard is solid, so the curve passes behind it. It opens as the page loads. */
+.marquee {
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: var(--banner);
+    margin-bottom: var(--banner-gap);
+    padding: 0;
+    border-bottom: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+    transform: translateX(101%);
+    transition: transform 0.9s cubic-bezier(0.6, 0, 0.2, 1) var(--t-banner, 0.2s);
+}
+
+.marquee-track {
+    flex: none;
+}
+
+/* Waits for the loader to clear, then snaps in from the side like a news ticker */
+.ready .marquee {
+    transform: none;
+}
+
+.hero-tag {
+    margin: 0;
+    font-size: clamp(0.9rem, 1.7vw, 1.4rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+    width: fit-content;
+}
+
+.word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.ltr {
+    display: inline-block;
+}
+
+/* Each letter draws in outline, then fills, as its curve lands on it */
+.hero-tag {
+    position: relative;
+}
+
+.hero-tag .ltr {
+    position: relative;
+    color: transparent;
+    transition: color 0.3s ease 0.3s;
+}
+
+.hero-tag .ltr.is-drawn {
+    color: var(--accent-bright);
+}
+
+.tag-fly {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.tag-fly {
+    transition: opacity 0.35s ease;
+}
+
+.tag-fly.is-done {
+    opacity: 0;
+}
+
+.tag-fly path {
+    fill: none;
+    stroke: var(--accent-bright);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+}
+
+.ltr-draw {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.ltr-draw text {
+    font: inherit;
+    fill: none;
+    stroke: var(--accent-bright);
+    stroke-width: 1;
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+    transition: stroke-dashoffset 0.5s ease, opacity 0.3s ease 0.5s;
+}
+
+.is-drawn .ltr-draw text {
+    opacity: 0;
+    stroke-dashoffset: 0;
+}
+
+/* The bar now carries what this row said */
+.hero-top {
+    display: none;
+}
+
+/* Hero graph */
+
+.curve-field {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.curve-grid {
+    stroke: var(--line-soft);
+    stroke-width: 1;
+}
+
+.curve-line {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 2.6s linear;
+}
+
+.curve-line--alt {
+    stroke: var(--accent-bright);
+    stroke-width: 1.5;
+    opacity: 0.55;
+}
+
+.curve-mark {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.curve-handle {
+    stroke: var(--muted);
+    stroke-width: 1;
+}
+
+.curve-handle-end {
+    fill: var(--bg);
+    stroke: var(--muted);
+    stroke-width: 1;
+}
+
+.curve-key {
+    fill: var(--fg);
+}
+
+.ready .curve-line {
+    stroke-dashoffset: 0;
+    transition-duration: var(--t-draw, 2.6s);
+    transition-delay: var(--t-curves, 0.8s);
+}
+
+.ready .curve-line--alt {
+    transition-delay: calc(var(--t-curves, 0.8s) + 0.25s);
+}
+
+.ready .curve-mark {
+    opacity: 1;
+}
+
+/* One curve threaded down the whole page, drawn by scrolling */
+
+.thread {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.thread-track,
+.thread-line {
+    fill: none;
+    stroke-linecap: round;
+}
+
+.thread-track {
+    stroke: var(--line-soft);
+    stroke-width: 1;
+}
+
+.thread-line {
+    stroke: var(--accent);
+    stroke-width: 2;
+}
+
+/* Keys and handles stay hidden until the line reaches them */
+.thread-node {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.thread-node.passed {
+    opacity: 1;
+}
+
+.thread-key {
+    fill: var(--accent-bright);
+    stroke: var(--accent-bright);
+    stroke-width: 1;
+}
+
+/* Waits until the hero curve has drawn all the way to it */
+.thread-head {
+    fill: var(--fg);
+    stroke: var(--accent);
+    stroke-width: 2;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.ready .thread-head {
+    opacity: 1;
+    transition-delay: 2.6s;
+}
+
+/* Top bar: the ruler runs edge to edge, and everything else sits on it */
+
+.nav {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 0 0.875rem 1.05rem;
+    height: var(--nav-h);
+    font-size: var(--nav-text);
+    mix-blend-mode: normal;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+}
+
+.nav.hidden {
+    transform: none;
+}
+
+.nav-brand {
+    position: absolute;
+    left: calc(var(--nav-text) * 1.25);
+    bottom: calc(var(--nav-text) * 2.1);
+    z-index: 2;
+}
+
+.nav-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.nav-status {
+    gap: 0.6rem;
+}
+
+.nav-track {
+    position: absolute;
+    inset: 0;
+}
+
+.nav-ruler {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-ruler path {
+    stroke: var(--muted);
+    stroke-width: 1;
+    fill: none;
+    shape-rendering: crispEdges;
+}
+
+.nav-links {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.nav-links a {
+    position: absolute;
+    bottom: calc(var(--nav-text) * 2.1);
+    padding-bottom: 0;
+    font-size: var(--nav-text);
+    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+    display: none;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--accent-bright);
+}
+
+/* Keys sit on the ruler: hollow ahead of the playhead, solid once passed */
+.nav-key {
+    position: absolute;
+    bottom: 1px;
+    width: calc(var(--nav-text) * 0.625);
+    height: calc(var(--nav-text) * 0.625);
+    margin-left: calc(var(--nav-text) * -0.3125);
+    box-sizing: border-box;
+    background: var(--bg);
+    border: 1px solid var(--muted);
+    transform: rotate(45deg);
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-key.passed {
+    background: var(--accent-bright);
+    border-color: var(--accent-bright);
+}
+
+.nav-playhead {
+    position: absolute;
+    left: -0.5px;
+    bottom: 0;
+    width: 1px;
+    height: var(--nav-text);
+    background: var(--fg);
+    pointer-events: none;
+}
+
+/* Hops along the ruler while you scroll, then lands */
+.nav-ball {
+    position: absolute;
+    left: calc(var(--nav-text) * -0.446);
+    bottom: calc(var(--nav-text) * 0.982);
+    width: calc(var(--nav-text) * 0.893);
+    height: calc(var(--nav-text) * 0.893);
+    border-radius: 50%;
+    background: var(--accent-bright);
+    transform-origin: 50% 50%;
+    pointer-events: none;
+}
+
+/* Smear frames: extra copies of the ball, on screen only on the fastest frames */
+.nav-multiple {
+    position: absolute;
+    left: calc(var(--nav-text) * -0.446);
+    bottom: calc(var(--nav-text) * 0.982);
+    width: calc(var(--nav-text) * 0.893);
+    height: calc(var(--nav-text) * 0.893);
+    border-radius: 50%;
+    background: var(--accent-bright);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Desk lamp rig */
+
+/* Over the banner, which is the ground it lands on, so its base never gets cut off */
+.lamp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.lamp-bone {
+    stroke: var(--fg);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.lamp-strut {
+    stroke: var(--accent-bright);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+}
+
+.lamp-joint {
+    fill: var(--bg);
+    stroke: var(--fg);
+    stroke-width: 2;
+}
+
+.lamp-part {
+    fill: var(--bg);
+    stroke: var(--fg);
+    stroke-width: 2;
+    stroke-linejoin: round;
+}
+
+.lamp-bulb {
+    fill: var(--fg);
+}
+
+/* The bulb glows yellow once it clicks on */
+.lamp.is-lit .lamp-bulb {
+    animation: bulb-on 0.5s steps(1) both;
+}
+
+/* Off while it hops, and it clicks on to point at the name */
+.lamp-beam {
+    opacity: 0;
+}
+
+.lamp.is-lit .lamp-beam {
+    animation: lamp-on 0.5s steps(1) both;
+}
+
+.lamp-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    opacity: 0;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+.lamp-lit .lamp-glow {
+    animation: lamp-on 0.5s steps(1) both;
+}
+
+/* Flickers in step with the beam's lamp-on */
+@keyframes bulb-on {
+    0%, 30%, 60%, 100% {
+        fill: #ffd23f;
+    }
+
+    15%, 45% {
+        fill: var(--fg);
+    }
+}
+
+@keyframes lamp-on {
+    0%, 30%, 60% {
+        opacity: 1;
+    }
+
+    15%, 45% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Rig controls, coloured the way a Maya rig usually is. They arrive as lines
+   drawn from script, then the links fade up. */
+
+.rig-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.rig {
+    opacity: 0;
+}
+
+.is-rigged .rig {
+    opacity: 1;
+}
+
+.rig-curve {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.15s ease;
+}
+
+.rig-line {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.rig-detail {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.4s var(--ease), stroke 0.15s ease;
+}
+
+.is-drawn .rig-detail {
+    stroke-dashoffset: 0;
+}
+
+.rig-blue {
+    stroke: #bcd3f5;
+}
+
+.rig-yellow {
+    stroke: #ffd23f;
+}
+
+.rig-red {
+    stroke: #ffd23f;
+}
+
+.rig-link {
+    stroke: #bcd3f5;
+    stroke-width: 1;
+    stroke-dasharray: 4 5;
+    opacity: 0;
+    transition: opacity 0.4s ease 1.6s;
+}
+
+.rig-link--aim {
+    stroke: #ffd23f;
+}
+
+.is-rigged .rig-link {
+    opacity: 0.7;
+}
+
+/* Whatever is selected turns white */
+.is-hot .rig-curve {
+    stroke: #fdfdfd;
+}
+
+.rig-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    fill: #fdfdfd;
+}
+
+.lamp-dragging {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Anticipation: links pull back before they go */
+
+.project-link:hover {
+    animation: anticipate 0.5s var(--ease);
+}
+
+@keyframes anticipate {
+    0% {
+        transform: translateX(0);
+    }
+
+    30% {
+        transform: translateX(-7px) scaleX(0.94);
+    }
+
+    68% {
+        transform: translateX(8px) scaleX(1.05);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Loader: the ball lands on the number, and the number changes when it hits */
+
+.loader-ball {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent-bright);
+    transform-origin: 50% 50%;
+}
+
+.loader-count {
+    transform-origin: 50% 100%;
+}
+
+.loader-count.hit {
+    animation: count-hit 0.28s var(--ease);
+}
+
+@keyframes count-hit {
+    0% {
+        transform: scale(1.03, 0.9);
+    }
+
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+/* What I Build: a storyboard, one panel per skill, with AI leading across the top */
+
+.stack {
+    display: block;
+}
+
+/* Sits right under the bar and fits one screen */
+#stack {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: calc(100svh - var(--nav-h));
+    padding-top: clamp(1rem, 2.5vh, 1.75rem);
+    padding-bottom: clamp(1rem, 2.5vh, 1.75rem);
+}
+
+#stack .stack {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+}
+
+#stack .board {
+    flex: 1;
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.shot,
+.shot-picture {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.shot-picture {
+    flex: 1;
+}
+
+.shot .shot-frame {
+    flex: 1;
+    height: auto;
+    min-height: 100px;
+}
+
+.shot--lead {
+    display: grid;
+}
+
+#stack .section-head {
+    margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2.4vh, 1.75rem) clamp(1rem, 2vw, 1.75rem);
+}
+
+.shot--lead {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: stretch;
+}
+
+.shot--lead .shot-text {
+    align-self: end;
+}
+
+/* Same text height in every small panel, so the three frames match */
+.shot:not(.shot--lead) .shot-what {
+    min-height: 2.8em;
+}
+
+.shot:not(.shot--lead) .shot-tools {
+    min-height: 4.8em;
+}
+
+
+.shot--lead .shot-title {
+    margin-top: 0;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+.shot--lead .shot-what {
+    font-size: 1.05rem;
+}
+
+.shot--lead .shot-tools {
+    font-size: 0.8rem;
+    color: var(--accent-bright);
+}
+
+.shot {
+    opacity: 0;
+    transform: translateY(18px);
+}
+
+.stack.played .shot {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.5s ease var(--d), transform 0.7s var(--ease) var(--d);
+}
+
+.shot-head {
+    padding-bottom: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.shot-frame {
+    position: relative;
+    height: clamp(100px, 19vh, 190px);
+    background:
+        repeating-linear-gradient(to bottom, var(--line-soft) 0 1px, transparent 1px 25%);
+    overflow: hidden;
+}
+
+.shot-frame svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.shot-title {
+    margin: 0.6rem 0 0.25rem;
+    font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.shot-what {
+    margin: 0 0 0.45rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--muted);
+}
+
+.shot-tools {
+    margin: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+}
+
+/* Panel art */
+.art-curve {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.5;
+}
+
+.art-handle {
+    stroke: var(--muted);
+    stroke-width: 1;
+}
+
+.art-handle-end {
+    fill: #0a0a0a;
+    stroke: var(--muted);
+    stroke-width: 1;
+}
+
+.art-key {
+    fill: var(--fg);
+}
+
+.art-head {
+    stroke: var(--fg);
+    stroke-width: 1;
+}
+
+.art-rider {
+    fill: var(--accent-bright);
+}
+
+.art-net {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* One to many: a dispatcher hands each job to the next store in turn. Every piece runs
+   on the same 3 second cycle, offset by its slot, so a store squashes as its job lands. */
+.art-link {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 1.5;
+    stroke-dasharray: 3 5;
+}
+
+.art-store path,
+.art-store ellipse,
+.art-dispatch rect {
+    fill: #1c2c4a;
+    stroke: var(--accent-bright);
+    stroke-width: 2;
+    stroke-linejoin: round;
+}
+
+.art-store ellipse {
+    fill: #2c4a7a;
+}
+
+.art-store {
+    transform-box: view-box;
+    animation: art-store 3s infinite;
+    animation-delay: calc(var(--slot) * -1s);
+}
+
+/* The job is already inside by the time the store reacts, so it swallows, then settles */
+@keyframes art-store {
+    0%, 30%, 62%, 100% {
+        transform: scale(1, 1);
+    }
+
+    35% {
+        transform: scale(0.92, 1.14);
+    }
+
+    43% {
+        transform: scale(1.1, 0.84);
+    }
+
+    52% {
+        transform: scale(0.98, 1.03);
+    }
+}
+
+/* It crouches before each send and springs back as the job leaves */
+.art-dispatch {
+    transform-box: fill-box;
+    transform-origin: 50% 0%;
+    animation: art-dispatch 1s infinite;
+}
+
+@keyframes art-dispatch {
+    0%, 100% {
+        transform: scale(1, 1);
+    }
+
+    70% {
+        transform: scale(1, 1);
+    }
+
+    90% {
+        transform: scale(1.1, 0.8);
+    }
+
+    95% {
+        transform: scale(0.94, 1.14);
+    }
+}
+
+.art-job {
+    fill: #ffd23f;
+    stroke: #0a0a0a;
+    stroke-width: 2;
+    offset-rotate: 0deg;
+    animation: art-job 3s infinite, art-job-shape 3s linear infinite;
+    animation-delay: calc(var(--slot) * -1s);
+}
+
+/* One unbroken ease for the path, with the shape on its own track, so nothing hitches */
+@keyframes art-job {
+    0% {
+        offset-distance: 0%;
+        opacity: 1;
+        animation-timing-function: cubic-bezier(0.45, 0, 0.75, 0.6);
+    }
+
+    30% {
+        offset-distance: 100%;
+        opacity: 1;
+        animation-timing-function: step-end;
+    }
+
+    30.1%, 97% {
+        offset-distance: 0%;
+        opacity: 0;
+    }
+
+    100% {
+        offset-distance: 0%;
+        opacity: 1;
+    }
+}
+
+@keyframes art-job-shape {
+    0% {
+        transform: scale(1, 1);
+    }
+
+    12% {
+        transform: scale(0.94, 1.08);
+    }
+
+    30% {
+        transform: scale(0.68, 1.4);
+    }
+
+    31%, 100% {
+        transform: scale(1, 1);
+    }
+}
+
+/* A square runs and jumps the spikes */
+.art-hero {
+    fill: var(--accent-bright);
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: art-hop 0.8s infinite, art-stretch 0.8s linear infinite;
+}
+
+.art-spike {
+    fill: var(--fg);
+    animation: art-scroll 1.6s linear infinite;
+}
+
+.art-spike--late {
+    animation-delay: -0.8s;
+}
+
+.art-coin {
+    fill: none;
+    stroke: #ffd23f;
+    stroke-width: 2;
+    animation: art-coin 1.6s linear infinite;
+}
+
+.art-plus {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    fill: #ffd23f;
+    opacity: 0;
+    animation: art-plus 1.6s ease-out infinite;
+}
+
+@keyframes art-scroll {
+    from {
+        transform: translateX(330px);
+    }
+
+    to {
+        transform: translateX(-40px);
+    }
+}
+
+/* Up and down are each half of a gravity curve, so it never pauses at the top */
+@keyframes art-hop {
+    0%, 4% {
+        translate: 0 0;
+        animation-timing-function: cubic-bezier(0.33, 0.67, 0.67, 1);
+    }
+
+    52% {
+        translate: 0 -112px;
+        animation-timing-function: cubic-bezier(0.33, 0, 0.67, 0.33);
+    }
+
+    100% {
+        translate: 0 0;
+    }
+}
+
+@keyframes art-stretch {
+    0%, 4% {
+        transform: scale(1.28, 0.72);
+    }
+
+    12% {
+        transform: scale(0.78, 1.32);
+    }
+
+    34% {
+        transform: scale(0.96, 1.05);
+    }
+
+    52% {
+        transform: scale(1, 1);
+    }
+
+    72% {
+        transform: scale(0.96, 1.05);
+    }
+
+    94% {
+        transform: scale(0.78, 1.32);
+    }
+
+    100% {
+        transform: scale(1.28, 0.72);
+    }
+}
+
+/* Slides in from past the frame at the spikes' speed, so it arrives like they do.
+   It only jumps back while it's hidden, off the edge of the frame. */
+@keyframes art-coin {
+    0% {
+        transform: translateX(196px);
+        opacity: 1;
+    }
+
+    26% {
+        transform: translateX(100px);
+        opacity: 1;
+    }
+
+    26.5%, 60% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+
+    60.5% {
+        transform: translateX(350px);
+        opacity: 0;
+    }
+
+    61% {
+        transform: translateX(340px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(196px);
+        opacity: 1;
+    }
+}
+
+/* Collected: the pickup bursts into squares that fall away, and a +1 floats up */
+.art-bit {
+    fill: #ffd23f;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: art-bit 1.6s ease-out infinite;
+}
+
+.art-plus {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    fill: #ffd23f;
+    opacity: 0;
+    animation: art-plus 1.6s ease-out infinite;
+}
+
+@keyframes art-plus {
+    0%, 25.5% {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    46% {
+        opacity: 0;
+        transform: translateY(-14px);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.art-bit--0 {
+    --bx: -34px;
+    --by: -22px;
+}
+
+.art-bit--1 {
+    --bx: -16px;
+    --by: -38px;
+}
+
+.art-bit--2 {
+    --bx: 14px;
+    --by: -40px;
+}
+
+.art-bit--3 {
+    --bx: 36px;
+    --by: -18px;
+}
+
+.art-bit--4 {
+    --bx: 40px;
+    --by: 12px;
+}
+
+.art-bit--5 {
+    --bx: 18px;
+    --by: 34px;
+}
+
+.art-bit--6 {
+    --bx: -20px;
+    --by: 30px;
+}
+
+.art-bit--7 {
+    --bx: -40px;
+    --by: 8px;
+}
+
+@keyframes art-bit {
+    0%, 25.5% {
+        opacity: 0;
+        transform: translate(0, 0) scale(1) rotate(0);
+    }
+
+    26% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1) rotate(0);
+    }
+
+    42% {
+        opacity: 0;
+        transform: translate(var(--bx), calc(var(--by) + 26px)) scale(0.3) rotate(160deg);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.art-ghost {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1;
+    opacity: 0.5;
+}
+
+.art-floor {
+    stroke: var(--muted);
+    stroke-width: 1;
+}
+
+.art-ball {
+    fill: var(--accent-bright);
+    offset-path: path('M40 196 C70 40 120 40 150 196 C175 90 215 90 240 196 C256 140 276 140 292 196');
+    offset-rotate: 0deg;
+    animation: art-ride 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (max-width: 720px) {
+    .board,
+    .shot--lead {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .art-packet,
+    .art-bit,
+    .art-plus,
+    .art-store,
+    .art-dispatch,
+    .art-job,
+    .art-hero,
+    .art-spike,
+    .art-coin,
+    .art-ball {
+        animation: none;
+    }
+}
+
+/* Text sits on a plate, so the curve passes behind it */
+.shot-head,
+.project-tags .tag,
+.project-link,
+.project-head,
+.hug,
+.section-head > span {
+    background: var(--bg);
+}
+
+/* Follows each line's length, tall enough that the lines of a paragraph join up */
+.hug {
+    padding-block: max(0px, calc(0.5lh - 0.45em));
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+/* Each plate hugs its own text, so the line runs right up to the words */
+.project-desc,
+.project-title,
+.project-head {
+    width: fit-content;
+}
+
+.project-title,
+.shot-head,
+.shot-title,
+.shot-what,
+.shot-tools {
+    width: fit-content;
+}
+
+.project-head {
+    width: fit-content;
+    padding-right: 1rem;
+}
+
+/* The banner divider is a keyframe */
+.marquee .sep {
+    display: inline-block;
+    width: 0.42em;
+    height: 0.42em;
+    font-size: inherit;
+    background: var(--accent-bright);
+    transform: rotate(45deg);
+}
+
+@media (max-width: 720px) {
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .curve-line {
+        stroke-dashoffset: 0;
+        transition: none;
+    }
+
+    .curve-mark {
+        opacity: 1;
+        transition: none;
+    }
+
+    .thread-head {
+        display: none;
+    }
+}
+
+/* No room for the project labels on small screens, so their keys go too */
+@media (max-width: 1000px) {
+    .nav-links a[href^='#project'],
+    .nav-key[data-for^='#project'] {
+        display: none;
+    }
+}
+
+/* No lamp to wait for on small screens */
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-tag {
+        clip-path: none;
+        transition: none;
+    }
+
+    .marquee {
+        transform: none;
+        transition: none;
+    }
+}
+
+/* Lightbox: no glow behind the image, and a ball while a big one loads */
+.lightbox-stage {
+    box-shadow: none;
+}
+
+.lightbox-stage img {
+    transition: opacity 0.35s ease;
+}
+
+.lightbox-stage.is-loading {
+    min-width: min(40vw, 480px);
+    min-height: 40vh;
+}
+
+.lightbox-stage.is-loading img {
+    opacity: 0;
+}
+
+.lightbox-stage.is-loading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 40%;
+    width: 22px;
+    height: 22px;
+    margin-left: -11px;
+    border-radius: 50%;
+    background: var(--accent-bright);
+    animation: lightbox-ball 0.5s infinite;
+}
+
+@keyframes lightbox-ball {
+    0%, 100% {
+        transform: translateY(0) scale(1.3, 0.7);
+    }
+
+    8% {
+        transform: translateY(-34px) scale(0.8, 1.25);
+    }
+
+    50% {
+        transform: translateY(-70px) scale(1, 1);
+    }
+
+    92% {
+        transform: translateY(-34px) scale(0.8, 1.25);
+    }
+}
+
+/* Contact fills the last screen exactly */
+.footer {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: calc(100svh - var(--nav-h));
+    padding-top: clamp(1rem, 2.5vh, 1.75rem);
+    padding-bottom: clamp(1rem, 2.5vh, 1.75rem);
+}
+
+.footer .section-head {
+    margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
+}
+
+.footer-cta {
+    flex: 1;
+    margin: 0;
+    font-size: min(15vw, 19svh);
+}
+
+.footer-grid {
+    margin-top: auto;
+}
+
+/* Stacked panels can't share one screen, so each frame gets its own height */
+@media (max-width: 720px) {
+    #stack {
+        min-height: 0;
+    }
+
+    #stack .board {
+        grid-template-rows: none;
+    }
+
+    .shot .shot-frame {
+        flex: none;
+        height: clamp(200px, 42vw, 340px);
+    }
+}
+
+/* One look for all four panels, in the site's own blues: big shapes are tinted glass with
+   a bright outline, and the thing doing the action is solid with an ink edge. White is
+   whatever moves. Yellow, the rig's colour, is whatever gets picked up or sent. */
+.shot-frame {
+    --ink: var(--bg);
+    --deep: #2f5ba8;
+    --blue: #4776ca;
+    --sky: #7ba6e8;
+    --pale: #bcd3f5;
+    --yellow: #ffd23f;
+}
+
+.art-curve {
+    stroke: var(--blue);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.art-handle {
+    stroke: rgba(253, 253, 253, 0.4);
+    stroke-dasharray: 3 4;
+}
+
+.art-handle-end {
+    fill: var(--sky);
+    stroke: var(--ink);
+    stroke-width: 1.5;
+}
+
+.art-key {
+    fill: var(--yellow);
+    stroke: var(--ink);
+    stroke-width: 1.5;
+}
+
+.art-head {
+    stroke: rgba(253, 253, 253, 0.35);
+}
+
+.art-rider {
+    fill: #fdfdfd;
+    stroke: var(--ink);
+    stroke-width: 2.5;
+}
+
+.art-floor {
+    stroke: var(--blue);
+    stroke-width: 2;
+}
+
+.art-hero {
+    fill: #fdfdfd;
+    stroke: #000;
+    stroke-width: 4;
+    paint-order: stroke;
+}
+
+.art-spike {
+    fill: rgba(188, 211, 245, 0.16);
+    stroke: var(--pale);
+    stroke-width: 2;
+}
+
+.art-coin {
+    fill: var(--yellow);
+    stroke: var(--ink);
+    stroke-width: 2;
+}
+
+.art-bit {
+    stroke: var(--ink);
+    stroke-width: 1;
+}
+
+.art-ghost {
+    fill: rgba(71, 118, 202, 0.2);
+    stroke: var(--blue);
+    stroke-width: 2;
+    opacity: 1;
+}
+
+.art-link {
+    stroke: rgba(253, 253, 253, 0.2);
+    stroke-width: 1.5;
+}
+
+.art-store ellipse {
+    fill: var(--ink);
+    stroke: var(--blue);
+}
+
+.art-store path {
+    fill: #172238;
+    stroke: var(--blue);
+}
+
+.art-store[style*='--slot:1'] ellipse {
+    stroke: var(--sky);
+}
+
+.art-store[style*='--slot:1'] path {
+    fill: #212d3e;
+    stroke: var(--sky);
+}
+
+.art-store[style*='--slot:0'] ellipse {
+    stroke: var(--pale);
+}
+
+.art-store[style*='--slot:0'] path {
+    fill: #2c3138;
+    stroke: var(--pale);
+}
+
+.art-dispatch rect {
+    fill: rgba(255, 210, 63, 0.2);
+    stroke: var(--yellow);
+}
+
+.art-job {
+    fill: var(--yellow);
+    stroke: var(--ink);
+}
+
+/* About fills one screen, laid out like What I Build: big type on one side, framed
+   pictures on the other, all sized from the screen height. */
+#about {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: calc(100svh - var(--nav-h));
+    padding-top: clamp(1rem, 2.5vh, 1.75rem);
+    padding-bottom: clamp(1rem, 2.5vh, 1.75rem);
+}
+
+#about .section-head {
+    margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
+}
+
+.about {
+    flex: 1;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: stretch;
+    min-height: 0;
+}
+
+.about-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.about-heading {
+    width: fit-content;
+    margin: 0 0 clamp(0.5rem, 2vh, 1.25rem);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+.about-text {
+    width: fit-content;
+    max-width: 44rem;
+    margin: 0 0 clamp(0.75rem, 2.5vh, 1.75rem);
+    font-size: clamp(0.95rem, 2vh, 1.15rem);
+    line-height: 1.5;
+}
+
+.about-body .link-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    border-top: 0;
+}
+
+.about-body .link-row {
+    display: inline-flex;
+    gap: 0.5rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.about-body .link-row:hover {
+    border-color: var(--accent-bright);
+    padding-left: 0.8rem;
+}
+
+.about-photos {
+    order: -1;
+    align-self: center;
+    margin: 0;
+}
+
+.about-photos img,
+.about-photos #profile-img {
+    width: clamp(130px, 18vw, 290px);
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.05);
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+    cursor: zoom-in;
+    transition: filter 0.8s var(--ease), outline-color 0.8s var(--ease);
+}
+
+.about-photos img.is-onscreen,
+.about-photos img:hover,
+.about-photos #profile-img.is-onscreen,
+.about-photos #profile-img:hover {
+    filter: grayscale(0%);
+    outline-color: var(--accent);
+}
+
+@media (max-width: 1000px) {
+    #about {
+        min-height: 0;
+    }
+
+    .about {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .about-photos {
+        order: 0;
+    }
+
+    .about-photos img,
+    .about-photos #profile-img {
+        width: min(62vw, 320px);
+        height: auto;
+        max-height: none;
+    }
+}
+
+/* Nothing may widen the page: on a phone that zooms the whole site out */
+html,
+body {
+    overflow-x: clip;
+}
+
+.nav {
+    overflow-x: clip;
+}
+
+/* Fingers need more to hit than the labels' own text */
+@media (pointer: coarse) {
+    .nav-links a {
+        margin: -0.6rem -0.4rem;
+        padding: 0.6rem 0.4rem;
+    }
+
+    .footer-socials a {
+        display: inline-block;
+        padding-block: 0.3rem;
+    }
+}
+
+/* Everything in the opening runs off the --t- delays that curves.js sets */
+.nav {
+    transform: translateX(-101%);
+}
+
+.ready .nav {
+    transform: none;
+    transition: transform 0.9s cubic-bezier(0.6, 0, 0.2, 1) var(--t-bar, 0s);
+}
+
+/* The name's letters come up out of their masks one after another */
+.hero-title .line-in {
+    transform: none;
+    transition: none;
+}
+
+.hero-title .ltr {
+    transform: translateY(110%);
+    transition: transform 0.85s var(--ease);
+    transition-delay: calc(var(--t-name, 0s) + var(--i) * 55ms);
+}
+
+.ready .hero-title .ltr {
+    transform: none;
+}
+
+/* Nothing of the photo shows until the curve gets there, so the lines run on behind it */
+html:not(.photo-in) .hero-portrait-mask {
+    border-color: transparent !important;
+    background: none;
+}
+
+html:not(.photo-in) .hero-portrait-mask > img {
+    opacity: 0;
+}
+
+.hero-portrait-mask {
+    position: relative;
+}
+
+.hero-portrait img {
+    transform: none;
+    transition: filter 0.6s var(--ease), scale 0.6s var(--ease);
+}
+
+.hero-portrait {
+    position: relative;
+}
+
+.photo-strip {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(0 100% 0 0);
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.photo-strip.is-done {
+    opacity: 0;
+}
+
+.photo-strip img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* The name is saved for last: on the flash each letter makes its own entrance */
+.intro-name-lit .hero-title .line {
+    overflow: visible;
+}
+
+/* Each letter stays inside its own box until it lands, so none cross a neighbour */
+.slot {
+    display: inline-block;
+    overflow: clip;
+    overflow-clip-margin: 0.08em;
+}
+
+.intro-name-lit .hero-title .ltr,
+.intro-name-lit .ready .hero-title .ltr {
+    opacity: 0;
+    transform: none;
+    transition: none;
+}
+
+.intro-name-lit .lamp-lit .hero-title .ltr {
+    animation: var(--enter) 0.8s var(--ease) both, lamp-on 0.5s steps(1) both;
+    animation-delay: calc(var(--i) * 40ms);
+}
+
+.ltr-0 { --enter: enter-drop; transform-origin: 50% 100%; }
+.ltr-1 { --enter: enter-pop; }
+.ltr-2 { --enter: enter-flip; }
+.ltr-3 { --enter: enter-rise; transform-origin: 50% 100%; }
+.ltr-4 { --enter: enter-skew; }
+.ltr-5 { --enter: enter-hinge; transform-origin: 0 100%; }
+.ltr-6 { --enter: enter-grow; transform-origin: 50% 0; }
+.ltr-7 { --enter: enter-spin; }
+.ltr-8 { --enter: enter-slide; }
+.ltr-9 { --enter: enter-tip; transform-origin: 50% 100%; }
+
+@keyframes enter-drop {
+    0% { transform: translateY(-120%) scale(0.8, 1.3); }
+    55% { transform: translateY(0) scale(1.25, 0.7); }
+    78% { transform: translateY(-9%) scale(0.96, 1.05); }
+    100% { transform: none; }
+}
+
+@keyframes enter-pop {
+    0% { transform: scale(0) rotate(-120deg); }
+    65% { transform: scale(1.18) rotate(8deg); }
+    100% { transform: none; }
+}
+
+@keyframes enter-flip {
+    0% { transform: perspective(600px) rotateX(-100deg); }
+    70% { transform: perspective(600px) rotateX(14deg); }
+    100% { transform: none; }
+}
+
+@keyframes enter-rise {
+    0% { transform: scaleY(0); }
+    60% { transform: scaleY(1.25); }
+    82% { transform: scaleY(0.94); }
+    100% { transform: none; }
+}
+
+@keyframes enter-skew {
+    0% { transform: translateX(-110%) skewX(35deg); }
+    65% { transform: translateX(4%) skewX(-10deg); }
+    100% { transform: none; }
+}
+
+@keyframes enter-hinge {
+    0% { transform: rotate(-95deg); }
+    62% { transform: rotate(10deg); }
+    84% { transform: rotate(-4deg); }
+    100% { transform: none; }
+}
+
+@keyframes enter-grow {
+    0% { transform: scaleY(0); }
+    68% { transform: scaleY(1.2); }
+    100% { transform: none; }
+}
+
+@keyframes enter-spin {
+    0% { transform: scale(0.3) rotate(240deg); }
+    72% { transform: scale(1.08) rotate(-10deg); }
+    100% { transform: none; }
+}
+
+@keyframes enter-slide {
+    0% { transform: translateX(110%) scaleX(1.5); }
+    60% { transform: translateX(-8%) scaleX(0.86); }
+    100% { transform: none; }
+}
+
+@keyframes enter-tip {
+    0% { transform: translateY(110%) rotate(30deg); }
+    58% { transform: rotate(-12deg); }
+    80% { transform: rotate(5deg); }
+    100% { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav,
+    .ltr {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none;
+    }
+}
+
+/* A project's result pops off the page curve as the line reaches it */
+.result-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    pointer-events: none;
+}
+
+.result {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: max-content;
+    transform: translateY(-50%);
+}
+
+.result--wrap {
+    width: auto;
+}
+
+.result--wrap span {
+    display: block;
+    width: 13rem;
+}
+
+.result--left {
+    flex-direction: row-reverse;
+    transform: translate(-100%, -50%);
+}
+
+.result i {
+    flex: none;
+    width: 0.7rem;
+    height: 0.7rem;
+    margin-left: -0.35rem;
+    background: #ffd23f;
+    transform: scale(0);
+    transition: transform 0.16s cubic-bezier(0.34, 1.8, 0.64, 1);
+}
+
+.result--left i {
+    margin: 0 -0.35rem 0 0;
+}
+
+.result span {
+    padding: 0.5rem 0.9rem;
+    background: var(--bg);
+    border: 1px solid var(--accent);
+    color: var(--fg);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.22s var(--ease) 0.04s;
+}
+
+.result--left span {
+    clip-path: inset(0 0 0 100%);
+}
+
+.result.is-on i {
+    transform: scale(1);
+}
+
+.result.is-still i,
+.result.is-still span {
+    transition: none;
+}
+
+/* A little past the box, so a fractional width can't shave off the border */
+.result.is-on span {
+    clip-path: inset(-2px);
+}
+
+@media (max-width: 720px) {
+    .pitch-slot {
+        height: 3.4rem;
+    }
+
+    .result--top {
+        display: block;
+        transform: none;
+    }
+
+    .result--top i {
+        position: absolute;
+        top: -0.35rem;
+        left: var(--key);
+        z-index: 1;
+        margin: 0 0 0 -0.35rem;
+    }
+
+    .result--top span {
+        display: block;
+        width: fit-content;
+    }
+
+    .result span {
+        padding: 0.3rem 0.55rem;
+        font-size: 1.05rem;
+    }
+}
+
+/* Phones stack the hero so the lamp can light the name from just below it */
+@media (max-width: 720px) {
+    .hero {
+        justify-content: flex-start;
+        padding-bottom: 10.5rem;
+    }
+
+    .hero-main {
+        display: contents;
+    }
+
+    .hero-portrait {
+        order: 1;
+        z-index: 1;
+        margin-bottom: 1rem;
+    }
+
+    .hero-tag {
+        order: 2;
+        margin-bottom: auto;
+    }
+
+    .hero-title {
+        position: relative;
+        order: 3;
+        z-index: 1;
+    }
+}
+
+/* Phone top bar: name on the left, links on the right, the ruler showing scroll progress */
+@media (max-width: 720px) {
+    .nav-links {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 1.1rem;
+        padding: 0 0.875rem calc(var(--nav-text) * 3.7);
+        box-sizing: border-box;
+    }
+
+    .nav-brand {
+        bottom: calc(var(--nav-text) * 3.7);
+    }
+
+    .nav-links a {
+        position: static;
+    }
+
+    .nav-key {
+        display: none;
+    }
+}
+
+/* Every skill list reads in the same blue */
+.shot .shot-tools,
+.shot .shot-tools .hug {
+    color: var(--accent-bright);
+}
+
+/* The top bar shows where you are, so the browser's scrollbar stays hidden */
+html {
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
