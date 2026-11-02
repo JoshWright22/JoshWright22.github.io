@@ -1923,6 +1923,14 @@ html:not(.photo-in) .hero-portrait-mask > img {
     clip-path: inset(0 0 0 100%);
 }
 
+/* The layer lets clicks through, but a tag's own text can be selected and copied */
+.result span {
+    pointer-events: auto;
+    user-select: text;
+    -webkit-user-select: text;
+    cursor: text;
+}
+
 .result.is-on i {
     transform: scale(1);
 }

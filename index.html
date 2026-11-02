@@ -7,12 +7,13 @@
     <title>Josh Wright - Animation Engineer</title>
     <meta name="description"
         content="Josh Wright is an animation engineer and computer science student. I build animation tools and tracking for 3D characters, and I post what I make on YouTube.">
+    <link rel="preload" as="image" href="assets/me.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=8">
-    <link rel="stylesheet" href="curves.css?v=116">
+    <link rel="stylesheet" href="curves.css?v=117">
     <link rel="icon" type="image/jpeg" href="assets/me.jpg">
 </head>
 
@@ -55,14 +56,15 @@
             const SIZE = 44;
             const HOLD = 92;
             let n = 0;
-            let hits = 0;
-            let lastHit = performance.now();
             let onDone = null;
-            let last = null;
+            let finished = false;
+            let run = null;
+            let ticker = 0;
 
             // The number only changes when the ball lands on it. It holds short
             // of 100 until the page is really ready.
-            function land(now) {
+            function land() {
+                if (finished) return;
                 const room = onDone ? 100 : HOLD;
                 n = Math.min(room, n + Math.random() * 10 + 11);
                 const v = Math.floor(n);
@@ -71,10 +73,11 @@
                 count.classList.remove('hit');
                 void count.offsetWidth;
                 count.classList.add('hit');
-                hits++;
-                lastHit = now;
 
                 if (n < 100) return;
+                finished = true;
+                clearInterval(ticker);
+                if (run) run.cancel();
                 ball.remove();
                 setTimeout(() => {
                     loader.classList.add('done');
@@ -84,35 +87,57 @@
                 }, 320);
             }
 
-            function bounce(now) {
+            // The bounce runs as one looping animation the browser plays by itself, so
+            // the page setting itself up underneath can't make the ball stutter. One loop
+            // is three hops, last digit to first, first to second, second to last: a curve
+            // from one digit to the next, quick off the number, a long hang, quick back in.
+            function animate() {
                 const box = count.getBoundingClientRect();
-                const ms = now - lastHit;
-                const t = Math.min(1, ms / HANG);
-
-                // A curve from one digit to the next: quick off the number, a long
-                // hang, then quick back into it.
                 const digitX = i => box.left + box.width * (i + 0.5) / 3 - SIZE / 2;
-                const from = digitX((hits + 2) % 3);
-                const to = digitX(hits % 3);
-                const edge = Math.abs(2 * t - 1);
-                const x = from + (to - from) * t;
-                const y = box.top + box.height * 0.08 - SIZE - (1 - edge ** 3) * HEIGHT;
-
-                // The stretch follows the ball's real direction of travel.
-                const dx = last ? x - last.x : 0;
-                const dy = last ? y - last.y : 0;
-                const moved = Math.hypot(dx, dy);
-                const angle = Math.atan2(dy, dx);
-                const stretch = Math.min(0.3, moved / 90);
-                ball.style.transform = `translate(${x}px, ${y}px) rotate(${angle}rad) scale(${1 + stretch}, ${1 - stretch * 0.6})`;
-
-                last = { x, y };
-
-                if (ms >= HANG) land(now);
-                if (n < 100) requestAnimationFrame(bounce);
+                const STEPS = 24;
+                const points = [];
+                [[2, 0], [0, 1], [1, 2]].forEach(([a, b], hop) => {
+                    for (let i = 0; i < STEPS; i++) {
+                        const t = i / STEPS;
+                        const edge = Math.abs(2 * t - 1);
+                        points.push({
+                            offset: (hop + t) / 3,
+                            x: digitX(a) + (digitX(b) - digitX(a)) * t,
+                            y: box.top + box.height * 0.08 - SIZE - (1 - edge ** 3) * HEIGHT
+                        });
+                    }
+                });
+                points.push({ ...points[0], offset: 1 });
+                // The stretch follows the ball's real direction of travel, at a frame's worth of it.
+                const perFrame = (1000 / 60) / (HANG / STEPS);
+                const frames = points.map((p, i) => {
+                    const prev = points[(i - 1 + points.length - 1) % (points.length - 1)];
+                    const dx = (p.x - prev.x) * perFrame;
+                    const dy = (p.y - prev.y) * perFrame;
+                    const stretch = Math.min(0.3, Math.hypot(dx, dy) / 90);
+                    const angle = Math.atan2(dy, dx);
+                    return { offset: p.offset, transform: `translate(${p.x}px, ${p.y}px) rotate(${angle}rad) scale(${1 + stretch}, ${1 - stretch * 0.6})` };
+                });
+                const at = run ? run.currentTime : 0;
+                if (run) run.cancel();
+                run = ball.animate(frames, { duration: HANG * 3, iterations: Infinity });
+                run.currentTime = at;
             }
 
-            requestAnimationFrame(bounce);
+            animate();
+            // Landings are read off the ball itself, so the number can't drift away from it
+            // while the page is busy setting itself up.
+            let landed = 0;
+            ticker = setInterval(() => {
+                const hops = Math.floor(run.currentTime / HANG);
+                if (hops > landed) {
+                    landed = hops;
+                    land();
+                }
+            }, 8);
+            // The number's box moves once its font arrives, and with the window.
+            addEventListener('resize', () => finished || animate());
+            if (document.fonts) document.fonts.ready.then(() => finished || animate());
 
             window.siteLoader = {
                 finish(done) {
@@ -229,9 +254,9 @@
         </div>
     </footer>
 
-    <script src="script.js?v=60"></script>
+    <script src="script.js?v=68"></script>
     <script src="lamp-intro.js?v=7"></script>
-    <script src="curves.js?v=108"></script>
+    <script src="curves.js?v=115"></script>
 </body>
 
 </html>

@@ -8,7 +8,7 @@ const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
     aboutH: 'Animation Engineer',
-    aboutT: 'Hey, I\'m Josh. I\'m an animation engineer and a Computer Science student at Arizona State University. I want to help create the next generation of high quality media. I learned to keyframe characters by hand. Now I have turned my efforts into creating models, platforms and research that anyone can use to make what they imagine. At my internship at UNOMi I fine-tune the vision models behind markerless motion capture and host them on Microsoft Azure. I want to do R&D at the top animation companies. Some of my personal work includes Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam, and AtOMoC SHeLiS, which will be on Steam shortly. I post what I\'m building on YouTube, so if you want to work on something together, reach out!',
+    aboutT: 'Hey, I\'m Josh. I\'m an animation engineer and a Computer Science student at Arizona State University. I want to help create the next generation of high quality media by doing R&D at the top animation companies. I learned to keyframe characters by hand, and now I have turned my efforts into creating models, platforms and research that anyone can use to make what they imagine. At my internship at UNOMi I fine-tune the vision models behind markerless motion capture and host them on Microsoft Azure. Some of my personal work includes Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam, and AtOMoC SHeLiS, which will be on Steam shortly. I post what I\'m building on YouTube, so if you want to work on something together, reach out!',
     links: [
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' },
         { text: 'Twitter', url: 'https://x.com/joshwright_dev' },
@@ -40,10 +40,10 @@ const content = {
             link: 'https://getunomi.com/3d-lip-sync/'
         },
         {
-            title: 'Trust No One', short: 'TNO', result: 'Placed top 0.4% of 2,253 games',
+            title: 'Trust No One', short: 'TNO', result: 'Placed #9 of 2,253 games',
             category: 'Game Development',
             date: 'August 2026',
-            desc: 'I led design on a team of six we put together ourselves, and we shipped a finished game in one week for the Brackeys Game Jam 2026.2. It placed #9 out of 2,253 entries, which is the top 0.4%, and was the 14th most popular entry in the jam. Brackeys also mentioned it in their video for the jam. I designed the game from the ground up, including its core combat, decided what made the cut under a one week deadline, programmed the party members and their upgrade systems, and drew some of the items.',
+            desc: 'I designed the core combat and programmed the party members and their upgrade systems in C# for this Unity game. Our team of six put itself together and shipped it in one week for the Brackeys Game Jam 2026.2. It placed #9 out of 2,253 entries and was the 14th most popular, and Brackeys mentioned it in their jam video. I also led design, decided what made the cut, drew some of the items and built the game\'s promo website.',
             expertise: ['Team Leadership', 'Project Planning', 'C#', 'Unity', 'Gameplay Programming', 'Systems Design'],
             img: './assets/trust-no-one.webm',
             link: 'https://hozer347.itch.io/trust-no-one'
@@ -77,7 +77,7 @@ const content = {
             link: 'https://gamedevclubclub.com/'
         },
         {
-            title: 'AtOMoC SHeLiS', short: 'AtOMoC', result: 'Placed #12 in the Club Club Jam Jam',
+            title: 'AtOMoC SHeLiS', short: 'AtOMoC', result: 'Placed #12 of 150 in the Club Club Jam Jam',
             category: 'Game Development',
             date: 'August 2026',
             desc: 'I designed and built this chemistry themed roguelike auto battler solo, where you buy elements each round and connect them into a growing molecule that fights for you. I made it for the Club Club Jam Jam, which I also helped organize and run, and it placed #12. Since the jam I have been turning playtest feedback into a roadmap and expanding it into a Steam release covering all 118 elements.',
@@ -86,19 +86,19 @@ const content = {
             link: 'https://joshwright.itch.io/atomoc-shelis'
         },
         {
-            title: 'Gob Spin', short: 'Gob', result: 'Placed top 5% of the jam',
+            title: 'Gob Spin', short: 'Gob', result: 'Placed #140 of 3,498 games',
             category: 'Game Development',
             date: 'June 2026',
-            desc: 'I led a small team through this one week build, a physics based action game where you play as a goblin who spins. I directed the design, split the work across the team, and implemented core systems alongside them. We placed in the top 5% of the jam.',
+            desc: 'I led a small team through this one week build, a physics based action game where you play as a goblin who spins. I directed the design, split the work across the team, and implemented core systems alongside them. We placed #140 out of 3,498 entries in The Very Serious Juniper Dev Game Jam.',
             expertise: ['Team Leadership', 'C#', 'Unity', 'Physics Systems', 'Gameplay Programming', 'Game Design'],
             img: './assets/gobspin.webm',
             link: 'https://hozer347.itch.io/gobspin'
         },
         {
-            title: 'Slush Rush', short: 'Slush', result: 'Placed top 15% of the jam',
+            title: 'Slush Rush', short: 'Slush', result: 'Placed #69 of 434 games',
             category: 'Game Development',
             date: 'June 2026',
-            desc: 'I designed and implemented the core mechanics while directing a small team through a one week build. I set the scope, decided early what to leave out, and shipped polished systems under a tight deadline. We placed in the top 15% of the jam.',
+            desc: 'I designed and implemented the core mechanics while directing a small team through a one week build. I set the scope, decided early what to leave out, and shipped polished systems under a tight deadline. We placed #69 out of 434 entries in Comfy Jam: Summer.',
             expertise: ['Team Leadership', 'Project Planning', 'Python', 'Godot', 'Gameplay Programming', 'Systems Design'],
             img: './assets/slush-rush.webm',
             link: 'https://joshwright.itch.io/slush-rush'
@@ -192,7 +192,7 @@ function renderProjects(projects) {
         const fit = proj.fit === 'contain' ? ' is-contained' : '';
 
         const media = isVideo
-            ? `<video muted loop playsinline preload="none" poster="${poster}" class="project-video${fit}">
+            ? `<video muted loop playsinline preload="none" data-poster="${poster}" class="project-video${fit}">
                    <source src="${proj.img}" type="video/${proj.img.endsWith('.mp4') ? 'mp4' : 'webm'}">
                </video>`
             : `<div class="project-image" style="background-image:url('${proj.img}')"></div>`;
@@ -283,12 +283,22 @@ function initVideos() {
         v.addEventListener('pause', () => card(v).classList.remove('is-playing'));
     });
 
+    // Posters wait until the hero photo is in, so they don't slow it down.
+    // A card near the screen gets its poster straight away.
+    const showPoster = v => {
+        if (!v.dataset.poster) return;
+        v.poster = v.dataset.poster;
+        delete v.dataset.poster;
+    };
+    (window.siteWarm || Promise.resolve()).then(() => videos.forEach(showPoster));
+
     // Nothing downloads on load. A clip starts buffering once its card is near
     // the viewport, so it is ready by the time it scrolls in.
     if ('IntersectionObserver' in window) {
         const warm = new IntersectionObserver((entries, obs) => {
             entries.forEach(e => {
                 if (!e.isIntersecting) return;
+                showPoster(e.target);
                 e.target.preload = 'auto';
                 e.target.load();
                 obs.unobserve(e.target);
@@ -296,7 +306,7 @@ function initVideos() {
         }, { rootMargin: '600px 0px' });
         videos.forEach(v => warm.observe(v));
     } else {
-        videos.forEach(v => { v.preload = 'auto'; v.load(); });
+        videos.forEach(v => { showPoster(v); v.preload = 'auto'; v.load(); });
     }
 
     // Autoplaying video is motion: if the visitor asked for less of it, clips
@@ -693,7 +703,10 @@ function init() {
     initNav();
     initClock();
 
-    window.siteLoader.finish(() => document.body.classList.add('ready'));
+    // The bar holds until the heavy setup is done, but never more than a few seconds.
+    const cap = new Promise(resolve => setTimeout(resolve, 6000));
+    Promise.race([window.siteWarm || Promise.resolve(), cap])
+        .then(() => window.siteLoader.finish(() => document.body.classList.add('ready')));
 }
 
 if (document.readyState === 'loading') {

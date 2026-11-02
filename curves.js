@@ -7,6 +7,16 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 
+    // Lets the browser draw a frame between pieces of setup, so the loader never stalls.
+    const nextTask = () => new Promise(resolve => setTimeout(resolve));
+    const loading = () => document.body.classList.contains('loading');
+
+    // The loader holds until the heavy setup is done, so none of it lands mid-animation.
+    let warmDone;
+    window.siteWarm = new Promise(resolve => {
+        warmDone = resolve;
+    });
+
     const TICK_TARGET = 12;
     const PROJECT_GAP = 28;
     // Opening timings in ms, one set per ?intro= letter. The name always waits for the lamp;
@@ -177,6 +187,7 @@
     function addLamp(hero) {
         const svg = svgLayer('lamp');
         hero.prepend(svg);
+        const lampData = LampIntro.load();
 
         const defs = el('defs', {}, svg);
         const fade = el('linearGradient', { id: 'lamp-beam', x1: 0, y1: 0, x2: 1, y2: 0 }, defs);
@@ -380,6 +391,23 @@
             return target;
         }
 
+        const contours = new Map();
+        function sampleContour(contour) {
+            if (!contours.has(contour)) {
+                const probe = el('path', { d: contour }, defs);
+                const outline = probe.getTotalLength();
+                const samples = [];
+                for (let i = 0; i <= 64; i++) {
+                    const p = probe.getPointAtLength(outline * i / 64);
+                    samples.push({ x: p.x, y: p.y });
+                }
+                probe.remove();
+                contours.set(contour, { outline, samples });
+            }
+            return contours.get(contour);
+        }
+        const CONTROL_SHAPES = ['M-62 -14 H62 V14 H-62 Z', ring(21), 'M0 -15 L15 0 L0 15 L-15 0 Z', ring(16)];
+
         // Each control arrives as a plain line: it runs in along a bezier from off
         // screen, wraps itself round the control's outline, then the control takes over.
         function flyIn(control, contour, from, cls, delay) {
@@ -391,14 +419,8 @@
             const spot = spots.get(control);
             control.style.opacity = 0;
 
-            const probe = el('path', { d: contour }, defs);
-            const outline = probe.getTotalLength();
-            const points = [];
-            for (let i = 0; i <= 64; i++) {
-                const p = probe.getPointAtLength(outline * i / 64);
-                points.push({ x: spot.x + p.x, y: spot.y + p.y });
-            }
-            probe.remove();
+            const { outline, samples } = sampleContour(contour);
+            const points = samples.map(p => ({ x: spot.x + p.x, y: spot.y + p.y }));
 
             const first = points[0];
             const c1 = { x: from.x, y: first.y - 240 };
@@ -434,10 +456,10 @@
             poleTarget = { ...pole };
             pose();
 
-            flyIn(rootCtrl, 'M-62 -14 H62 V14 H-62 Z', { x: -120, y: box.height - 40 }, 'rig-yellow', 0);
-            flyIn(elbowRing, ring(21), { x: box.width + 120, y: 90 }, 'rig-blue', 150);
-            flyIn(poleCtrl, 'M0 -15 L15 0 L0 15 L-15 0 Z', { x: box.width + 120, y: box.height * 0.5 }, 'rig-blue', 300);
-            flyIn(aimCtrl, ring(16), { x: -120, y: 60 }, 'rig-yellow', 450);
+            flyIn(rootCtrl, CONTROL_SHAPES[0], { x: -120, y: box.height - 40 }, 'rig-yellow', 0);
+            flyIn(elbowRing, CONTROL_SHAPES[1], { x: box.width + 120, y: 90 }, 'rig-blue', 150);
+            flyIn(poleCtrl, CONTROL_SHAPES[2], { x: box.width + 120, y: box.height * 0.5 }, 'rig-blue', 300);
+            flyIn(aimCtrl, CONTROL_SHAPES[3], { x: -120, y: 60 }, 'rig-yellow', 450);
             flyIn(ikCtrl, 'M-26 -26 H26 V26 H-26 Z', { x: box.width * 0.5, y: -120 }, 'rig-red', 600);
             rigLayer.classList.add('is-rigged');
         }
@@ -618,7 +640,7 @@
         async function begin() {
             if (stage !== 'waiting') return;
             stage = 'loading';
-            handKeys = await LampIntro.load();
+            handKeys = await lampData;
             if (reduceMotion) {
                 goal = pointAtName();
                 tip = { ...goal };
@@ -674,7 +696,12 @@
             setTimeout(begin, INTRO.lamp);
         }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
-        return { layout };
+        const warm = () => {
+            CONTROL_SHAPES.forEach(sampleContour);
+            return lampData;
+        };
+
+        return { layout, warm };
     }
 
     /* ---------- Page thread ---------- */
@@ -743,7 +770,9 @@
     let pitchWatcher = null;
     const pitchesSeen = new Set();
 
+    let placeRun = 0;
     function placeResults(thread) {
+        const run = ++placeRun;
         const layer = document.getElementById('result-layer') || (() => {
             const made = document.createElement('div');
             made.id = 'result-layer';
@@ -767,7 +796,7 @@
             return { left: r.left, right: r.right, top: r.top + window.scrollY, bottom: r.bottom + window.scrollY };
         };
         const width = document.documentElement.clientWidth;
-        document.querySelectorAll('.project[data-result]').forEach(project => {
+        const placeOne = project => {
             const text = project.dataset.result;
             const media = project.querySelector('.project-media');
             if (!text || !media) return;
@@ -845,7 +874,21 @@
             } else {
                 pitchWatcher.observe(node);
             }
-        });
+        };
+
+        const projects = [...document.querySelectorAll('.project[data-result]')];
+        if (!loading()) {
+            projects.forEach(placeOne);
+            return Promise.resolve();
+        }
+        // A newer placement takes over, so an old one stops where it is.
+        return (async () => {
+            for (const project of projects) {
+                if (run !== placeRun) return;
+                placeOne(project);
+                await nextTask();
+            }
+        })();
     }
 
     function lengthAtY(table, y) {
@@ -1519,7 +1562,21 @@
 
     // A letter's real outline, read off a canvas by walking round the edge of its pixels.
     // Points are in px from the letter's left edge and baseline.
+    const glyphs = new Map();
     function traceGlyph(letter, style) {
+        const key = `${letter}|${style.fontWeight}|${style.fontSize}|${style.fontFamily}`;
+        if (!glyphs.has(key)) glyphs.set(key, readGlyph(letter, style));
+        return glyphs.get(key);
+    }
+
+    function warmGlyphs() {
+        const style = getComputedStyle(document.querySelector('.hero-tag'));
+        document.querySelectorAll('.hero-tag .ltr').forEach(letter => {
+            traceGlyph(letter.firstChild.textContent.toUpperCase(), style);
+        });
+    }
+
+    function readGlyph(letter, style) {
         const size = parseFloat(style.fontSize);
         const scale = 4;
         const pad = 8;
@@ -1615,7 +1672,9 @@
             document.documentElement.classList.add('photo-in');
             const rows = document.querySelectorAll('.photo-strip');
             rows.forEach(row => {
-                row.getAnimations().forEach(run => run.commitStyles());
+                row.getAnimations().forEach(run => {
+                    if (row.offsetParent) run.commitStyles();
+                });
                 row.classList.add('is-done');
             });
             document.querySelectorAll('.hero-portrait .tag-fly').forEach(lines => lines.classList.add('is-done'));
@@ -1765,7 +1824,7 @@
 
     /* ---------- Boot ---------- */
 
-    function init() {
+    async function init() {
         [...document.querySelectorAll('.hero-title .line-in')].reduce((at, line) => splitLetters(line, at), 0);
         splitLetters(document.querySelector('.hero-tag'));
         addPhotoRows();
@@ -1801,17 +1860,48 @@
             updateTimeline(timeline);
         };
 
+        // Under the loader the pitch placement waits for the layout to settle, so it runs once.
+        let placed = false;
+        let placing = Promise.resolve();
+        // Under the loader a rebuild runs in pieces, so the loader keeps moving.
+        let piecesRun = 0;
+        const rebuildInPieces = async settled => {
+            const run = ++piecesRun;
+            fitAboutPhoto();
+            await nextTask();
+            const built = buildThread(threadSvg);
+            await nextTask();
+            if (run !== piecesRun) return placing;
+            thread = built;
+            drawHero(heroSvg, thread.keys[0]);
+            await nextTask();
+            if (run !== piecesRun) return placing;
+            if (lamp) lamp.layout();
+            layoutTimeline(timeline);
+            if (settled) {
+                placing = placeResults(thread);
+                placed = true;
+            }
+            update();
+            snapBall(timeline);
+            return placing;
+        };
         const rebuild = (settled = true) => {
+            if (loading()) return rebuildInPieces(settled);
             fitAboutPhoto();
             thread = buildThread(threadSvg);
             drawHero(heroSvg, thread.keys[0]);
             if (lamp) lamp.layout();
             layoutTimeline(timeline);
-            if (settled) placeResults(thread);
+            if (settled) {
+                placing = placeResults(thread);
+                placed = true;
+            }
             update();
             snapBall(timeline);
+            return placing;
         };
-        rebuild();
+        await rebuild(!loading());
 
         // The ball starts the page sitting on the name, or on whichever key the page opens at.
         timeline.ballX = timeline.ballGoal;
@@ -1820,13 +1910,16 @@
         update();
 
         // Late images and videos change the page height, which moves every stop.
-        let pending;
+        let pending = 0;
         let resizing = 0;
+        let lastAsk = performance.now();
         let lastHeight = document.body.scrollHeight;
         let lastWidth = window.innerWidth;
         const schedule = () => {
             clearTimeout(pending);
+            lastAsk = performance.now();
             pending = setTimeout(() => {
+                pending = 0;
                 const height = document.body.scrollHeight;
                 // Mobile address bars fire resize without changing the layout.
                 if (height === lastHeight && window.innerWidth === lastWidth) return;
@@ -1835,7 +1928,8 @@
                 rebuild();
             }, 200);
             // Everything but the slow pitch placement follows the window on every frame.
-            if (resizing) return;
+            // Under the loader nobody can see it, so only the settled rebuild runs.
+            if (resizing || document.body.classList.contains('loading')) return;
             resizing = requestAnimationFrame(() => {
                 resizing = 0;
                 rebuild(false);
@@ -1844,6 +1938,26 @@
         window.addEventListener('resize', schedule);
         document.fonts.ready.then(schedule);
         if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(document.body);
+
+        // Fonts and the hero photo change the layout, so the warm-up waits for them
+        // and then for the rebuilds they cause to stop.
+        const photo = document.querySelector('.hero-portrait img');
+        const quiet = () => new Promise(resolve => {
+            const check = () => (!pending && performance.now() - lastAsk > 300 ? resolve() : setTimeout(check, 100));
+            check();
+        });
+        Promise.all([
+            document.fonts.ready,
+            photo && photo.decode ? photo.decode().catch(() => {}) : null
+        ])
+            .then(quiet)
+            .then(() => (placed ? placing : rebuild()))
+            .then(() => {
+                warmGlyphs();
+                return lamp && lamp.warm();
+            })
+            .catch(() => {})
+            .then(() => warmDone());
 
         let ticking = false;
         window.addEventListener('scroll', () => {
@@ -1857,9 +1971,10 @@
         }, { passive: true });
     }
 
+    const start = () => setTimeout(init);
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', start);
     } else {
-        init();
+        start();
     }
 })();
