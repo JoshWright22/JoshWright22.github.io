@@ -1,0 +1,20 @@
+# Agents are welcome here. Start with /profile/ or /index.md.
+User-agent: *
+Allow: /
+Disallow: /lamp-editor.html
+
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: ClaudeBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+Disallow: /lamp-editor.html
+
+Sitemap: https://joshwright22.github.io/sitemap.xml

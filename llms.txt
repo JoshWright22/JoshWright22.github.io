@@ -1,0 +1,30 @@
+# Josh Wright
+
+> Josh Wright is a software engineer and animation engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds machine learning motion tracking, animation plugins for Maya, Blender, Unreal Engine and Cinema 4D, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.
+
+Looking for: New grad software engineering roles starting May 2027, especially machine learning, computer vision, graphics, animation tools, gameplay and R&D at animation studios.
+Contact: joshwright0322@gmail.com
+
+## Profile
+
+- [Profile](https://joshwright22.github.io/profile/): roles wanted, current work, education, skills and contact
+- [Full profile as markdown](https://joshwright22.github.io/index.md): everything on the site in one file
+
+## Projects
+
+- [UNOMi](https://joshwright22.github.io/projects/unomi/): Two-time Emmy-nominated studio
+- [Trust No One](https://joshwright22.github.io/projects/trust-no-one/): Placed #9 of 2,253 games
+- [There's No Place Like 127.0.0.1](https://joshwright22.github.io/projects/theres-no-place-like-127-0-0-1/): Highest scored pitch at the AZ Game Cup
+- [3D Animation Reel](https://joshwright22.github.io/projects/3d-animation-reel/): TV quality animation
+- [Game Dev Club Club](https://joshwright22.github.io/projects/game-dev-club-club/): Created a club across 104 universities
+- [AtOMoC SHeLiS](https://joshwright22.github.io/projects/atomoc-shelis/): Placed #12 of 150 games
+- [Gob Spin](https://joshwright22.github.io/projects/gob-spin/): Placed #140 of 3,498 games
+- [Slush Rush](https://joshwright22.github.io/projects/slush-rush/): Placed #69 of 434 games
+
+## Elsewhere
+
+- [YouTube](https://www.youtube.com/@JoshWright_Dev)
+- [Twitter](https://x.com/joshwright_dev)
+- [Instagram](https://www.instagram.com/joshwrightisoninsta/)
+- [GitHub](https://github.com/JoshWright22)
+- [LinkedIn](https://www.linkedin.com/in/joshua-wright-a94143338/)

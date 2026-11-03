@@ -1,7 +1,8 @@
 /* =============================================================
    Josh Wright — portfolio
    Content lives at the top; everything below renders and animates it.
-   No dependencies.
+   No dependencies. After changing content run node tools/build-agent-pages.mjs,
+   which writes it into plain HTML for AI agents and crawlers.
    ============================================================= */
 
 const content = {
@@ -126,7 +127,8 @@ function renderAbout() {
         </a>`).join('');
 
     document.getElementById('footer-socials').innerHTML = content.links.map(l =>
-        `<a class="footer-link" href="${l.url}" target="_blank" rel="noopener">${l.text} ↗</a>`).join('');
+        `<a class="footer-link" href="${l.url}" target="_blank" rel="noopener">${l.text} ↗</a>`).join('') +
+        '<a class="footer-link" href="/profile/">Plain text profile ↗</a>';
 }
 
 /* The track is duplicated so the -50% translate loop is seamless. */
