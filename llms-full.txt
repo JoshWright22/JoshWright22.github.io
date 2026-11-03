@@ -1,6 +1,6 @@
 # Josh Wright
 
-> Josh Wright is a software engineer and animation engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds machine learning motion tracking, animation plugins for Maya, Blender, Unreal Engine and Cinema 4D, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.
+> Josh Wright is a software engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds animation tools and machine learning systems: motion tracking models and plugins for Maya, Blender, Unreal Engine and Cinema 4D at Pixel Pirate Studio, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.
 
 Looking for: New grad software engineering roles starting May 2027, especially machine learning, computer vision, graphics, animation tools, gameplay and R&D at animation studios.
 
@@ -14,7 +14,7 @@ LinkedIn: https://www.linkedin.com/in/joshua-wright-a94143338/
 
 ## About
 
-Hey, I'm Josh. I'm an animation engineer and a Computer Science student at Arizona State University. I want to help create the next generation of high quality media by doing R&D at the top animation companies. I learned to keyframe characters by hand, and now I have turned my efforts into creating models, platforms and research that anyone can use to make what they imagine. At my internship at UNOMi I fine-tune the vision models behind markerless motion capture and host them on Microsoft Azure. Some of my personal work includes Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam, and AtOMoC SHeLiS, which will be on Steam shortly. I post what I'm building on YouTube, so if you want to work on something together, reach out!
+Hey, I'm Josh, a software engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I build tools and machine learning systems for animation and games. I intern at Pixel Pirate Studio, a two-time Emmy-nominated animation studio. There I fine-tune the vision models behind UNOMi's markerless motion capture and host them on Microsoft Azure. I also build and test its plugins for Maya, Blender, Unreal Engine and Cinema 4D. I started out keyframing characters by hand, so I build tools the way animators actually want to use them. And I lead teams that ship. Trust No One placed #9 out of 2,253 entries in the Brackeys Game Jam, and my AZ Game Cup team took 2nd place. I'm looking for new grad software engineering roles starting May 2027, especially animation tools, graphics, machine learning and games, so if you're hiring, reach out!
 
 ## Skills
 

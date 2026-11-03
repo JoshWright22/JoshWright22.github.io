@@ -1,6 +1,6 @@
 # Josh Wright
 
-> Josh Wright is a software engineer and animation engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds machine learning motion tracking, animation plugins for Maya, Blender, Unreal Engine and Cinema 4D, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.
+> Josh Wright is a software engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds animation tools and machine learning systems: motion tracking models and plugins for Maya, Blender, Unreal Engine and Cinema 4D at Pixel Pirate Studio, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.
 
 Looking for: New grad software engineering roles starting May 2027, especially machine learning, computer vision, graphics, animation tools, gameplay and R&D at animation studios.
 Contact: joshwright0322@gmail.com

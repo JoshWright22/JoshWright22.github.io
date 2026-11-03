@@ -1927,13 +1927,14 @@
                 lastWidth = window.innerWidth;
                 rebuild();
             }, 200);
-            // Everything but the slow pitch placement follows the window on every frame.
-            // Under the loader nobody can see it, so only the settled rebuild runs.
+            // Everything but the slow pitch placement follows the window, but a full rebuild costs
+            // a long frame, and rebuilding on every frame of a zoom made the page stutter. So it
+            // follows at most every 150 ms. Under the loader nobody can see it, so only the settled rebuild runs.
             if (resizing || document.body.classList.contains('loading')) return;
-            resizing = requestAnimationFrame(() => {
+            resizing = setTimeout(() => requestAnimationFrame(() => {
                 resizing = 0;
                 rebuild(false);
-            });
+            }), 150);
         };
         window.addEventListener('resize', schedule);
         document.fonts.ready.then(schedule);

@@ -26,9 +26,11 @@ const slug = s => s.toLowerCase().replace(/'/g, '').replace(/[^a-z0-9]+/g, '-').
 const ldJson = data => `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
 
 const projects = content.projects.map(p => ({ ...p, slug: slug(p.title), url: `${SITE}/projects/${slug(p.title)}/` }));
-const skills = [...new Set(content.stack.flatMap(s => s.tools).concat(projects.flatMap(p => p.expertise)))];
+// Only real placements count as awards: "Two-time Emmy-nominated studio" is the studio's, and agents mark that down
+const won = p => /\bplaced\b|\bplace\b|highest scored/i.test(p.result);
+const skills = [...new Set(content.stack.flatMap(s => s.tools))];  // adding every project tag read as keyword stuffing
 const social = content.links.map(l => l.url);
-const lead = 'Josh Wright is a software engineer and animation engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds machine learning motion tracking, animation plugins for Maya, Blender, Unreal Engine and Cinema 4D, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.';
+const lead = 'Josh Wright is a software engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds animation tools and machine learning systems: motion tracking models and plugins for Maya, Blender, Unreal Engine and Cinema 4D at Pixel Pirate Studio, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.';
 const looking = 'New grad software engineering roles starting May 2027, especially machine learning, computer vision, graphics, animation tools, gameplay and R&D at animation studios.';
 
 const person = {
@@ -44,10 +46,10 @@ const person = {
     worksFor: { '@type': 'Organization', name: 'Pixel Pirate Studio', url: 'https://getunomi.com/' },
     affiliation: { '@type': 'CollegeOrUniversity', name: 'Arizona State University', url: 'https://www.asu.edu/' },
     homeLocation: { '@type': 'Place', name: 'Tempe, Arizona' },
-    hasOccupation: [{ '@type': 'Occupation', name: 'Software Engineer' }, { '@type': 'Occupation', name: 'Animation Engineer' }],
+    hasOccupation: [{ '@type': 'Occupation', name: 'Software Engineer' }, { '@type': 'Occupation', name: 'Animation Tools Engineer' }],
     knowsAbout: skills,
     knowsLanguage: 'en',
-    award: projects.map(p => `${p.title}: ${p.result}`),
+    award: projects.filter(won).map(p => `${p.title}: ${p.result}`),
     sameAs: social
 };
 
@@ -66,7 +68,7 @@ const head = [
     `<link rel="canonical" href="${SITE}/">`,
     `<link rel="alternate" type="text/markdown" href="${SITE}/index.md">`,
     `<meta property="og:type" content="profile">`,
-    `<meta property="og:title" content="Josh Wright - Software Engineer and Animation Engineer">`,
+    `<meta property="og:title" content="Josh Wright - Software Engineer, Animation and AI Tools">`,
     `<meta property="og:description" content="${esc(lead)}">`,
     `<meta property="og:url" content="${SITE}/">`,
     `<meta property="og:image" content="${SITE}/assets/me-hero.jpg">`,
@@ -135,7 +137,7 @@ ${body}
 `;
 
 const projectFacts = p => `<ul>
-            <li>Result: ${esc(p.result)}</li>
+            <li>${won(p) ? 'Result' : 'Highlight'}: ${esc(p.result)}</li>
             <li>Type: ${esc(p.category)}</li>
             <li>Date: ${esc(p.date)}</li>
             <li>Skills: ${esc(p.expertise.join(', '))}</li>
@@ -169,7 +171,7 @@ for (const p of projects) {
 const asked = [
     ['Who is Josh Wright?', lead],
     ['What roles is Josh Wright looking for?', looking],
-    ['Where does Josh Wright work now?', projects[0].desc.replace(/\bI'm\b/g, 'Josh is').replace(/\bI\b/g, 'Josh')],
+    ['Where does Josh Wright work now?', projects[0].desc.replace(/\bI'm\b/g, 'Josh is').replace(/\bI (also )?([a-z][\w-]*)/g, (_m, also, verb) => `Josh ${also || ''}${verb}s`)],
     ['Where did Josh Wright go to school?', 'Arizona State University, B.S. in Computer Science, graduating May 2027. Josh is based in Tempe, Arizona.']
 ];
 
@@ -180,7 +182,7 @@ write('profile/index.html', page({
     path: '/profile/',
     data: { ...profilePage, url: `${SITE}/profile/` },
     body: `        <p><a href="/">Portfolio</a></p>
-        <h1>Josh Wright: software engineer and animation engineer</h1>
+        <h1>Josh Wright: software engineer for animation, graphics and AI tools</h1>
 ${asked.map(([q, a]) => `        <h2>${esc(q)}</h2>\n        <p>${esc(a)}</p>`).join('\n')}
         <h2>What has Josh Wright built?</h2>
         <ul>
@@ -191,7 +193,7 @@ ${asked.map(([q, a]) => `        <h2>${esc(q)}</h2>\n        <p>${esc(a)}</p>`).
             ${skillGroups}
         </ul>
         <h2>How do I contact Josh Wright?</h2>
-        <p>Email <a href="mailto:${EMAIL}">${EMAIL}</a>.</p>
+        <p>Email <a href="mailto:${EMAIL}">${EMAIL}</a>. Resume: <a href="/assets/Josh_Wright_Resume.pdf">${SITE}/assets/Josh_Wright_Resume.pdf</a>. Work authorization: US citizen, no sponsorship needed.</p>
         <ul>
             ${content.links.map(l => `<li><a href="${l.url}">${esc(l.text)}</a></li>`).join('\n            ')}
         </ul>`

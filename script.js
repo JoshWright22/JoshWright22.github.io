@@ -8,8 +8,8 @@
 const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
-    aboutH: 'Animation Engineer',
-    aboutT: 'Hey, I\'m Josh. I\'m an animation engineer and a Computer Science student at Arizona State University. I want to help create the next generation of high quality media by doing R&D at the top animation companies. I learned to keyframe characters by hand, and now I have turned my efforts into creating models, platforms and research that anyone can use to make what they imagine. At my internship at UNOMi I fine-tune the vision models behind markerless motion capture and host them on Microsoft Azure. Some of my personal work includes Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam, and AtOMoC SHeLiS, which will be on Steam shortly. I post what I\'m building on YouTube, so if you want to work on something together, reach out!',
+    aboutH: 'Software Engineer',
+    aboutT: 'Hey, I\'m Josh, a software engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I build tools and machine learning systems for animation and games. I intern at Pixel Pirate Studio, a two-time Emmy-nominated animation studio. There I fine-tune the vision models behind UNOMi\'s markerless motion capture and host them on Microsoft Azure. I also build and test its plugins for Maya, Blender, Unreal Engine and Cinema 4D. I started out keyframing characters by hand, so I build tools the way animators actually want to use them. And I lead teams that ship. Trust No One placed #9 out of 2,253 entries in the Brackeys Game Jam, and my AZ Game Cup team took 2nd place. I\'m looking for new grad software engineering roles starting May 2027, especially animation tools, graphics, machine learning and games, so if you\'re hiring, reach out!',
     links: [
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' },
         { text: 'Twitter', url: 'https://x.com/joshwright_dev' },
@@ -18,7 +18,7 @@ const content = {
         { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' }
     ],
     profileImg: 'assets/me-hero.jpg',
-    marquee: ['Animation Engineering', 'Motion Tracking', 'AI for Animation', 'Animation Tools', 'Computer Vision', 'Machine Learning', 'Plugin Development', 'Python', 'C++', 'C#', 'HLSL', 'Unreal Engine', 'Maya', 'Blender', 'Procedural Generation', 'Devlogs'],
+    marquee: ['Software Engineering', 'Animation Tools', 'Machine Learning', 'Graphics', 'Motion Tracking', 'AI for Animation', 'Computer Vision', 'Plugin Development', 'Python', 'C++', 'C#', 'HLSL', 'Unreal Engine', 'Maya', 'Blender', 'Procedural Generation', 'Devlogs'],
     // art is one of: net, graph, game, code.
     stack: [
         { title: 'AI Systems', what: 'I turn AI research into systems that work, like motion capture pipelines, vision models fine-tuned on cloud GPUs and agents trained on custom GPU simulators. My next step is doing that research myself, focused on animation.', art: 'net', tools: ['PyTorch', 'CUDA', 'Python', 'Computer Vision', 'Machine Learning', 'Model Fine-Tuning', 'Reinforcement Learning'] },
