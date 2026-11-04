@@ -1542,7 +1542,7 @@ html {
 }
 
 .art-job {
-    fill: var(--yellow);
+    fill: #fdfdfd;  /* white like the other panels; this later rule kept it yellow after c35241d */
     stroke: var(--ink);
 }
 

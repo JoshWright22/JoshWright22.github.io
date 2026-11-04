@@ -8,8 +8,9 @@
 const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
-    aboutH: 'Software Engineer',
-    aboutT: 'Hey, I\'m Josh. I\'m a software engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I want to do AI research and turn it into software and models people actually use, especially for animation. I started out keyframing characters by hand, and now I build the models and software that let anyone make what they imagine. At my internship at UNOMi I fine-tune the vision models behind markerless motion capture and host them on Microsoft Azure. Some of my personal work includes Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam, and AtOMoC SHeLiS, which will be on Steam shortly. I post what I\'m building on YouTube, so if you\'re hiring or want to work on something together, reach out!',
+    aboutH: 'AI Engineer',
+    aboutT: 'Hey, I\'m Josh. I\'m an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I build AI systems people actually use, like vision models for motion capture, agents trained on custom GPU simulators and the infrastructure that lets AI agents share one machine. At my internship at UNOMi I fine-tune the vision models behind markerless motion capture and host them on Microsoft Azure. I also built FIREFIGHTER, an open-source scheduler that keeps AI coding agents from fighting over a computer\'s GPU, CPU and RAM. I started out keyframing characters by hand, so animation is where I want to take AI research next. Some of my personal work includes Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam, and AtOMoC SHeLiS, which will be on Steam shortly. I post what I\'m building on YouTube, so if you\'re hiring or want to work on something together, reach out!',
+
     links: [
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' },
         { text: 'Twitter', url: 'https://x.com/joshwright_dev' },
@@ -18,10 +19,10 @@ const content = {
         { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' }
     ],
     profileImg: 'assets/me-hero.jpg',
-    marquee: ['Software Engineering', 'Animation Tools', 'Machine Learning', 'Graphics', 'Motion Tracking', 'AI for Animation', 'Computer Vision', 'Plugin Development', 'Python', 'C++', 'C#', 'HLSL', 'Unreal Engine', 'Maya', 'Blender', 'Procedural Generation', 'Devlogs'],
+    marquee: ['AI Systems', 'Machine Learning', 'AI Agents', 'Computer Vision', 'AI for Animation', 'Model Fine-Tuning', 'Reinforcement Learning', 'PyTorch', 'CUDA', 'Python', 'Motion Tracking', 'Animation Tools', 'Graphics', 'Go', 'C++', 'C#', 'Unreal Engine', 'Devlogs'],
     // art is one of: net, graph, game, code.
     stack: [
-        { title: 'AI Systems', what: 'I turn AI research into systems that work, like motion capture pipelines, vision models fine-tuned on cloud GPUs and agents trained on custom GPU simulators. My next step is doing that research myself, focused on animation.', art: 'net', tools: ['PyTorch', 'CUDA', 'Python', 'Computer Vision', 'Machine Learning', 'Model Fine-Tuning', 'Reinforcement Learning'] },
+        { title: 'AI Systems', what: 'I turn AI research into systems that work. That means motion capture pipelines, vision models fine-tuned on cloud GPUs, agents trained on custom GPU simulators and the scheduler that lets AI agents share one machine. My next step is doing that research myself, focused on animation.', art: 'net', tools: ['PyTorch', 'CUDA', 'Python', 'Computer Vision', 'Machine Learning', 'Model Fine-Tuning', 'Reinforcement Learning', 'AI Agents', 'MCP', 'Go'] },
         { title: 'Animation Tools', what: 'Give me an animator\'s problem and I\'ll ship the plugin for it, in Maya, Blender, Cinema 4D or Unreal.', art: 'graph', tools: ['Python', 'Plugin Development', 'Maya', 'Blender', 'Cinema 4D', 'Unreal Engine', 'Keyframe Animation', 'Character Animation', 'Rigging'] },
         { title: 'Gameplay Systems', what: 'I make games people want to play, from combat and upgrades to procedural levels, and I ship them on hard deadlines.', art: 'game', tools: ['C#', 'C++', 'Unity', 'Godot', 'Unreal Engine', 'Procedural Generation', 'Multiplayer Networking', 'Steamworks API'] },
         { title: 'Software Engineering', what: 'I can own a product end to end, from a C++ game framework to the desktop app, the server and the cloud it runs on.', art: 'code', tools: ['C++', 'TypeScript', 'WebGPU', 'SDL3', 'HLSL', 'React', 'Next.js', 'Electron', 'PostgreSQL', 'Docker', 'Microsoft Azure', 'AWS', 'Git', 'Team Leadership', 'Agile Sprints'] }
@@ -76,6 +77,16 @@ const content = {
             expertise: ['React', 'JavaScript', 'HTML/CSS', 'Cross-Functional Collaboration', 'Team Leadership', 'UI/UX Design'],
             img: './assets/gdcc-map.webm',
             link: 'https://gamedevclubclub.com/'
+        },
+        {
+            title: 'FIREFIGHTER', short: 'FIRE', result: 'Open source, sets itself up for 21 AI agents',
+            category: 'AI Infrastructure',
+            date: 'November 2026',
+            desc: 'I built FIREFIGHTER because I run several AI coding agents at once on one PC. They kept grabbing the same GPU, running out of VRAM and making my games stutter. It is a local scheduler and job queue for the GPU, CPU, RAM and network that every agent shares. I always come first, because it watches my keyboard, mouse, games and other apps and keeps capacity free for me. Agents queue their heavy work, and a GPU job starts only when its VRAM need fits, which it learns from past runs. Agents get priced tiers instead of bidding against each other. When I need the machine back, jobs pause or save and requeue instead of crashing. It is one Go binary for Windows, macOS and Linux and registers itself as an MCP server with 21 coding agents, including Claude Code, Codex and Cursor.',
+            expertise: ['AI Agents', 'Go', 'Scheduling', 'MCP', 'Systems Programming', 'GPU Resource Management', 'Cross-Platform'],
+            img: './assets/firefighter-demo.svg',
+            fit: 'contain',
+            link: 'https://github.com/JoshWright22/FIREFIGHTER'
         },
         {
             title: 'AtOMoC SHeLiS', short: 'AtOMoC', result: 'Placed #12 of 150 games',

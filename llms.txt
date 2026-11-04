@@ -1,6 +1,6 @@
 # Josh Wright
 
-> Josh Wright is a software engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds animation tools and machine learning systems: motion tracking models and plugins for Maya, Blender, Unreal Engine and Cinema 4D at Pixel Pirate Studio, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.
+> Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds AI systems: motion tracking models and animation plugins at Pixel Pirate Studio, FIREFIGHTER, an open-source scheduler that lets AI coding agents share one computer, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.
 
 Looking for: New grad software engineering roles starting May 2027, especially machine learning, computer vision, graphics, animation tools, gameplay and R&D at animation studios.
 Contact: joshwright0322@gmail.com
@@ -17,6 +17,7 @@ Contact: joshwright0322@gmail.com
 - [There's No Place Like 127.0.0.1](https://joshwright22.github.io/projects/theres-no-place-like-127-0-0-1/): Highest scored pitch at the AZ Game Cup
 - [3D Animation Reel](https://joshwright22.github.io/projects/3d-animation-reel/): TV quality animation
 - [Game Dev Club Club](https://joshwright22.github.io/projects/game-dev-club-club/): Created a club across 104 universities
+- [FIREFIGHTER](https://joshwright22.github.io/projects/firefighter/): Open source, sets itself up for 21 AI agents
 - [AtOMoC SHeLiS](https://joshwright22.github.io/projects/atomoc-shelis/): Placed #12 of 150 games
 - [Gob Spin](https://joshwright22.github.io/projects/gob-spin/): Placed #140 of 3,498 games
 - [Slush Rush](https://joshwright22.github.io/projects/slush-rush/): Placed #69 of 434 games
