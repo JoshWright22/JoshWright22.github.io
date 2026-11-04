@@ -84,7 +84,7 @@ const content = {
             date: 'November 2026',
             desc: 'I built FIREFIGHTER because I run several AI coding agents at once on one PC. They kept grabbing the same GPU, running out of VRAM and making my games stutter. It is a local scheduler and job queue for the GPU, CPU, RAM and network that every agent shares. I always come first, because it watches my keyboard, mouse, games and other apps and keeps capacity free for me. Agents queue their heavy work, and a GPU job starts only when its VRAM need fits, which it learns from past runs. Agents get priced tiers instead of bidding against each other. When I need the machine back, jobs pause or save and requeue instead of crashing. It is one Go binary for Windows, macOS and Linux and registers itself as an MCP server with 21 coding agents, including Claude Code, Codex and Cursor.',
             expertise: ['AI Agents', 'Go', 'Scheduling', 'MCP', 'Systems Programming', 'GPU Resource Management', 'Cross-Platform'],
-            img: './assets/firefighter-demo.svg',
+            img: './assets/firefighter-demo.webm',
             fit: 'contain',
             link: 'https://github.com/JoshWright22/FIREFIGHTER'
         },
