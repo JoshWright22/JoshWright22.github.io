@@ -1,0 +1,252 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>@font-face{font-family:"Inter Tight";src:url(fonts/InterTight.ttf);font-weight:100 900}@font-face{font-family:"JetBrains Mono";src:url(fonts/JetBrainsMono.ttf);font-weight:100 800}html,body{margin:0;background:#141216}canvas{display:block}</style></head>
+<body><canvas id="c" width="1600" height="900"></canvas>
+<script>
+// FIREFIGHTER reel, Valorant-style. Deterministic: window.draw(t) paints the frame at t seconds (0..T).
+const T = 14, W = 1600, H = 900;
+const c = document.getElementById('c'), g = c.getContext('2d');
+const RED = '#d4147a', INK = '#141216', BONE = '#fff3e8', TEAL = '#ff4f8f', GREY = '#8c8379', NAVY = '#1f1b21', WHITE = '#fdfdfd';
+const LOGO = new Image(); LOGO.src = 'logo.svg';
+const F = (w, s) => `${w} ${s}px "Inter Tight", sans-serif`;
+const M = (w, s) => `${w} ${s}px "JetBrains Mono", monospace`;
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const ease = x => { x = clamp(x); return 1 - Math.pow(1 - x, 3); };
+const inOut = x => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+function rnd(n) { const x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); }
+
+function para(x, y, w, h, k, fill, stroke) {  // parallelogram with Valorant's cut corner
+  k = 0; g.beginPath(); g.moveTo(x + k, y); g.lineTo(x + w, y); g.lineTo(x + w - k, y + h); g.lineTo(x, y + h); g.closePath();
+  if (fill) { g.fillStyle = fill; g.fill(); } if (stroke) { g.strokeStyle = stroke; g.lineWidth = 2; g.stroke(); }
+}
+function cut(x, y, w, h, k, fill, stroke) {  // rectangle with the bottom-right corner cut
+  k = 0; g.beginPath(); g.moveTo(x, y); g.lineTo(x + w, y); g.lineTo(x + w, y + h - k); g.lineTo(x + w - k, y + h); g.lineTo(x, y + h); g.closePath();
+  if (fill) { g.fillStyle = fill; g.fill(); } if (stroke) { g.strokeStyle = stroke; g.lineWidth = 2; g.stroke(); }
+}
+function text(s, x, y, size, color, align = 'left', weight = '700', spacing = 0) {
+  g.font = size < 30 ? M(weight === '800' ? '700' : '600', size * 0.8) : F(weight, size); g.fillStyle = color; g.textAlign = align; g.textBaseline = 'alphabetic';
+  if ('letterSpacing' in g) g.letterSpacing = spacing + 'px';
+  g.fillText(s, x, y);
+  if ('letterSpacing' in g) g.letterSpacing = '0px';
+}
+function glitch(s, x, y, size, color, t, amt) {  // red/teal offset copies for a few frames
+  if (false) {
+    const o = amt * 14 * (rnd(Math.floor(t * 30)) - .5);
+    g.globalAlpha = .75; text(s, x + o, y, size, RED, 'center', '800'); text(s, x - o, y + 2, size, TEAL, 'center', '800'); g.globalAlpha = 1;
+  }
+  text(s, x, y, size, color, 'center', '800');
+}
+
+const AGENTS = [
+  { name: 'CLAUDE CODE', job: 'train.py', gpu: 14, tier: 'NORMAL', start: 2.2, run: true },
+  { name: 'CODEX', job: 'eval sweep', gpu: 8, tier: 'NORMAL', start: 2.5, run: true },
+  { name: 'CURSOR', job: 'docker build', gpu: 0, tier: 'SPOT 1/3', start: 2.8, run: false },
+  { name: 'GEMINI CLI', job: 'render frames', gpu: 6, tier: 'SPOT 1/3', start: 3.1, run: false },
+];
+const VRAM = 24;
+
+function background(t) {
+  g.fillStyle = INK; g.fillRect(0, 0, W, H);
+  g.strokeStyle = 'rgba(255,243,232,0)'; g.lineWidth = 1;
+  for (let x = -H; x < W; x += 60) { g.beginPath(); g.moveTo(x + (t * 20) % 60, 0); g.lineTo(x + H + (t * 20) % 60, H); g.stroke(); }
+  g.fillStyle = RED; g.fillRect(0, 0, W, 8);
+  text('$ firefighter status', 44, 52, 22, GREY, 'left', '600', 0);
+  text('1 gpu · 4 agents · 1 human', W - 44, 52, 22, GREY, 'right', '600', 0);
+}
+
+function state(a, i, t) {  // what each agent is doing at time t
+  const human = t >= 6.0 && t < 9.2;
+  if (t < a.start) return null;
+  if (t < 9.2) {
+    if (a.run) return human ? (t < 6.5 ? 'PAUSING' : 'PAUSED') : 'RUNNING';
+    return human ? 'HELD' : 'QUEUED';
+  }
+  const doneAt = [11.0, 10.6, 11.6, 12.0][i];
+  if (t >= doneAt) return 'DONE';
+  if (a.run || t >= 9.2 + (i - 1) * 0.5) return 'RUNNING';
+  return 'QUEUED';
+}
+function progress(a, i, t) {
+  const doneAt = [11.0, 10.6, 11.6, 12.0][i];
+  if (a.run) {
+    const before = clamp((Math.min(t, 6.0) - a.start) / 7.5) * .55;
+    if (t < 9.2) return before;
+    return before + (1 - before) * seg(t, 9.2, doneAt);
+  }
+  if (t < 9.2) return 0;
+  return seg(t, 9.2 + (i - 1) * 0.5, doneAt);
+}
+
+function cards(t) {
+  const x0 = 64, w = 350, h = 300, gap = 22, y = 270;
+  AGENTS.forEach((a, i) => {
+    const appear = ease(seg(t, a.start, a.start + .45));
+    if (appear <= 0) return;
+    const x = x0 + i * (w + gap) + (1 - appear) * 120;
+    g.globalAlpha = appear;
+    const st = state(a, i, t);
+    const color = { RUNNING: TEAL, QUEUED: BONE, PAUSING: RED, PAUSED: GREY, HELD: GREY, DONE: WHITE }[st] || BONE;
+    cut(x, y, w, h, 34, NAVY, null);
+    g.fillStyle = color; g.fillRect(x, y, 6, h);
+    text(`0${i + 1}`, x + 26, y + 46, 22, GREY, 'left', '600', 2);
+    text(a.name.toLowerCase(), x + 26, y + 96, 50, WHITE, 'left', '800', 0);
+    text(a.job.toUpperCase(), x + 26, y + 136, 26, GREY, 'left', '600', 2);
+    text(a.gpu ? `GPU · ${a.gpu} GB VRAM` : 'CPU · 8 CORES', x + 26, y + 176, 24, BONE, 'left', '600', 1);
+    // status chip
+    para(x + 22, y + 196, 190, 38, 12, st === 'PAUSING' && Math.floor(t * 8) % 2 ? 'transparent' : color);
+    text(st === 'PAUSED' ? 'PAUSED · SAVED' : st, x + 117, y + 225, 24, INK, 'center', '800', 2);
+    text(a.tier, x + w - 30, y + 225, 22, GREY, 'right', '600', 1);
+    // progress
+    const p = progress(a, i, t);
+    g.fillStyle = 'rgba(236,232,225,0.12)'; g.fillRect(x + 26, y + 256, w - 70, 8);
+    g.fillStyle = st === 'DONE' ? TEAL : color; g.fillRect(x + 26, y + 256, (w - 70) * p, 8);
+    if (st === 'DONE') text('✓', x + w - 34, y + 48, 34, TEAL, 'center', '800');
+    g.globalAlpha = 1;
+  });
+}
+
+function vram(t) {  // VRAM meter: agents' jobs and the human's reserve
+  const x = 64, y = 640, w = W - 128, h = 46;
+  const appear = ease(seg(t, 3.2, 3.8)); if (!appear) return;
+  g.globalAlpha = appear;
+  text('GPU VRAM', x, y - 16, 24, BONE, 'left', '700', 3);
+  text(`${VRAM} GB`, x + w, y - 16, 24, GREY, 'right', '600', 2);
+  cut(x, y, w, h, 14, 'rgba(236,232,225,0.08)');
+  let used = 0, segs = [];
+  AGENTS.forEach((a, i) => {
+    const st = state(a, i, t);
+    if (a.gpu && (st === 'RUNNING' || st === 'PAUSING')) segs.push([a.gpu * (st === 'PAUSING' ? 1 - seg(t, 6.0, 6.5) : 1), a.name, TEAL]);
+  });
+  const human = t >= 6.0 && t < 9.6 ? (t < 9.2 ? ease(seg(t, 6.0, 6.6)) : 1 - seg(t, 9.2, 9.6)) : 0;
+  segs.push([human * 18, 'YOU', RED]);
+  segs.forEach(([gb, name, col]) => {
+    const sw = w * gb / VRAM; if (sw < 2) return;
+    g.fillStyle = col; g.fillRect(x + w * used / VRAM, y, Math.max(0, sw - 3), h);
+    if (sw > 120) text(`${name} · ${Math.round(gb)} GB`, x + w * used / VRAM + 14, y + 32, 22, INK, 'left', '800', 1);
+    used += gb;
+  });
+  g.globalAlpha = 1;
+}
+
+const FEED = [
+  [2.3, TEAL, 'CLAUDE CODE', 'STARTED train.py · fits in 14 GB'],
+  [2.6, TEAL, 'CODEX', 'STARTED eval sweep · 8 GB'],
+  [2.9, BONE, 'CURSOR', 'QUEUED · spot price, starts when free'],
+  [3.2, BONE, 'GEMINI CLI', 'QUEUED · 6 GB won\'t fit yet'],
+  [6.1, RED, 'YOU', 'LAUNCHED A GAME · reserve grows'],
+  [6.5, GREY, 'FIREFIGHTER', 'PAUSED train.py · checkpoint saved'],
+  [6.6, GREY, 'FIREFIGHTER', 'PAUSED eval sweep at step boundary'],
+  [9.2, TEAL, 'YOU', 'LEFT · capacity handed back'],
+  [9.3, TEAL, 'FIREFIGHTER', 'RESUMED both · nothing resubmitted'],
+  [12.1, TEAL, 'ALL', '4 / 4 FINISHED · zero out-of-memory'],
+];
+function feed(t) {  // kill-feed style event log, top right
+  const shown = FEED.filter(f => t >= f[0]).slice(-4);
+  shown.forEach((f, k) => {
+    const a = ease(seg(t, f[0], f[0] + .25)), y = 92 + k * 40, w = 620, x = W - 64 - w + (1 - a) * 60;
+    g.globalAlpha = a * (k === shown.length - 1 ? 1 : .75);
+    para(x, y, w, 32, 12, 'rgba(31,27,33,0.9)', null);
+    g.fillStyle = f[1]; g.fillRect(x + 12, y + 6, 5, 20);
+    text(f[2], x + 30, y + 24, 22, f[1], 'left', '800', 1);
+    g.font = M('700', 22 * 0.8); const nw = g.measureText(f[2]).width;
+    text(f[3], x + 44 + nw, y + 24, 22, BONE, 'left', '600', 0);
+    g.globalAlpha = 1;
+  });
+}
+
+
+function scoreboard(t) {  // bottom strip, like a round scoreboard
+  const a = ease(seg(t, 3.4, 3.9)); if (!a) return;
+  g.globalAlpha = a;
+  const counts = { RUNNING: 0, WAITING: 0, PAUSED: 0, DONE: 0 };
+  AGENTS.forEach((ag, i) => { const st = state(ag, i, t); if (!st) return;
+    if (st === 'RUNNING') counts.RUNNING++; else if (st === 'DONE') counts.DONE++;
+    else if (st === 'PAUSED' || st === 'PAUSING') counts.PAUSED++; else counts.WAITING++; });
+  const cols = [['RUNNING', TEAL], ['WAITING', BONE], ['PAUSED', GREY], ['DONE', TEAL]];
+  const x0 = 64, y = 742, w = 250, h = 96;
+  cols.forEach(([k, col], i) => {
+    const x = x0 + i * (w + 16);
+    cut(x, y, w, h, 18, NAVY);
+    g.fillStyle = col; g.fillRect(x, y, w, 4);
+    text(String(counts[k]), x + 24, y + 70, 64, col, 'left', '800');
+    text(k, x + 90, y + 66, 26, GREY, 'left', '700', 3);
+  });
+  const human = t >= 6.0 && t < 9.2;
+  const x = x0 + 4 * (w + 16) + 20, ww = W - 64 - x;
+  para(x, y, ww, h, 30, human ? RED : NAVY);
+  text('HUMAN', x + 30, y + 40, 24, human ? WHITE : GREY, 'left', '700', 2);
+  text(human ? 'in game · you first' : 'away · agents at work', x + 30, y + 78, 30, human ? WHITE : BONE, 'left', '800', 0);
+  g.globalAlpha = 1;
+}
+
+function banner(t, a, b, title, sub, col) {  // "SPIKE PLANTED" style band
+  const inn = ease(seg(t, a, a + .3)), out = seg(t, b - .3, b);
+  if (inn <= 0 || out >= 1) return;
+  const k = inn * (1 - out), y = 440, h = 150 * k;
+  g.globalAlpha = .96; g.fillStyle = col; g.fillRect(0, y - h / 2, W, h); g.globalAlpha = 1;
+  if (k > .6) {
+    text(title, W / 2, y + 22, 96, WHITE, 'center', '800');
+    text(sub, W / 2, y + 62, 26, WHITE, 'center', '700', 3);
+  }
+}
+
+function logo(cx, cy, w, alpha, t) {
+  // the repo logo, moving: rows of FIREFIGHTER, outlined above and below, the middle row solid (cream then black),
+  // each row sliding the opposite way to the one above it
+  const size = w * 0.118, rowH = size * 1.06, h = rowH * 5.2;
+  const word = 'FIREFIGHTER';
+  g.save(); g.globalAlpha = alpha;
+  g.beginPath(); g.rect(0, cy - h / 2, W, h); g.clip();
+  g.font = `800 ${size}px "Inter Tight", sans-serif`; g.textBaseline = 'middle'; g.textAlign = 'left';
+  const ww = g.measureText(word + ' ').width;
+  for (let r = -2; r <= 2; r++) {
+    const y = cy + r * rowH, dir = r % 2 === 0 ? 1 : -1;
+    let x = ((t * 90 * dir) % ww) - ww * 2;
+    for (let k = 0; x < W + ww; k++, x += ww) {
+      if (r === 0) {
+        g.fillStyle = k % 2 === 0 ? BONE : INK; g.fillText(word, x, y);
+      } else {
+        // stroke twice as wide, then fill with the background: only the outer edge shows, not the font's overlapping parts
+        g.lineWidth = Math.max(4, size * 0.07); g.lineJoin = 'round'; g.strokeStyle = INK; g.globalAlpha = alpha * (Math.abs(r) === 1 ? 1 : 0.55);
+        g.strokeText(word, x, y); g.globalAlpha = alpha; g.fillStyle = RED; g.fillText(word, x, y);
+      }
+    }
+  }
+  g.restore();
+  return h;
+}
+function tag(str, cx, y, alpha) {
+  const up = str.toUpperCase();
+  g.font = M('700', 26 * 0.8); const w = g.measureText(up).width + up.length * 2 + 56;
+  g.globalAlpha = alpha; g.fillStyle = INK; g.fillRect(cx - w / 2, y - 34, w, 50);
+  text(up, cx, y, 26, BONE, 'center', '800', 2); g.globalAlpha = 1;
+}
+function intro(t) {
+  const k = ease(seg(t, 0.1, .6)), out = seg(t, 1.7, 2.1);
+  if (out >= 1) return;
+  g.globalAlpha = 1 - out; g.fillStyle = RED; g.fillRect(0, 0, W, H); g.globalAlpha = 1;
+  const h = logo(W / 2, 400 - (1 - k) * 30, 1100, k * (1 - out), t);
+  tag("Your AI agents won't set your GPU on fire", W / 2, 400 + h / 2 + 40, ease(seg(t, .5, .9)) * (1 - out));
+}
+
+function outro(t) {
+  const k = ease(seg(t, 12.6, 13.1)); if (k <= 0) return;
+  g.globalAlpha = k; g.fillStyle = RED; g.fillRect(0, 0, W, H); g.globalAlpha = 1;
+  const h = logo(W / 2, 380, 1100, k, t);
+  tag('One command · Windows · macOS · Linux · open source', W / 2, 380 + h / 2 + 40, k);
+  g.globalAlpha = k; text('github.com/JoshWright22/FIREFIGHTER', W / 2, 380 + h / 2 + 110, 26, INK, 'center', '800', 1); g.globalAlpha = 1;
+}
+
+window.draw = function (t) {
+  background(t);
+  if (t > 1.9) { text('agent queue', 64, 236, 44, WHITE, 'left', '800', 0); g.fillStyle = RED; g.fillRect(64, 248, 120, 5); }
+  cards(t); vram(t); scoreboard(t); feed(t);
+  banner(t, 6.0, 7.6, 'human detected', 'GAME LAUNCHED  ·  AGENTS STEP ASIDE', RED);
+  banner(t, 9.15, 10.3, 'you left', 'RESUMING FROM CHECKPOINTS', TEAL);
+  intro(t); outro(t);
+};
+window.T = T;
+let t0 = performance.now();
+if (!location.hash.includes('static')) (function loop() { draw(((performance.now() - t0) / 1000) % T); requestAnimationFrame(loop); })();
+else draw(0);
+</script></body></html>
