@@ -68,7 +68,7 @@ const head = [
     `<link rel="canonical" href="${SITE}/">`,
     `<link rel="alternate" type="text/markdown" href="${SITE}/index.md">`,
     `<meta property="og:type" content="profile">`,
-    `<meta property="og:title" content="Josh Wright - AI Engineer: Machine Learning, AI Agents and Animation">`,
+    `<meta property="og:title" content="Josh Wright - AI Engineer">`,
     `<meta property="og:description" content="${esc(lead)}">`,
     `<meta property="og:url" content="${SITE}/">`,
     `<meta property="og:image" content="${SITE}/assets/me-hero.jpg">`,
