@@ -30,7 +30,7 @@ const projects = content.projects.map(p => ({ ...p, slug: slug(p.title), url: `$
 const won = p => /\bplaced\b|\bplace\b|highest scored/i.test(p.result);
 const skills = [...new Set(content.stack.flatMap(s => s.tools))];  // adding every project tag read as keyword stuffing
 const social = content.links.map(l => l.url);
-const lead = 'Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds AI systems: motion tracking models and animation plugins at Pixel Pirate Studio, FIREFIGHTER, an open-source scheduler that lets AI coding agents share one computer, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.';
+const lead = 'Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds AI systems: motion tracking models and animation plugins at Pixel Pirate Studio, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.';
 const looking = 'New grad software engineering roles starting May 2027, especially machine learning, computer vision, graphics, animation tools, gameplay and R&D at animation studios.';
 
 const person = {

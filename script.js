@@ -9,7 +9,7 @@ const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
     aboutH: 'AI Engineer',
-    aboutT: 'Hey, I\'m Josh. I\'m an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I build AI systems people actually use, like vision models for motion capture, agents trained on custom GPU simulators and the infrastructure that lets AI agents share one machine. At my internship at UNOMi I fine-tune the vision models behind markerless motion capture and host them on Microsoft Azure. I also built FIREFIGHTER, an open-source scheduler that keeps AI coding agents from fighting over a computer\'s GPU, CPU and RAM. I started out keyframing characters by hand, so animation is where I want to take AI research next. Some of my personal work includes Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam, and AtOMoC SHeLiS, which will be on Steam shortly. I post what I\'m building on YouTube, so if you\'re hiring or want to work on something together, reach out!',
+    aboutT: 'Hey, I\'m Josh. I\'m an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I build AI systems people actually use, like vision models for motion capture and agents trained on custom GPU simulators. At my internship at UNOMi I fine-tune the vision models behind markerless motion capture and host them on Microsoft Azure. I started out keyframing characters by hand, so animation is where I want to take AI research next. Some of my personal work includes Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam, and AtOMoC SHeLiS, which will be on Steam shortly. I post what I\'m building on YouTube, so if you\'re hiring or want to work on something together, reach out!',
 
     links: [
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' },
@@ -77,16 +77,6 @@ const content = {
             expertise: ['React', 'JavaScript', 'HTML/CSS', 'Cross-Functional Collaboration', 'Team Leadership', 'UI/UX Design'],
             img: './assets/gdcc-map.webm',
             link: 'https://gamedevclubclub.com/'
-        },
-        {
-            title: 'FIREFIGHTER', short: 'FIRE', result: 'Coordinator for unmanaged AI agents',
-            category: 'AI Infrastructure',
-            date: 'November 2026',
-            desc: 'I built FIREFIGHTER because I run several AI coding agents at once on one PC. They kept grabbing the same GPU, running out of VRAM and making my games stutter. It is the coordinator and scheduler for unmanaged AI agents, a local job queue for the GPU, CPU, RAM and network that every agent shares. I always come first, because it watches my keyboard, mouse, games and other apps and keeps capacity free for me. Agents queue their heavy work, and a GPU job starts only when its VRAM need fits, which it learns from past runs. Agents get priced tiers instead of bidding against each other. When I need the machine back, jobs pause or save and requeue instead of crashing. It is one Go binary for Windows, macOS and Linux and registers itself as an MCP server with 21 coding agents, including Claude Code, Codex and Cursor.',
-            expertise: ['AI Agents', 'Go', 'Scheduling', 'MCP', 'Systems Programming', 'GPU Resource Management', 'Cross-Platform'],
-            img: './assets/firefighter-demo.webm',
-            fit: 'contain',
-            link: 'https://github.com/JoshWright22/FIREFIGHTER'
         },
         {
             title: 'AtOMoC SHeLiS', short: 'AtOMoC', result: 'Placed #12 of 150 games',
