@@ -193,7 +193,7 @@ ${asked.map(([q, a]) => `        <h2>${esc(q)}</h2>\n        <p>${esc(a)}</p>`).
             ${skillGroups}
         </ul>
         <h2>How do I contact Josh Wright?</h2>
-        <p>Email <a href="mailto:${EMAIL}">${EMAIL}</a>. Resume: <a href="/assets/Josh_Wright_Resume.pdf">${SITE}/assets/Josh_Wright_Resume.pdf</a>. Work authorization: US citizen, no sponsorship needed.</p>
+        <p>Email <a href="mailto:${EMAIL}">${EMAIL}</a>. Resume: <a href="/assets/Josh_Wright_Resume.pdf">${SITE}/assets/Josh_Wright_Resume.pdf</a>.</p>
         <ul>
             ${content.links.map(l => `<li><a href="${l.url}">${esc(l.text)}</a></li>`).join('\n            ')}
         </ul>`
