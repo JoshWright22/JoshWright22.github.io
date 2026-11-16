@@ -44,6 +44,7 @@
     const HOP_CLEARANCE = 12;
     const WORD_MARGIN = 20;
     const BALL_REST = 9.5;
+    const GRAVITY = 0.0012;
     const NAV_TEXT = 11.2;
     const PHONE_HOP = 14;
     const THREAD_SPACING = 760;
@@ -930,6 +931,9 @@
             link.href = `#${project.id}`;
             link.textContent = project.dataset.short;
             link.title = project.querySelector('.project-title').textContent;
+            // With too many projects for their names, the bar shows their numbers instead.
+            link.dataset.short = project.dataset.short;
+            link.dataset.num = project.querySelector('.project-num').textContent;
             about.after(link);
         });
         const anchors = [...links.querySelectorAll('a')];
@@ -984,8 +988,9 @@
         track.append(ball);
 
         return {
-            nav, brand, track, ruler, rulerPath, anchors, diamonds, homeKey, startTick: 0, endTick: 1, peak: 1, playhead, ball, multiples,
-            ticks: 1, width: 1, keyTicks: [], labels: [], scrollMax: 1, x: 0, ballX: 0, ballGoal: 0, ballY: 0, ground: 0, groundTarget: 0, airborne: false, hopStart: 0, landedAt: -1000, lastScroll: -1000, raf: 0
+            nav, brand, track, ruler, rulerPath, anchors, projectLinks: anchors.filter(a => a.dataset.num), diamonds, homeKey, startTick: 0, endTick: 1, peak: 1, playhead, ball, multiples,
+            ticks: 1, width: 1, keyTicks: [], labels: [], scrollMax: 1, x: 0, ballX: 0, ballGoal: 0, ballY: 0, ground: 0, groundTarget: 0, airborne: false, hopStart: 0, landedAt: -1000, lastScroll: -1000, raf: 0,
+            falling: false, fallSpeed: 0, lastFrame: 0, unit: 1
         };
     }
 
@@ -1017,6 +1022,7 @@
         t.scrollMax = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
         // Everything in the bar is sized from its text, so it all scales together.
         const unit = parseFloat(getComputedStyle(t.nav).fontSize) / NAV_TEXT;
+        t.unit = unit;
         t.ticks = Math.max(1, Math.round(t.width / (TICK_TARGET * unit)));
 
         // The timeline starts on the name's key, which sits on the tick nearest the name.
@@ -1038,6 +1044,11 @@
         }
         t.rulerPath.setAttribute('d', d);
 
+        t.nav.classList.remove('nav--unlabelled');
+        t.projectLinks.forEach(a => {
+            a.textContent = a.dataset.short;
+        });
+
         // On a phone the ruler is just scroll progress, with the links in a plain row above it.
         if (window.matchMedia('(max-width: 720px)').matches) {
             t.startTick = 0;
@@ -1057,20 +1068,17 @@
             key.style.left = `${tickX(t, t.keyTicks[i])}px`;
         });
 
-        const gap = 14;
-        const sizes = t.anchors.map(a => a.offsetWidth);
-        const lefts = t.keyTicks.map((tick, i) => tickX(t, tick) - sizes[i] / 2);
-        lefts.forEach((left, i) => {
-            const min = i ? lefts[i - 1] + sizes[i - 1] + gap : name.right - trackLeft + gap;
-            lefts[i] = Math.max(left, min);
-        });
-        for (let i = lefts.length - 1; i >= 0; i--) {
-            const max = i === lefts.length - 1 ? t.width - gap - sizes[i] : lefts[i + 1] - gap - sizes[i];
-            lefts[i] = Math.min(lefts[i], max);
+        // Each label stays over its key. If the project names can't all do that, the projects
+        // show their numbers, and if even those don't fit, only the other sections are labelled.
+        if (!placeLabels(t, name.right - trackLeft)) {
+            t.projectLinks.forEach(a => {
+                a.textContent = a.dataset.num;
+            });
+            if (!placeLabels(t, name.right - trackLeft)) {
+                t.nav.classList.add('nav--unlabelled');
+                placeLabels(t, name.right - trackLeft);
+            }
         }
-        t.anchors.forEach((a, i) => {
-            a.style.left = `${lefts[i]}px`;
-        });
 
         // Where the ball can stand: on top of the text in the bar, otherwise on the ruler.
         const frame = t.track.getBoundingClientRect();
@@ -1085,6 +1093,30 @@
         t.peak = Math.max(...t.labels.map(l => l.rise)) + HOP_CLEARANCE * unit;
     }
 
+    // Centres each shown label over its key, then pushes apart any that would touch, keeping
+    // clear of the name and the bar's right end. False if that moved a label off its key
+    // or into the name.
+    function placeLabels(t, nameRight) {
+        const gap = 14;
+        const shown = t.anchors.map((a, i) => ({ a, key: tickX(t, t.keyTicks[i]), size: a.offsetWidth }))
+            .filter(label => label.size);
+        shown.forEach((label, i) => {
+            const min = i ? shown[i - 1].left + shown[i - 1].size + gap : nameRight + gap;
+            label.left = Math.max(label.key - label.size / 2, min);
+        });
+        for (let i = shown.length - 1; i >= 0; i--) {
+            const max = i === shown.length - 1 ? t.width - gap - shown[i].size : shown[i + 1].left - gap - shown[i].size;
+            shown[i].left = Math.min(shown[i].left, max);
+        }
+        shown.forEach(({ a, left }) => {
+            a.style.left = `${left}px`;
+        });
+        // A key just past the end of its label still reads as its own.
+        const slack = 4;
+        return shown.every(({ key, left, size }, i) =>
+            key >= left - slack && key <= left + size + slack && left >= (i ? shown[i - 1].left + shown[i - 1].size + gap : nameRight + gap) - 0.5);
+    }
+
     // Hops while the page scrolls. When the scroll stops it finishes the hop it's
     // on, lands with a single stretch and stays down.
     function placeBall(t, now) {
@@ -1092,27 +1124,43 @@
         const lastX = t.ballX;
         const lastY = t.ballY;
         t.ballX += (t.ballGoal - t.ballX) * 0.08;
-        // In the air it plans ahead for the word it's coming up on. Once down it needs
+        // In a hop it plans ahead for the word it's coming up on. Falling or down, it needs
         // to be over the word itself, or it would stop on nothing.
-        const margin = t.airborne ? WORD_MARGIN : 0;
+        const margin = t.airborne && !t.falling ? WORD_MARGIN : 0;
         const on = t.labels.find(l => t.ballX >= l.left - margin && t.ballX <= l.right + margin);
         t.groundTarget = on ? on.rise : 0;
-        t.ground += (t.groundTarget - t.ground) * 0.22;
+        const dt = Math.min(50, now - t.lastFrame);
+        t.lastFrame = now;
 
         let lift = 0;
-        if (t.airborne) {
-            const ms = now - t.hopStart;
-            if (ms >= BOUNCE_TIME) {
-                if (now - t.lastScroll < 120) {
-                    // Touches down between hops, so every landing gets its squash.
-                    t.landedAt = now;
-                    t.hopStart = now + LANDING_TIME;
-                } else {
-                    t.airborne = false;
-                    t.landedAt = now;
+        if (t.falling) {
+            // It ran off the end of a word, so it drops to what's under it before it lands.
+            t.fallSpeed += GRAVITY * t.unit * dt;
+            const next = t.ground - t.fallSpeed * dt;
+            if (next > t.groundTarget) {
+                t.ground = next;
+            } else {
+                t.ground = Math.max(next, Math.min(t.ground, t.groundTarget));
+                t.falling = false;
+                touchDown(t, now);
+            }
+        } else {
+            t.ground += (t.groundTarget - t.ground) * 0.22;
+            if (t.airborne) {
+                const ms = now - t.hopStart;
+                if (ms >= BOUNCE_TIME) {
+                    const under = t.labels.find(l => t.ballX >= l.left && t.ballX <= l.right);
+                    if (t.ground - (under ? under.rise : 0) > 0.5) {
+                        // The hop ended past the word it planned to land on: keep the speed it
+                        // came down with and fall the rest of the way.
+                        t.falling = true;
+                        t.fallSpeed = 6 * (t.peak - t.ground) / BOUNCE_TIME;
+                    } else {
+                        touchDown(t, now);
+                    }
+                } else if (ms > 0) {
+                    lift = 1 - Math.abs(2 * ms / BOUNCE_TIME - 1) ** 3;
                 }
-            } else if (ms > 0) {
-                lift = 1 - Math.abs(2 * ms / BOUNCE_TIME - 1) ** 3;
             }
         }
         t.ballY = t.ground + lift * (t.peak - t.ground);
@@ -1152,6 +1200,16 @@
             const back = (i + 1) * 1.1;
             copy.style.transform = `translate(${t.ballX - dx * back}px, ${-(t.ballY - dy * back)}px) scale(${1 - (i + 1) * 0.16})`;
         });
+    }
+
+    function touchDown(t, now) {
+        t.landedAt = now;
+        if (now - t.lastScroll < 120) {
+            // Touches down between hops, so every landing gets its squash.
+            t.hopStart = now + LANDING_TIME;
+        } else {
+            t.airborne = false;
+        }
     }
 
     // The window changed size under it, so it goes straight to its spot in the new layout.
