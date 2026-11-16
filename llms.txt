@@ -15,7 +15,6 @@ Contact: joshwright0322@gmail.com
 - [UNOMi](https://joshwright22.github.io/projects/unomi/): 2.8x faster motion capture, same accuracy
 - [Cambridge Battlecode 2026](https://joshwright22.github.io/projects/cambridge-battlecode-2026/): Mined 110,000 ladder matches, trained on 6M turns
 - [nanoTSFM Forecasting](https://joshwright22.github.io/projects/nanotsfm-forecasting/): 17% lower error than the nanoTSFM record
-- [Surge AI](https://joshwright22.github.io/projects/surge-ai/): Ratings that train coding models
 - [Mastodon Disaster Network](https://joshwright22.github.io/projects/mastodon-disaster-network/): 3,479 posts mapped
 - [Trust No One](https://joshwright22.github.io/projects/trust-no-one/): Placed #9 of 2,253 games
 - [There's No Place Like 127.0.0.1](https://joshwright22.github.io/projects/theres-no-place-like-127-0-0-1/): Highest scored pitch at the AZ Game Cup

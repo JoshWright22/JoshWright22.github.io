@@ -9,7 +9,7 @@ const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
     aboutH: 'AI Engineer',
-    aboutT: 'Hey, I\'m Josh. I\'m an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the one the team now uses, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I also grade LLM coding answers for Surge AI. I started out keyframing characters by hand, so animation is where I want to take AI research next. I still make games too, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you\'re hiring or want to work on something together, reach out!',
+    aboutT: 'Hey, I\'m Josh. I\'m an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the one the team now uses, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I started out keyframing characters by hand, so animation is where I want to take AI research next. I still make games too, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you\'re hiring or want to work on something together, reach out!',
 
     links: [
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' },
@@ -22,7 +22,7 @@ const content = {
     marquee: ['Model Training', 'Fine-Tuning', 'PyTorch', 'CUDA', 'Reinforcement Learning', 'PPO', 'Self-Play', 'Computer Vision', 'Motion Capture', 'Forecasting', 'LLM Evaluation', 'AI Agents', 'Benchmarking', 'Azure GPUs', 'Python', 'C++', 'AI for Animation', 'Games'],
     // art is one of: net, graph, game, code.
     stack: [
-        { title: 'AI / ML Engineering', what: 'I train models, make them faster and check them against real benchmarks. At UNOMi that means vision models for markerless motion capture, fine-tuned and hosted on Azure GPUs. On my own it means a CUDA simulator for training PPO agents by self-play, and forecasting models scored on GIFT-Eval. At Surge AI I grade LLM coding answers. Next I want to do this research myself, focused on animation.', art: 'net', tools: ['PyTorch', 'CUDA', 'Python', 'Reinforcement Learning (PPO, Self-Play)', 'Model Fine-Tuning', 'Computer Vision', 'Time-Series Forecasting', 'LLM Evaluation', 'AI Agents (MCP)', 'Azure GPU Hosting', 'C++'] },
+        { title: 'AI / ML Engineering', what: 'I train models, make them faster and check them against real benchmarks. At UNOMi that means vision models for markerless motion capture, fine-tuned and hosted on Azure GPUs. On my own it means a CUDA simulator for training PPO agents by self-play, and forecasting models scored on GIFT-Eval. Next I want to do this research myself, focused on animation.', art: 'net', tools: ['PyTorch', 'CUDA', 'Python', 'Reinforcement Learning (PPO, Self-Play)', 'Model Fine-Tuning', 'Computer Vision', 'Time-Series Forecasting', 'LLM Evaluation', 'AI Agents (MCP)', 'Azure GPU Hosting', 'C++'] },
         { title: 'Animation Tools', what: 'I build the UNOMi plugins for Maya, Blender, Unreal and Cinema 4D, and I keyframe by hand.', art: 'graph', tools: ['Python', 'Plugin Development', 'Maya', 'Blender', 'Cinema 4D', 'Unreal Engine', 'Keyframe Animation'] },
         { title: 'Games', what: 'I make games on hard deadlines, from combat and upgrades to procedural levels.', art: 'game', tools: ['C#', 'Unity', 'Godot', 'Unreal Engine', 'Procedural Generation', 'Multiplayer Networking'] },
         { title: 'Software Engineering', what: 'I can own a product end to end, from a C++ framework to the server and the cloud it runs on.', art: 'code', tools: ['C++', 'TypeScript', 'React', 'Docker', 'Microsoft Azure', 'AWS', 'Git', 'CI', 'Team Leadership', 'Agile Sprints'] }
@@ -32,7 +32,7 @@ const content = {
     // the top bar label and result is the one line pitch shown while the clip is in view.
     // img goes in assets/, and a .webm also needs a matching -poster.jpg. fit: 'contain' is
     // optional. A project with no clip gets a drawn panel instead: stats are [number, label]
-    // pairs and art is one of pairs, spread. A forecast gets a plot of the real forecast.
+    // pairs and art is spread. A forecast gets a plot of the real forecast.
     projects: [
         {
             title: 'UNOMi', short: 'UNOMi', result: '2.8x faster motion capture, same accuracy',
@@ -72,16 +72,6 @@ const content = {
                 q70: [809, 660, 652, 625, 693, 887, 1016, 1118, 1370, 1630, 1701, 1676, 1640, 1626, 1630, 1672, 1702, 1774, 1811, 1755, 1723, 1701, 1537, 1200, 844, 666, 635, 623, 672, 889, 1022, 1125, 1460, 1714, 1767, 1745, 1728, 1684, 1673, 1683, 1742, 1805, 1779, 1698, 1636, 1619, 1444, 1136],
                 q90: [852, 705, 682, 662, 731, 950, 1081, 1196, 1435, 1692, 1774, 1741, 1697, 1698, 1701, 1727, 1765, 1841, 1867, 1794, 1745, 1727, 1583, 1269, 909, 712, 686, 670, 739, 960, 1106, 1201, 1597, 1845, 1922, 1841, 1826, 1806, 1811, 1831, 1898, 1936, 1925, 1831, 1760, 1728, 1551, 1253]
             }
-        },
-        {
-            title: 'Surge AI', short: 'Surge', result: 'Ratings that train coding models',
-            group: 'AI Engineering',
-            category: 'AI Data Specialist',
-            date: 'June 2025 - Present',
-            desc: 'I work as an AI data specialist for Surge AI through DataAnnotation. I review AI-generated code for bugs, wrong logic and edge cases, and grade LLM coding answers on correctness. I also compare pairs of model answers and write the reasoning behind each rating, which is used to train coding models.',
-            expertise: ['LLM Evaluation', 'Code Review', 'RLHF Data', 'Python'],
-            stats: [['A / B', 'model answers, rated with written reasons']],
-            art: 'pairs'
         },
         {
             title: 'Mastodon Disaster Network', short: 'Mastodon', result: '3,479 posts mapped',
@@ -243,12 +233,6 @@ const projectLink = proj => proj.link
 function panel(proj) {
     if (proj.forecast) return forecastPanel(proj.forecast);
     const art = {
-        // Two model answers side by side, one picked, with the reason written under it.
-        pairs: () => [0, 1].map(side => {
-            const x = 40 + side * 128;
-            const lines = [70, 52, 84, 40, 62].map((w, i) => `<rect class="pa-code" x="${x + 14 + (i % 2) * 8}" y="${22 + i * 11}" width="${w}" height="5" rx="2"/>`).join('');
-            return `<g class="pa-card${side ? ' pa-card--pick' : ''}"><rect class="pa-sheet" x="${x}" y="8" width="112" height="78" rx="6"/>${lines}<text class="pa-letter" x="${x + 100}" y="24">${side ? 'B' : 'A'}</text></g>`;
-        }).join('') + '<rect class="pa-reason" x="168" y="94" width="112" height="5" rx="2"/><path class="pa-check" d="M262 64 l7 7 l13 -15"/>',
         // Information spreading out from one post, ring by ring.
         spread: () => {
             const nodes = [[160, 52, 0]];

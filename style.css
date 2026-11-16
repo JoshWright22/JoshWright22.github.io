@@ -915,59 +915,6 @@ a {
     animation-play-state: running;
 }
 
-.pa-sheet {
-    fill: color-mix(in srgb, var(--blue) 14%, transparent);
-    stroke: var(--blue);
-    stroke-width: 1.5;
-}
-
-.pa-code {
-    fill: color-mix(in srgb, var(--fg) 28%, transparent);
-}
-
-.pa-letter {
-    font: 700 12px 'JetBrains Mono', monospace;
-    fill: var(--muted);
-    text-anchor: middle;
-}
-
-.pa-card--pick .pa-sheet {
-    animation: pa-pick 3.2s ease-in-out infinite;
-}
-
-@keyframes pa-pick {
-    0%, 30% { stroke: var(--blue); fill: color-mix(in srgb, var(--blue) 14%, transparent); }
-    45%, 100% { stroke: var(--yellow); fill: color-mix(in srgb, var(--yellow) 12%, transparent); }
-}
-
-.pa-check {
-    fill: none;
-    stroke: var(--yellow);
-    stroke-width: 3;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-dasharray: 30;
-    stroke-dashoffset: 30;
-    animation: pa-draw 3.2s ease-in-out infinite;
-}
-
-.pa-reason {
-    fill: var(--yellow);
-    transform-origin: 168px 96px;
-    transform: scaleX(0);
-    animation: pa-write 3.2s ease-in-out infinite;
-}
-
-@keyframes pa-draw {
-    0%, 40% { stroke-dashoffset: 30; }
-    55%, 100% { stroke-dashoffset: 0; }
-}
-
-@keyframes pa-write {
-    0%, 55% { transform: scaleX(0); }
-    85%, 100% { transform: scaleX(1); }
-}
-
 .pa-edge {
     stroke: color-mix(in srgb, var(--fg) 18%, transparent);
     stroke-width: 1.2;
@@ -1130,14 +1077,6 @@ a {
 @media (prefers-reduced-motion: reduce) {
     .project-panel * {
         animation: none !important;
-    }
-
-    .pa-check {
-        stroke-dashoffset: 0;
-    }
-
-    .pa-reason {
-        transform: none;
     }
 
     .fc-line {
