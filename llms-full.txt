@@ -1,8 +1,8 @@
 # Josh Wright
 
-> Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds AI systems: motion tracking models and animation plugins at Pixel Pirate Studio, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.
+> Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He trains and fine-tunes models, writes CUDA and builds reinforcement learning agents. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and his CUDA game simulator runs 177 games a second on one GPU.
 
-Looking for: New grad software engineering roles starting May 2027, especially machine learning, computer vision, graphics, animation tools, gameplay and R&D at animation studios.
+Looking for: New grad AI and machine learning engineering roles starting May 2027: model training and fine-tuning, GPU and CUDA work, reinforcement learning, computer vision and evaluation, including AI R&D at animation studios.
 
 Email: joshwright0322@gmail.com
 Location: Tempe, Arizona
@@ -14,26 +14,62 @@ LinkedIn: https://www.linkedin.com/in/joshua-wright-a94143338/
 
 ## About
 
-Hey, I'm Josh. I'm an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I build AI systems people actually use, like vision models for motion capture and agents trained on custom GPU simulators. At my internship at UNOMi I fine-tune the vision models behind markerless motion capture and host them on Microsoft Azure. I started out keyframing characters by hand, so animation is where I want to take AI research next. Some of my personal work includes Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam, and AtOMoC SHeLiS, which will be on Steam shortly. I post what I'm building on YouTube, so if you're hiring or want to work on something together, reach out!
+Hey, I'm Josh. I'm an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the one the team now uses, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator that runs 177 games a second on one GPU and trained a PPO agent on it by self-play. I also grade LLM coding answers for Surge AI. I started out keyframing characters by hand, so animation is where I want to take AI research next. I still make games too, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!
 
 ## Skills
 
-- AI Systems: PyTorch, CUDA, Python, Computer Vision, Machine Learning, Model Fine-Tuning, Reinforcement Learning, AI Agents, MCP, Go
-- Animation Tools: Python, Plugin Development, Maya, Blender, Cinema 4D, Unreal Engine, Keyframe Animation, Character Animation, Rigging
-- Gameplay Systems: C#, C++, Unity, Godot, Unreal Engine, Procedural Generation, Multiplayer Networking, Steamworks API
-- Software Engineering: C++, TypeScript, WebGPU, SDL3, HLSL, React, Next.js, Electron, PostgreSQL, Docker, Microsoft Azure, AWS, Git, Team Leadership, Agile Sprints
+- AI / ML Engineering: PyTorch, CUDA, Python, Reinforcement Learning (PPO, Self-Play), Model Fine-Tuning, Computer Vision, Time-Series Forecasting, LLM Evaluation, AI Agents (MCP), Azure GPU Hosting, C++
+- Animation Tools: Python, Plugin Development, Maya, Blender, Cinema 4D, Unreal Engine, Keyframe Animation
+- Games: C#, Unity, Godot, Unreal Engine, Procedural Generation, Multiplayer Networking
+- Software Engineering: C++, TypeScript, React, Docker, Microsoft Azure, AWS, Git, CI, Team Leadership, Agile Sprints
 
 ## Work
 
 ### UNOMi
 
-Two-time Emmy-nominated studio. Software Engineering Internship, August 2026 - Present.
+2.8x faster motion capture, same accuracy. Software Engineering Internship, August 2026 - Present.
 
-I'm a software engineering intern at Pixel Pirate Studio, a two-time Emmy-nominated animation studio in Los Angeles. The studio makes UNOMi, which uses machine learning to generate 3D character animation. I work on the markerless motion tracking coming in UNOMi 3D, which turns camera footage of a performer into animation. I fine-tune the vision-to-motion models and host them on Microsoft Azure. I also build and test the UNOMi plugins for Maya, Blender, Unreal Engine and Cinema 4D. The internship runs through May 2027.
+I'm a software engineering intern at Pixel Pirate Studio, a two-time Emmy-nominated animation studio in Los Angeles. The studio makes UNOMi, which uses machine learning to generate 3D character animation. I work on the markerless motion capture coming in UNOMi 3D, which turns camera footage of a performer into animation. I benchmarked 6 markerless motion capture pipelines on real clips and picked the one the team now uses by default. Then I made it 2.8x faster at the same accuracy, which cut its estimated cloud GPU cost per video minute by 64%. I fine-tune the vision-to-motion models, which I host on Microsoft Azure. I also merged the 4 UNOMi plugins for Maya, Blender, Unreal Engine and Cinema 4D into one repo with CI. The internship runs through May 2027.
 
-Skills: Animation Tools, Motion Tracking, Machine Learning, Computer Vision, Model Fine-Tuning, Microsoft Azure, Python, 3D Animation Pipelines, Debugging & Optimization
+Skills: Computer Vision, Motion Capture, Model Fine-Tuning, Benchmarking, GPU Optimization, Microsoft Azure, Python, CI, Animation Tools
 Page: https://joshwright22.github.io/projects/unomi/
 Link: https://getunomi.com/3d-lip-sync/
+
+### Cambridge Battlecode 2026
+
+177 games/s on one GPU, 55x the CPU engine. Reinforcement Learning, October 2026 - Present.
+
+I wrote a CUDA game simulator for Cambridge Battlecode 2026 that runs 177 full games a second on one GPU, 55x the CPU engine's 3.2. Then I trained a recurrent PPO reinforcement learning agent on it by self-play. I also built a data pipeline over 110,000 ranked matches that pulls out the 20,000 strongest replays in 15 minutes, and trained GPU decision-tree models on 6 million game turns to drive the bot's choices.
+
+Skills: CUDA, C++, Python, Reinforcement Learning, PPO, Self-Play, GPU Simulation, Data Pipelines, Decision Trees
+Page: https://joshwright22.github.io/projects/cambridge-battlecode-2026/
+
+### nanoTSFM Forecasting
+
+17% lower error than the nanoTSFM record. Time-Series Forecasting, October 2026.
+
+I trained an ensemble of five 13M-parameter PyTorch forecasting models for the open nanoTSFM benchmark. It scored 0.526 CRPS on GIFT-Eval's 97 unseen tasks, 17% lower error than the 0.632 nanoTSFM record. Those numbers are from my own runs over 2 seeds.
+
+Skills: PyTorch, Python, Time-Series Forecasting, Model Training, Ensembles, Evaluation
+Page: https://joshwright22.github.io/projects/nanotsfm-forecasting/
+
+### Surge AI
+
+Ratings that train coding models. AI Data Specialist, June 2025 - Present.
+
+I work as an AI data specialist for Surge AI through DataAnnotation. I review AI-generated code for bugs, wrong logic and edge cases, and grade LLM coding answers on correctness. I also compare pairs of model answers and write the reasoning behind each rating, which is used to train coding models.
+
+Skills: LLM Evaluation, Code Review, RLHF Data, Python
+Page: https://joshwright22.github.io/projects/surge-ai/
+
+### Mastodon Disaster Network
+
+3,479 posts mapped. Data Analysis, September 2026.
+
+I collected 3,479 Mastodon posts through its REST API and mapped how information spread in networkx and Gephi.
+
+Skills: Python, REST API, networkx, LLM, Gephi, Network Analysis
+Page: https://joshwright22.github.io/projects/mastodon-disaster-network/
 
 ### Trust No One
 
@@ -104,3 +140,13 @@ I designed and implemented the core mechanics while directing a small team throu
 Skills: Team Leadership, Project Planning, Python, Godot, Gameplay Programming, Systems Design
 Page: https://joshwright22.github.io/projects/slush-rush/
 Link: https://joshwright.itch.io/slush-rush
+
+### Algone
+
+Hides algorithmic feeds on 12 sites. Browser Extension, November 2026.
+
+I built Algone, a browser extension that hides algorithmic feeds on 12 sites. It has 26 downloads so far.
+
+Skills: TypeScript, Vitest, Playwright, GitHub Actions, Browser Extensions
+Page: https://joshwright22.github.io/projects/algone/
+Link: https://github.com/JoshWright22/Algone

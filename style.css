@@ -811,6 +811,291 @@ a {
     }
 }
 
+/* Group headings split the work list: AI first, then games and animation. */
+.work-group {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    width: fit-content;
+    margin: 0;
+    padding: clamp(3rem, 7vw, 6rem) 0 0;
+    font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+}
+
+.work-group:first-child {
+    padding-top: 0;
+}
+
+.work-group > span {
+    background: var(--bg);
+}
+
+.work-group + .project {
+    border-top: none;
+    padding-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* =============================================================
+   Drawn panels, for projects with no clip
+   ============================================================= */
+
+.project-panel {
+    --deep: #2f5ba8;
+    --blue: #4776ca;
+    --sky: #7ba6e8;
+    --pale: #bcd3f5;
+    --yellow: #ffd23f;
+    container-type: inline-size;
+    position: relative;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    aspect-ratio: 16 / 9;
+    /* cqi here would measure the page, not the panel; % padding follows the panel's width */
+    padding: 4% 5% 4.5%;
+    background:
+        repeating-linear-gradient(to bottom, var(--line-soft) 0 1px, transparent 1px 25%),
+        color-mix(in srgb, var(--fg) 4%, var(--bg));
+}
+
+.pa-art {
+    position: relative;
+    min-height: 0;
+}
+
+.pa-art svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.pa-stats {
+    display: flex;
+    gap: 7cqi;
+    align-items: flex-end;
+}
+
+.pa-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6cqi;
+    min-width: 0;
+}
+
+.pa-value {
+    font-size: max(1.4rem, 8.5cqi);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--fg);
+}
+
+.pa-stat:first-child .pa-value {
+    color: var(--sky);
+}
+
+.pa-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: max(0.6rem, 2.3cqi);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* Diagram parts. Nothing moves until the panel is on screen. */
+.project-panel * {
+    animation-play-state: paused;
+}
+
+.project-panel.is-on * {
+    animation-play-state: running;
+}
+
+.pa-cell {
+    fill: color-mix(in srgb, var(--fg) 10%, transparent);
+    animation: pa-cell 2.6s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 70ms);
+}
+
+@keyframes pa-cell {
+    0%, 55%, 100% { fill: color-mix(in srgb, var(--fg) 10%, transparent); }
+    20% { fill: var(--sky); }
+    35% { fill: var(--blue); }
+}
+
+.pa-sheet {
+    fill: color-mix(in srgb, var(--blue) 14%, transparent);
+    stroke: var(--blue);
+    stroke-width: 1.5;
+}
+
+.pa-code {
+    fill: color-mix(in srgb, var(--fg) 28%, transparent);
+}
+
+.pa-letter {
+    font: 700 12px 'JetBrains Mono', monospace;
+    fill: var(--muted);
+    text-anchor: middle;
+}
+
+.pa-card--pick .pa-sheet {
+    animation: pa-pick 3.2s ease-in-out infinite;
+}
+
+@keyframes pa-pick {
+    0%, 30% { stroke: var(--blue); fill: color-mix(in srgb, var(--blue) 14%, transparent); }
+    45%, 100% { stroke: var(--yellow); fill: color-mix(in srgb, var(--yellow) 12%, transparent); }
+}
+
+.pa-check {
+    fill: none;
+    stroke: var(--yellow);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    animation: pa-draw 3.2s ease-in-out infinite;
+}
+
+.pa-reason {
+    fill: var(--yellow);
+    transform-origin: 168px 96px;
+    transform: scaleX(0);
+    animation: pa-write 3.2s ease-in-out infinite;
+}
+
+@keyframes pa-draw {
+    0%, 40% { stroke-dashoffset: 30; }
+    55%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes pa-write {
+    0%, 55% { transform: scaleX(0); }
+    85%, 100% { transform: scaleX(1); }
+}
+
+.pa-edge {
+    stroke: color-mix(in srgb, var(--fg) 18%, transparent);
+    stroke-width: 1.2;
+    animation: pa-edge 3.6s ease-out infinite;
+    animation-delay: calc(var(--i) * 0.45s - 0.45s);
+}
+
+.pa-node {
+    fill: color-mix(in srgb, var(--fg) 22%, var(--bg));
+    stroke: var(--bg);
+    stroke-width: 1.5;
+    animation: pa-node 3.6s ease-out infinite;
+    animation-delay: calc(var(--i) * 0.45s);
+}
+
+@keyframes pa-node {
+    0% { fill: color-mix(in srgb, var(--fg) 22%, var(--bg)); }
+    8%, 60% { fill: var(--sky); }
+    100% { fill: color-mix(in srgb, var(--fg) 22%, var(--bg)); }
+}
+
+@keyframes pa-edge {
+    0% { stroke: color-mix(in srgb, var(--fg) 18%, transparent); }
+    8%, 60% { stroke: var(--blue); }
+    100% { stroke: color-mix(in srgb, var(--fg) 18%, transparent); }
+}
+
+.pa-thumb {
+    fill: color-mix(in srgb, var(--sky) 40%, transparent);
+}
+
+.pa-row {
+    animation: pa-hide 4s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 0.35s);
+}
+
+@keyframes pa-hide {
+    0%, 20% { opacity: 1; }
+    40%, 80% { opacity: 0.12; }
+    100% { opacity: 1; }
+}
+
+/* A real comparison, so the bars are drawn to scale */
+.pa-bars {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.6cqi;
+    height: 100%;
+}
+
+.pa-bar {
+    display: grid;
+    grid-template-columns: 15cqi minmax(0, 1fr) 13cqi;
+    align-items: center;
+    gap: 2.5cqi;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: max(0.62rem, 2.5cqi);
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.pa-bar-track {
+    height: max(10px, 4.5cqi);
+}
+
+.pa-bar-fill {
+    display: block;
+    width: var(--w);
+    height: 100%;
+    background: color-mix(in srgb, var(--fg) 22%, transparent);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 1.1s var(--ease);
+}
+
+.project-panel.is-on .pa-bar-fill {
+    transform: scaleX(1);
+}
+
+.pa-bar.is-mine {
+    color: var(--fg);
+}
+
+.pa-bar.is-mine .pa-bar-fill {
+    background: var(--sky);
+}
+
+.pa-bar-value {
+    text-align: right;
+}
+
+.pa-bar-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: max(0.55rem, 2cqi);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-panel * {
+        animation: none !important;
+    }
+
+    .pa-check {
+        stroke-dashoffset: 0;
+    }
+
+    .pa-reason,
+    .pa-bar-fill {
+        transform: none;
+        transition: none;
+    }
+}
+
 /* =============================================================
    Stack
    ============================================================= */

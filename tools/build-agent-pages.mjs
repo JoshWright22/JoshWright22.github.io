@@ -30,8 +30,8 @@ const projects = content.projects.map(p => ({ ...p, slug: slug(p.title), url: `$
 const won = p => /\bplaced\b|\bplace\b|highest scored/i.test(p.result);
 const skills = [...new Set(content.stack.flatMap(s => s.tools))];  // adding every project tag read as keyword stuffing
 const social = content.links.map(l => l.url);
-const lead = 'Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds AI systems: motion tracking models and animation plugins at Pixel Pirate Studio, and games, including Trust No One, which placed #9 of 2,253 entries in the Brackeys Game Jam.';
-const looking = 'New grad software engineering roles starting May 2027, especially machine learning, computer vision, graphics, animation tools, gameplay and R&D at animation studios.';
+const lead = 'Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He trains and fine-tunes models, writes CUDA and builds reinforcement learning agents. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and his CUDA game simulator runs 177 games a second on one GPU.';
+const looking = 'New grad AI and machine learning engineering roles starting May 2027: model training and fine-tuning, GPU and CUDA work, reinforcement learning, computer vision and evaluation, including AI R&D at animation studios.';
 
 const person = {
     '@type': 'Person',
@@ -79,7 +79,7 @@ const head = [
 
 const links = content.links.map(l => `<a class="link-row" href="${l.url}">${esc(l.text)}</a>`).join('');
 const socials = content.links.map(l => `<a class="footer-link" href="${l.url}">${esc(l.text)}</a>`).join('');
-const workList = projects.map(p => `<article><h3><a href="/projects/${p.slug}/">${esc(p.title)}</a></h3><p>${esc(p.category)}, ${esc(p.date)}. ${esc(p.result)}.</p><p>${esc(p.desc)}</p><p>${esc(p.expertise.join(', '))}</p><p><a href="${p.link}">View product</a></p></article>`).join('');
+const workList = projects.map((p, i) => `${p.group && p.group !== (projects[i - 1] || {}).group ? `<h2>${esc(p.group)}</h2>` : ''}<article><h3><a href="/projects/${p.slug}/">${esc(p.title)}</a></h3><p>${esc(p.category)}, ${esc(p.date)}. ${esc(p.result)}.</p><p>${esc(p.desc)}</p><p>${esc(p.expertise.join(', '))}</p>${p.link ? `<p><a href="${p.link}">${esc(p.linkText || 'View product')}</a></p>` : ''}</article>`).join('');
 const stackList = content.stack.map(s => `<article><h3>${esc(s.title)}</h3><p>${esc(s.what)}</p><p>${esc(s.tools.join(' / '))}</p></article>`).join('');
 
 function fill(html, id, text) {
@@ -141,7 +141,7 @@ const projectFacts = p => `<ul>
             <li>Type: ${esc(p.category)}</li>
             <li>Date: ${esc(p.date)}</li>
             <li>Skills: ${esc(p.expertise.join(', '))}</li>
-            <li>Link: <a href="${p.link}">${esc(p.link)}</a></li>
+            ${p.link ? `<li>Link: <a href="${p.link}">${esc(p.link)}</a></li>` : ''}
         </ul>`;
 
 rmSync(join(ROOT, 'projects'), { recursive: true, force: true });
@@ -156,7 +156,7 @@ for (const p of projects) {
             name: p.title,
             description: p.desc,
             url: p.url,
-            sameAs: p.link,
+            ...(p.link && { sameAs: p.link }),
             keywords: p.expertise.join(', '),
             creator: { '@id': `${SITE}/#josh`, '@type': 'Person', name: 'Josh Wright', url: `${SITE}/` }
         },
@@ -171,18 +171,18 @@ for (const p of projects) {
 const asked = [
     ['Who is Josh Wright?', lead],
     ['What roles is Josh Wright looking for?', looking],
-    ['Where does Josh Wright work now?', projects[0].desc.replace(/\bI'm\b/g, 'Josh is').replace(/\bI (also )?([a-z][\w-]*)/g, (_m, also, verb) => `Josh ${also || ''}${verb}s`)],
+    ['Where does Josh Wright work now?', projects[0].desc.replace(/\bI'm\b/g, 'Josh is').replace(/\bI (also )?([a-z][\w-]*)/g, (_m, also, verb) => `Josh ${also || ''}${/ed$|^(made|built|wrote|led|ran)$/.test(verb) ? verb : `${verb}s`}`).replace(/\bmy\b/g, 'his')],
     ['Where did Josh Wright go to school?', 'Arizona State University, B.S. in Computer Science, graduating May 2027. Josh is based in Tempe, Arizona.']
 ];
 
 const skillGroups = content.stack.map(s => `<li><strong>${esc(s.title)}:</strong> ${esc(s.tools.join(', '))}</li>`).join('\n            ');
 write('profile/index.html', page({
-    title: 'Josh Wright - Software Engineer, New Grad May 2027 | Profile',
+    title: 'Josh Wright - AI Engineer, New Grad May 2027 | Profile',
     description: lead,
     path: '/profile/',
     data: { ...profilePage, url: `${SITE}/profile/` },
     body: `        <p><a href="/">Portfolio</a></p>
-        <h1>Josh Wright: software engineer for animation, graphics and AI tools</h1>
+        <h1>Josh Wright: AI engineer for model training, GPUs and reinforcement learning</h1>
 ${asked.map(([q, a]) => `        <h2>${esc(q)}</h2>\n        <p>${esc(a)}</p>`).join('\n')}
         <h2>What has Josh Wright built?</h2>
         <ul>
@@ -228,8 +228,8 @@ ${p.result}. ${p.category}, ${p.date}.
 ${p.desc}
 
 Skills: ${p.expertise.join(', ')}
-Page: ${p.url}
-Link: ${p.link}`).join('\n\n')}
+Page: ${p.url}${p.link ? `
+Link: ${p.link}` : ''}`).join('\n\n')}
 `;
 write('index.md', markdown);
 write('llms-full.txt', markdown);
