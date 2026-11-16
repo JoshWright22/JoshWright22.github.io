@@ -19,12 +19,12 @@ const content = {
         { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' }
     ],
     profileImg: 'assets/me-hero.jpg',
-    marquee: ['Model Training', 'Fine-Tuning', 'PyTorch', 'CUDA', 'Reinforcement Learning', 'PPO', 'Self-Play', 'Computer Vision', 'Motion Capture', 'Forecasting', 'LLM Evaluation', 'AI Agents', 'Benchmarking', 'Azure GPUs', 'Python', 'C++', 'AI for Animation', 'Games'],
+    marquee: ['Model Training', 'Fine-Tuning', 'PyTorch', 'CUDA', 'Reinforcement Learning', 'PPO', 'Self-Play', 'Computer Vision', 'Motion Capture', 'Forecasting', 'LLM Evaluation', 'AI Agents', 'Benchmarking', 'Azure GPUs', 'Python', 'C++', 'AI for Animation', 'Gameplay Systems'],
     // art is one of: net, graph, game, code.
     stack: [
         { title: 'AI / ML Engineering', what: 'I train models, make them faster and check them against real benchmarks. At UNOMi that means vision models for markerless motion capture, fine-tuned and hosted on Azure GPUs. On my own it means a CUDA simulator for training PPO agents by self-play, and forecasting models scored on GIFT-Eval. Next I want to do this research myself, focused on animation.', art: 'net', tools: ['PyTorch', 'CUDA', 'Python', 'Reinforcement Learning (PPO, Self-Play)', 'Model Fine-Tuning', 'Computer Vision', 'Time-Series Forecasting', 'LLM Evaluation', 'AI Agents (MCP)', 'Azure GPU Hosting', 'C++'] },
         { title: 'Animation Tools', what: 'I build the UNOMi plugins for Maya, Blender, Unreal and Cinema 4D, and I keyframe by hand.', art: 'graph', tools: ['Python', 'Plugin Development', 'Maya', 'Blender', 'Cinema 4D', 'Unreal Engine', 'Keyframe Animation'] },
-        { title: 'Games', what: 'I make games on hard deadlines, from combat and upgrades to procedural levels.', art: 'game', tools: ['C#', 'Unity', 'Godot', 'Unreal Engine', 'Procedural Generation', 'Multiplayer Networking'] },
+        { title: 'Gameplay Systems', what: 'I build gameplay systems on hard deadlines, from combat and upgrades to procedural levels.', art: 'game', tools: ['C#', 'Unity', 'Godot', 'Unreal Engine', 'Procedural Generation', 'Multiplayer Networking'] },
         { title: 'Software Engineering', what: 'I can own a product end to end, from a C++ framework to the server and the cloud it runs on.', art: 'code', tools: ['C++', 'TypeScript', 'React', 'Docker', 'Microsoft Azure', 'AWS', 'Git', 'CI', 'Team Leadership', 'Agile Sprints'] }
     ],
     // To add a project, copy a block and put it where it belongs: the page order, numbers,
