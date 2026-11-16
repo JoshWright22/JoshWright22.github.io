@@ -36,7 +36,6 @@ const content = {
     projects: [
         {
             title: 'UNOMi', short: 'UNOMi', result: '2.8x faster motion capture, same accuracy',
-            group: 'AI Engineering',
             category: 'Software Engineering Internship',
             date: 'August 2026 - Present',
             desc: 'I\'m a software engineering intern at Pixel Pirate Studio, a two-time Emmy-nominated animation studio in Los Angeles. The studio makes UNOMi, which uses machine learning to generate 3D character animation. I work on the markerless motion capture coming in UNOMi 3D, which turns camera footage of a performer into animation. I benchmarked 6 markerless motion capture pipelines on real clips and picked the one the team now uses by default. Then I made it 2.8x faster at the same accuracy, which cut its estimated cloud GPU cost per video minute by 64%. I fine-tune the vision-to-motion models, which I host on Microsoft Azure. I also merged the 4 UNOMi plugins for Maya, Blender, Unreal Engine and Cinema 4D into one repo with CI. The internship runs through May 2027.',
@@ -45,17 +44,7 @@ const content = {
             link: 'https://getunomi.com/3d-lip-sync/'
         },
         {
-            title: 'Cambridge Battlecode 2026', short: 'Battlecode', result: 'Mined 110,000 ladder matches, trained on 6M turns',
-            group: 'AI Engineering',
-            category: 'Reinforcement Learning',
-            date: 'October 2026 - Present',
-            desc: 'I wrote a CUDA game simulator for Cambridge Battlecode 2026 and trained a recurrent PPO reinforcement learning agent on it by self-play. I also built a data pipeline over the 110,000 matches on the public ladder that pulls out the 20,000 strongest replays in 15 minutes, and trained GPU decision-tree models on 6 million game turns to drive the bot\'s choices. The clip is my submitted bot (blue) winning a local match 1,044 gems to 216, in the official visualiser.',
-            expertise: ['CUDA', 'C++', 'Python', 'Reinforcement Learning', 'PPO', 'Self-Play', 'GPU Simulation', 'Data Pipelines', 'Decision Trees'],
-            img: './assets/battlecode.webm'
-        },
-        {
             title: 'nanoTSFM Forecasting', short: 'nanoTSFM', result: '17% lower error than the nanoTSFM record',
-            group: 'AI Engineering',
             category: 'Time-Series Forecasting',
             date: 'October 2026',
             desc: 'I trained an ensemble of five 13M-parameter PyTorch forecasting models for the open nanoTSFM benchmark. It scored 0.526 CRPS on GIFT-Eval\'s 97 unseen tasks, 17% lower error than the 0.632 nanoTSFM record. Those numbers are from my own runs over 2 seeds. The plot is one of its forecasts: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.',
@@ -75,7 +64,6 @@ const content = {
         },
         {
             title: 'Trust No One', short: 'TNO', result: 'Placed #9 of 2,253 games',
-            group: 'Games and Animation',
             category: 'Game Development',
             date: 'August 2026',
             desc: 'I put together a team of six on Discord for the Brackeys Game Jam 2026.2 and we shipped this Unity game in one week. I led design and decided what made the cut. I also designed the core combat, programmed the party members and their upgrade systems in C#, drew some of the items and built the game\'s promo website. It placed #9 out of 2,253 entries and was the 14th most popular, and Brackeys mentioned it in their jam video.',
@@ -84,8 +72,15 @@ const content = {
             link: 'https://hozer347.itch.io/trust-no-one'
         },
         {
+            title: 'Cambridge Battlecode 2026', short: 'Battlecode', result: 'Mined 110,000 ladder matches, trained on 6M turns',
+            category: 'Reinforcement Learning',
+            date: 'October 2026',
+            desc: 'I wrote a CUDA game simulator for Cambridge Battlecode 2026 and trained a recurrent PPO reinforcement learning agent on it by self-play. I also built a data pipeline over the 110,000 matches on the public ladder that pulls out the 20,000 strongest replays in 15 minutes, and trained GPU decision-tree models on 6 million game turns to drive the bot\'s choices. The clip is my submitted bot (blue) winning a local match 1,044 gems to 216, in the official visualiser.',
+            expertise: ['CUDA', 'C++', 'Python', 'Reinforcement Learning', 'PPO', 'Self-Play', 'GPU Simulation', 'Data Pipelines', 'Decision Trees'],
+            img: './assets/battlecode.webm'
+        },
+        {
             title: 'There\'s No Place Like 127.0.0.1', short: '127', result: 'Highest scored pitch at the AZ Game Cup',
-            group: 'Games and Animation',
             category: 'Game Development',
             date: 'September 2026',
             desc: 'I created and led the six person team that represented ASU at the AZ Game Cup 2026, directed the project, and gave the pitch that judges scored highest. We took 2nd place and $150 per team member, and this is an expanded version of what we built. I scoped the work so six people could actually finish in 48 hours, and I programmed the procedural generation that lays out a new set of upgrade floors every run.',
@@ -96,7 +91,6 @@ const content = {
         },
         {
             title: '3D Animation Reel', short: 'Reel', result: 'TV quality animation',
-            group: 'Games and Animation',
             category: '3D Animation',
             date: 'September 2025',
             desc: 'Every shot in this reel is hand keyframed on existing rigs. I made them to practice the 12 principles of animation, mostly posing, timing and weight. Doing this by hand is why I care how animation tools feel to use.',
@@ -106,7 +100,6 @@ const content = {
         },
         {
             title: 'Game Dev Club Club', short: 'GDCC', result: 'Created a club across 104 universities',
-            group: 'Games and Animation',
             category: 'Web Development',
             date: '2026',
             desc: 'I helped create Game Dev Club Club, a network of student developers from 104 university clubs, and I help run its events by planning what each one covers and coordinating organizers across schools. On the website I worked between the design and engineering teams and built the Contact Us page in React, an interactive solar system where the sun opens a message form and each orbiting planet links to a platform.',
@@ -116,7 +109,6 @@ const content = {
         },
         {
             title: 'AtOMoC SHeLiS', short: 'AtOMoC', result: 'Placed #12 of 150 games',
-            group: 'Games and Animation',
             category: 'Game Development',
             date: 'August 2026',
             desc: 'I designed and built this chemistry themed roguelike auto battler solo, where you buy elements each round and connect them into a growing molecule that fights for you. I made it for the Club Club Jam Jam, which I also helped organize and run, and it placed #12. Since the jam I have been turning playtest feedback into a roadmap and expanding it into a Steam release covering all 118 elements.',
@@ -126,7 +118,6 @@ const content = {
         },
         {
             title: 'Gob Spin', short: 'Gob', result: 'Placed #140 of 3,498 games',
-            group: 'Games and Animation',
             category: 'Game Development',
             date: 'June 2026',
             desc: 'I led a small team through this one week build, a physics based action game where you play as a goblin who spins. I directed the design, split the work across the team, and implemented core systems alongside them. We placed #140 out of 3,498 entries in The Very Serious Juniper Dev Game Jam.',
@@ -136,7 +127,6 @@ const content = {
         },
         {
             title: 'Slush Rush', short: 'Slush', result: 'Placed #69 of 434 games',
-            group: 'Games and Animation',
             category: 'Game Development',
             date: 'June 2026',
             desc: 'I designed and implemented the core mechanics while directing a small team through a one week build. I set the scope, decided early what to leave out, and shipped polished systems under a tight deadline. We placed #69 out of 434 entries in Comfy Jam: Summer.',

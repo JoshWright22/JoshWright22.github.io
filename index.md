@@ -35,15 +35,6 @@ Skills: Computer Vision, Motion Capture, Model Fine-Tuning, Benchmarking, GPU Op
 Page: https://joshwright22.github.io/projects/unomi/
 Link: https://getunomi.com/3d-lip-sync/
 
-### Cambridge Battlecode 2026
-
-Mined 110,000 ladder matches, trained on 6M turns. Reinforcement Learning, October 2026 - Present.
-
-I wrote a CUDA game simulator for Cambridge Battlecode 2026 and trained a recurrent PPO reinforcement learning agent on it by self-play. I also built a data pipeline over the 110,000 matches on the public ladder that pulls out the 20,000 strongest replays in 15 minutes, and trained GPU decision-tree models on 6 million game turns to drive the bot's choices. The clip is my submitted bot (blue) winning a local match 1,044 gems to 216, in the official visualiser.
-
-Skills: CUDA, C++, Python, Reinforcement Learning, PPO, Self-Play, GPU Simulation, Data Pipelines, Decision Trees
-Page: https://joshwright22.github.io/projects/cambridge-battlecode-2026/
-
 ### nanoTSFM Forecasting
 
 17% lower error than the nanoTSFM record. Time-Series Forecasting, October 2026.
@@ -62,6 +53,15 @@ I put together a team of six on Discord for the Brackeys Game Jam 2026.2 and we 
 Skills: Team Leadership, Project Planning, C#, Unity, Gameplay Programming, Systems Design
 Page: https://joshwright22.github.io/projects/trust-no-one/
 Link: https://hozer347.itch.io/trust-no-one
+
+### Cambridge Battlecode 2026
+
+Mined 110,000 ladder matches, trained on 6M turns. Reinforcement Learning, October 2026.
+
+I wrote a CUDA game simulator for Cambridge Battlecode 2026 and trained a recurrent PPO reinforcement learning agent on it by self-play. I also built a data pipeline over the 110,000 matches on the public ladder that pulls out the 20,000 strongest replays in 15 minutes, and trained GPU decision-tree models on 6 million game turns to drive the bot's choices. The clip is my submitted bot (blue) winning a local match 1,044 gems to 216, in the official visualiser.
+
+Skills: CUDA, C++, Python, Reinforcement Learning, PPO, Self-Play, GPU Simulation, Data Pipelines, Decision Trees
+Page: https://joshwright22.github.io/projects/cambridge-battlecode-2026/
 
 ### There's No Place Like 127.0.0.1
 
