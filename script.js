@@ -66,7 +66,7 @@ const content = {
             title: 'Trust No One', short: 'TNO', result: 'Placed #9 of 2,253 games',
             category: 'Game Development',
             date: 'August 2026',
-            desc: 'I put together a team of six on Discord for the Brackeys Game Jam 2026.2 and we shipped this Unity game in one week. I led design and decided what made the cut. I also designed the core combat, programmed the party members and their upgrade systems in C#, drew some of the items and built the game\'s promo website. It placed #9 out of 2,253 entries and was the 14th most popular, and Brackeys mentioned it in their jam video.',
+            desc: 'I recruited a team of six for the Brackeys Game Jam 2026.2 and we shipped this Unity game in one week. I led design and decided what made the cut. I also designed the core combat, programmed the party members and their upgrade systems in C#, drew some of the items and built the game\'s promo website. It placed #9 out of 2,253 entries and was the 14th most popular, and Brackeys mentioned it in their jam video.',
             expertise: ['Team Leadership', 'Project Planning', 'C#', 'Unity', 'Gameplay Programming', 'Systems Design'],
             img: './assets/trust-no-one.webm',
             link: 'https://hozer347.itch.io/trust-no-one'
