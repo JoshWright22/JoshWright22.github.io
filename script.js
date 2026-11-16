@@ -31,8 +31,8 @@ const content = {
     // top bar and scroll all follow this list. A new group starts a new heading. short is
     // the top bar label and result is the one line pitch shown while the clip is in view.
     // img goes in assets/, and a .webm also needs a matching -poster.jpg. fit: 'contain' is
-    // optional. A project with no clip gets a drawn panel instead: stats are [number, label]
-    // pairs and art is spread. A forecast gets a plot of the real forecast.
+    // optional. A project with no clip needs a forecast instead, drawn as a plot of the real
+    // forecast.
     projects: [
         {
             title: 'UNOMi', short: 'UNOMi', result: '2.8x faster motion capture, same accuracy',
@@ -72,16 +72,6 @@ const content = {
                 q70: [809, 660, 652, 625, 693, 887, 1016, 1118, 1370, 1630, 1701, 1676, 1640, 1626, 1630, 1672, 1702, 1774, 1811, 1755, 1723, 1701, 1537, 1200, 844, 666, 635, 623, 672, 889, 1022, 1125, 1460, 1714, 1767, 1745, 1728, 1684, 1673, 1683, 1742, 1805, 1779, 1698, 1636, 1619, 1444, 1136],
                 q90: [852, 705, 682, 662, 731, 950, 1081, 1196, 1435, 1692, 1774, 1741, 1697, 1698, 1701, 1727, 1765, 1841, 1867, 1794, 1745, 1727, 1583, 1269, 909, 712, 686, 670, 739, 960, 1106, 1201, 1597, 1845, 1922, 1841, 1826, 1806, 1811, 1831, 1898, 1936, 1925, 1831, 1760, 1728, 1551, 1253]
             }
-        },
-        {
-            title: 'Mastodon Disaster Network', short: 'Mastodon', result: '3,479 posts mapped',
-            group: 'AI Engineering',
-            category: 'Data Analysis',
-            date: 'September 2026',
-            desc: 'I collected 3,479 Mastodon posts through its REST API and mapped how information spread in networkx and Gephi.',
-            expertise: ['Python', 'REST API', 'networkx', 'LLM', 'Gephi', 'Network Analysis'],
-            stats: [['3,479', 'posts collected']],
-            art: 'spread'
         },
         {
             title: 'Trust No One', short: 'TNO', result: 'Placed #9 of 2,253 games',
@@ -228,38 +218,6 @@ const projectLink = proj => proj.link
     ? `<a class="project-link" href="${proj.link}" target="_blank" rel="noopener">${proj.linkText || 'View product'} ↗</a>`
     : '';
 
-/* A project with no clip gets a drawn panel: its numbers, plus a small moving diagram in
-   the same blues as the skill panels. Only real numbers from the project go in it. */
-function panel(proj) {
-    if (proj.forecast) return forecastPanel(proj.forecast);
-    const art = {
-        // Information spreading out from one post, ring by ring.
-        spread: () => {
-            const nodes = [[160, 52, 0]];
-            [[6, 34, 1], [10, 62, 2], [12, 92, 3]].forEach(([n, r, ring]) => {
-                for (let k = 0; k < n; k++) {
-                    const a = (k / n) * Math.PI * 2 + ring * 0.5;
-                    nodes.push([160 + Math.cos(a) * r * 1.5, 52 + Math.sin(a) * r * 0.5, ring]);
-                }
-            });
-            const edges = nodes.slice(1).map(([x, y, ring]) => {
-                const parents = nodes.filter(p => p[2] === ring - 1);
-                const [px, py] = parents.reduce((best, p) => Math.hypot(p[0] - x, p[1] - y) < Math.hypot(best[0] - x, best[1] - y) ? p : best);
-                return `<line class="pa-edge" x1="${px}" y1="${py}" x2="${x}" y2="${y}" style="--i:${ring}"/>`;
-            }).join('');
-            return edges + nodes.map(([x, y, ring]) => `<circle class="pa-node" cx="${x}" cy="${y}" r="${ring ? 4 : 7}" style="--i:${ring}"/>`).join('');
-        }
-    };
-    const stats = (proj.stats || []).map(([value, label]) =>
-        `<div class="pa-stat"><span class="pa-value">${value}</span><span class="pa-label">${label}</span></div>`).join('');
-    const drawing = (art[proj.art] || (() => ''))();
-    return `
-        <div class="project-panel" role="img" aria-label="${(proj.stats || []).map(s => s.join(' ')).join(', ')}">
-            <div class="pa-art"><svg viewBox="0 0 320 104" aria-hidden="true">${drawing}</svg></div>
-            <div class="pa-stats">${stats}</div>
-        </div>`;
-}
-
 /* A real forecast, drawn in: the days before, the model's 48 hours with its 10-90% and
    30-70% bands, then what actually happened. */
 function forecastPanel(f) {
@@ -338,7 +296,7 @@ function renderProjects(projects) {
         // instead of the sides being cropped to 16:9.
         const fit = proj.fit === 'contain' ? ' is-contained' : '';
 
-        const media = !proj.img ? panel(proj)
+        const media = !proj.img ? forecastPanel(proj.forecast)
             : isVideo
             ? `<video muted loop playsinline preload="none" data-poster="${poster}" class="project-video${fit}">
                    <source src="${proj.img}" type="video/${proj.img.endsWith('.mp4') ? 'mp4' : 'webm'}">

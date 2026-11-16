@@ -53,15 +53,6 @@ I trained an ensemble of five 13M-parameter PyTorch forecasting models for the o
 Skills: PyTorch, Python, Time-Series Forecasting, Model Training, Ensembles, Evaluation
 Page: https://joshwright22.github.io/projects/nanotsfm-forecasting/
 
-### Mastodon Disaster Network
-
-3,479 posts mapped. Data Analysis, September 2026.
-
-I collected 3,479 Mastodon posts through its REST API and mapped how information spread in networkx and Gephi.
-
-Skills: Python, REST API, networkx, LLM, Gephi, Network Analysis
-Page: https://joshwright22.github.io/projects/mastodon-disaster-network/
-
 ### Trust No One
 
 Placed #9 of 2,253 games. Game Development, August 2026.
