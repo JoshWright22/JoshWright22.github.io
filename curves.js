@@ -834,7 +834,8 @@
 
             const box = settled(project);
             const clip = settled(media);
-            const words = [...project.querySelectorAll('.project-head, .project-title, .project-desc, .project-tags, .project-link')].map(settled);
+            // A plot is data, so the label keeps off it like it keeps off text.
+            const words = [...project.querySelectorAll('.project-head, .project-title, .project-desc, .project-tags, .project-link, .project-media:has(.project-panel--plot)')].map(settled);
             const blocks = [clip, ...words];
 
             // The key sits on a stretch of line that's showing. Its label may cover the clip, not text.

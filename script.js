@@ -9,7 +9,7 @@ const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
     aboutH: 'AI Engineer',
-    aboutT: 'Hey, I\'m Josh. I\'m an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the one the team now uses, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator that runs 177 games a second on one GPU and trained a PPO agent on it by self-play. I also grade LLM coding answers for Surge AI. I started out keyframing characters by hand, so animation is where I want to take AI research next. I still make games too, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you\'re hiring or want to work on something together, reach out!',
+    aboutT: 'Hey, I\'m Josh. I\'m an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the one the team now uses, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I also grade LLM coding answers for Surge AI. I started out keyframing characters by hand, so animation is where I want to take AI research next. I still make games too, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you\'re hiring or want to work on something together, reach out!',
 
     links: [
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' },
@@ -32,7 +32,7 @@ const content = {
     // the top bar label and result is the one line pitch shown while the clip is in view.
     // img goes in assets/, and a .webm also needs a matching -poster.jpg. fit: 'contain' is
     // optional. A project with no clip gets a drawn panel instead: stats are [number, label]
-    // pairs, bars are [label, value] pairs, and art is one of gpu, bars, pairs, spread, feed.
+    // pairs and art is one of pairs, spread. A forecast gets a plot of the real forecast.
     projects: [
         {
             title: 'UNOMi', short: 'UNOMi', result: '2.8x faster motion capture, same accuracy',
@@ -45,25 +45,33 @@ const content = {
             link: 'https://getunomi.com/3d-lip-sync/'
         },
         {
-            title: 'Cambridge Battlecode 2026', short: 'Battlecode', result: '177 games/s on one GPU, 55x the CPU engine',
+            title: 'Cambridge Battlecode 2026', short: 'Battlecode', result: 'Mined 110,000 ladder matches, trained on 6M turns',
             group: 'AI Engineering',
             category: 'Reinforcement Learning',
             date: 'October 2026 - Present',
-            desc: 'I wrote a CUDA game simulator for Cambridge Battlecode 2026 that runs 177 full games a second on one GPU, 55x the CPU engine\'s 3.2. Then I trained a recurrent PPO reinforcement learning agent on it by self-play. I also built a data pipeline over 110,000 ranked matches that pulls out the 20,000 strongest replays in 15 minutes, and trained GPU decision-tree models on 6 million game turns to drive the bot\'s choices.',
+            desc: 'I wrote a CUDA game simulator for Cambridge Battlecode 2026 and trained a recurrent PPO reinforcement learning agent on it by self-play. I also built a data pipeline over the 110,000 matches on the public ladder that pulls out the 20,000 strongest replays in 15 minutes, and trained GPU decision-tree models on 6 million game turns to drive the bot\'s choices. The clip is my submitted bot (blue) winning a local match 1,044 gems to 216, in the official visualiser.',
             expertise: ['CUDA', 'C++', 'Python', 'Reinforcement Learning', 'PPO', 'Self-Play', 'GPU Simulation', 'Data Pipelines', 'Decision Trees'],
-            stats: [['177', 'games/s on one GPU'], ['55x', 'the CPU engine'], ['6M', 'game turns trained on']],
-            art: 'gpu'
+            img: './assets/battlecode.webm'
         },
         {
             title: 'nanoTSFM Forecasting', short: 'nanoTSFM', result: '17% lower error than the nanoTSFM record',
             group: 'AI Engineering',
             category: 'Time-Series Forecasting',
             date: 'October 2026',
-            desc: 'I trained an ensemble of five 13M-parameter PyTorch forecasting models for the open nanoTSFM benchmark. It scored 0.526 CRPS on GIFT-Eval\'s 97 unseen tasks, 17% lower error than the 0.632 nanoTSFM record. Those numbers are from my own runs over 2 seeds.',
+            desc: 'I trained an ensemble of five 13M-parameter PyTorch forecasting models for the open nanoTSFM benchmark. It scored 0.526 CRPS on GIFT-Eval\'s 97 unseen tasks, 17% lower error than the 0.632 nanoTSFM record. Those numbers are from my own runs over 2 seeds. The plot is one of its forecasts: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.',
             expertise: ['PyTorch', 'Python', 'Time-Series Forecasting', 'Model Training', 'Ensembles', 'Evaluation'],
-            stats: [['17%', 'lower error'], ['97', 'unseen tasks']],
-            bars: [['Mine', 0.526], ['Record', 0.632]],
-            art: 'bars'
+            // GIFT-Eval electricity/H, series MT_214: the last 5 days of context, then the 48 held-out
+            // hours. q10..q90 are the trained ensemble's quantile forecasts for those hours.
+            forecast: {
+                label: 'GIFT-Eval electricity, hourly',
+                history: [623, 580, 571, 577, 665, 681, 649, 644, 570, 608, 603, 598, 568, 572, 602, 623, 619, 628, 646, 650, 644, 652, 619, 667, 832, 829, 798, 643, 705, 883, 1005, 1097, 1345, 1606, 1661, 1642, 1638, 1610, 1574, 1566, 1653, 1751, 1841, 1760, 1701, 1648, 1572, 1487, 909, 747, 724, 589, 638, 811, 986, 1036, 1358, 1695, 1736, 1678, 1638, 1624, 1617, 1629, 1672, 1773, 1787, 1757, 1698, 1661, 1539, 1078, 717, 697, 624, 631, 697, 899, 1046, 1134, 1400, 1683, 1721, 1731, 1617, 1591, 1632, 1654, 1672, 1755, 1735, 1680, 1686, 1624, 1264, 828, 664, 624, 579, 606, 683, 863, 965, 1064, 1326, 1607, 1604, 1622, 1582, 1565, 1546, 1631, 1656, 1717, 1782, 1752, 1717, 1615, 1462, 1132],
+                actual: [770, 753, 713, 586, 633, 817, 1003, 1059, 1334, 1661, 1628, 1645, 1604, 1663, 1662, 1640, 1618, 1714, 1791, 1720, 1724, 1634, 1505, 1034, 701, 656, 653, 656, 737, 913, 1024, 1127, 1314, 1587, 1670, 1677, 1684, 1637, 1632, 1629, 1644, 1605, 1488, 937, 659, 636, 626, 637],
+                q10: [706, 585, 582, 556, 634, 794, 896, 1038, 1248, 1432, 1532, 1557, 1551, 1523, 1516, 1563, 1604, 1660, 1677, 1673, 1622, 1521, 1355, 1091, 754, 574, 570, 555, 601, 747, 865, 971, 1215, 1405, 1494, 1524, 1502, 1454, 1453, 1478, 1516, 1543, 1533, 1485, 1422, 1351, 1184, 942],
+                q30: [761, 621, 606, 598, 658, 825, 940, 1068, 1312, 1542, 1632, 1617, 1593, 1568, 1563, 1598, 1654, 1719, 1749, 1712, 1673, 1633, 1454, 1150, 783, 608, 596, 582, 637, 811, 927, 1037, 1337, 1548, 1621, 1619, 1599, 1572, 1550, 1592, 1626, 1657, 1656, 1602, 1538, 1480, 1319, 1028],
+                q50: [789, 647, 628, 611, 681, 855, 978, 1090, 1347, 1585, 1662, 1640, 1621, 1594, 1593, 1629, 1677, 1747, 1775, 1731, 1695, 1651, 1501, 1174, 811, 639, 621, 601, 653, 838, 972, 1077, 1391, 1649, 1697, 1684, 1666, 1621, 1604, 1633, 1688, 1726, 1729, 1650, 1595, 1549, 1389, 1095],
+                q70: [809, 660, 652, 625, 693, 887, 1016, 1118, 1370, 1630, 1701, 1676, 1640, 1626, 1630, 1672, 1702, 1774, 1811, 1755, 1723, 1701, 1537, 1200, 844, 666, 635, 623, 672, 889, 1022, 1125, 1460, 1714, 1767, 1745, 1728, 1684, 1673, 1683, 1742, 1805, 1779, 1698, 1636, 1619, 1444, 1136],
+                q90: [852, 705, 682, 662, 731, 950, 1081, 1196, 1435, 1692, 1774, 1741, 1697, 1698, 1701, 1727, 1765, 1841, 1867, 1794, 1745, 1727, 1583, 1269, 909, 712, 686, 670, 739, 960, 1106, 1201, 1597, 1845, 1922, 1841, 1826, 1806, 1811, 1831, 1898, 1936, 1925, 1831, 1760, 1728, 1551, 1253]
+            }
         },
         {
             title: 'Surge AI', short: 'Surge', result: 'Ratings that train coding models',
@@ -155,18 +163,6 @@ const content = {
             expertise: ['Team Leadership', 'Project Planning', 'Python', 'Godot', 'Gameplay Programming', 'Systems Design'],
             img: './assets/slush-rush.webm',
             link: 'https://joshwright.itch.io/slush-rush'
-        },
-        {
-            title: 'Algone', short: 'Algone', result: 'Hides algorithmic feeds on 12 sites',
-            group: 'Other Builds',
-            category: 'Browser Extension',
-            date: 'November 2026',
-            desc: 'I built Algone, a browser extension that hides algorithmic feeds on 12 sites. It has 26 downloads so far.',
-            expertise: ['TypeScript', 'Vitest', 'Playwright', 'GitHub Actions', 'Browser Extensions'],
-            stats: [['12', 'sites'], ['26', 'downloads']],
-            art: 'feed',
-            link: 'https://github.com/JoshWright22/Algone',
-            linkText: 'View code'
         }
     ]
 };
@@ -245,14 +241,8 @@ const projectLink = proj => proj.link
 /* A project with no clip gets a drawn panel: its numbers, plus a small moving diagram in
    the same blues as the skill panels. Only real numbers from the project go in it. */
 function panel(proj) {
-    const cell = (x, y, i) => `<rect class="pa-cell" x="${x}" y="${y}" width="9" height="9" style="--i:${i}"/>`;
+    if (proj.forecast) return forecastPanel(proj.forecast);
     const art = {
-        // Many games at once on one GPU: a grid of cells lighting up in waves.
-        gpu: () => {
-            let cells = '';
-            for (let r = 0; r < 6; r++) for (let c = 0; c < 24; c++) cells += cell(16 + c * 12, 14 + r * 14, c + r);
-            return cells;
-        },
         // Two model answers side by side, one picked, with the reason written under it.
         pairs: () => [0, 1].map(side => {
             const x = 40 + side * 128;
@@ -274,26 +264,57 @@ function panel(proj) {
                 return `<line class="pa-edge" x1="${px}" y1="${py}" x2="${x}" y2="${y}" style="--i:${ring}"/>`;
             }).join('');
             return edges + nodes.map(([x, y, ring]) => `<circle class="pa-node" cx="${x}" cy="${y}" r="${ring ? 4 : 7}" style="--i:${ring}"/>`).join('');
-        },
-        // A feed whose recommended rows get hidden one after another.
-        feed: () => `<rect class="pa-sheet" x="70" y="4" width="180" height="96" rx="6"/>` + [0, 1, 2, 3].map(i =>
-            `<g class="pa-row" style="--i:${i}"><rect class="pa-thumb" x="84" y="${14 + i * 21}" width="22" height="15" rx="2"/><rect class="pa-code" x="114" y="${16 + i * 21}" width="${[110, 84, 100, 70][i]}" height="5" rx="2"/><rect class="pa-code" x="114" y="${24 + i * 21}" width="${[60, 74, 48, 66][i]}" height="4" rx="2"/></g>`).join(''),
-        bars: () => ''
+        }
     };
-    const most = Math.max(...(proj.bars || []).map(([, v]) => v));
-    const bars = (proj.bars || []).map(([label, v]) => `
-        <div class="pa-bar${label === 'Mine' ? ' is-mine' : ''}">
-            <span class="pa-bar-label">${label}</span>
-            <span class="pa-bar-track"><span class="pa-bar-fill" style="--w:${(v / most * 100).toFixed(1)}%"></span></span>
-            <span class="pa-bar-value">${v}</span>
-        </div>`).join('');
     const stats = (proj.stats || []).map(([value, label]) =>
         `<div class="pa-stat"><span class="pa-value">${value}</span><span class="pa-label">${label}</span></div>`).join('');
-    const drawing = (art[proj.art] || art.bars)();
+    const drawing = (art[proj.art] || (() => ''))();
     return `
         <div class="project-panel" role="img" aria-label="${(proj.stats || []).map(s => s.join(' ')).join(', ')}">
-            <div class="pa-art">${bars ? `<div class="pa-bars">${bars}<span class="pa-bar-note">CRPS, lower is better</span></div>` : `<svg viewBox="0 0 320 104" aria-hidden="true">${drawing}</svg>`}</div>
+            <div class="pa-art"><svg viewBox="0 0 320 104" aria-hidden="true">${drawing}</svg></div>
             <div class="pa-stats">${stats}</div>
+        </div>`;
+}
+
+/* A real forecast, drawn in: the days before, the model's 48 hours with its 10-90% and
+   30-70% bands, then what actually happened. */
+function forecastPanel(f) {
+    const past = f.history.length;
+    const hours = past + f.actual.length;
+    const all = [...f.history, ...f.actual, ...f.q10, ...f.q90];
+    const lo = Math.min(...all), hi = Math.max(...all);
+    const W = 640, H = 300;
+    const x = i => (i / (hours - 1) * W).toFixed(1);
+    const y = v => (H - 6 - (v - lo) / (hi - lo) * (H - 12)).toFixed(1);
+    // Forecast lines start from the last known hour so they join the history.
+    const join = vals => [f.history[past - 1], ...vals];
+    const path = (vals, from) => vals.map((v, i) => `${i ? 'L' : 'M'}${x(from + i)} ${y(v)}`).join('');
+    // Along the low edge, then back along the high edge.
+    const band = (low, high) => path(join(low), past - 1) +
+        join(high).map((v, i) => `L${x(past - 1 + i)} ${y(v)}`).reverse().join('') + 'Z';
+    const now = x(past - 1);
+    const split = (now / W * 100).toFixed(1);
+    return `
+        <div class="project-panel project-panel--plot" role="img" aria-label="Forecast plot, ${f.label}: the model's 48 hour forecast with its quantile bands, against the actual values.">
+            <div class="pa-art">
+                <span class="fc-tag" style="left:0">${f.label}</span>
+                <span class="fc-tag fc-tag--next" style="left:${split}%">48 h forecast</span>
+                <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+                    <rect class="fc-future" x="${now}" y="0" width="${(W - now).toFixed(1)}" height="${H}"/>
+                    <line class="fc-now" x1="${now}" y1="0" x2="${now}" y2="${H}"/>
+                    <path class="fc-band" d="${band(f.q10, f.q90)}"/>
+                    <path class="fc-band fc-band--inner" d="${band(f.q30, f.q70)}"/>
+                    <path class="fc-line fc-history" pathLength="1" d="${path(f.history, 0)}"/>
+                    <path class="fc-line fc-mid" pathLength="1" d="${path(join(f.q50), past - 1)}"/>
+                    <path class="fc-line fc-actual" pathLength="1" d="${path(join(f.actual), past - 1)}"/>
+                </svg>
+            </div>
+            <div class="fc-legend">
+                <span class="fc-key fc-key--history">History</span>
+                <span class="fc-key fc-key--mid">Forecast</span>
+                <span class="fc-key fc-key--band">Quantile bands</span>
+                <span class="fc-key fc-key--actual">Actual</span>
+            </div>
         </div>`;
 }
 

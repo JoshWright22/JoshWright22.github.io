@@ -30,7 +30,7 @@ const projects = content.projects.map(p => ({ ...p, slug: slug(p.title), url: `$
 const won = p => /\bplaced\b|\bplace\b|highest scored/i.test(p.result);
 const skills = [...new Set(content.stack.flatMap(s => s.tools))];  // adding every project tag read as keyword stuffing
 const social = content.links.map(l => l.url);
-const lead = 'Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He trains and fine-tunes models, writes CUDA and builds reinforcement learning agents. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and his CUDA game simulator runs 177 games a second on one GPU.';
+const lead = 'Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He trains and fine-tunes models, writes CUDA and builds reinforcement learning agents. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and he trained a Battlecode bot on 6 million game turns mined from 110,000 ladder matches.';
 const looking = 'New grad AI and machine learning engineering roles starting May 2027: model training and fine-tuning, GPU and CUDA work, reinforcement learning, computer vision and evaluation, including AI R&D at animation studios.';
 
 const person = {

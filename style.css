@@ -915,18 +915,6 @@ a {
     animation-play-state: running;
 }
 
-.pa-cell {
-    fill: color-mix(in srgb, var(--fg) 10%, transparent);
-    animation: pa-cell 2.6s ease-in-out infinite;
-    animation-delay: calc(var(--i) * 70ms);
-}
-
-@keyframes pa-cell {
-    0%, 55%, 100% { fill: color-mix(in srgb, var(--fg) 10%, transparent); }
-    20% { fill: var(--sky); }
-    35% { fill: var(--blue); }
-}
-
 .pa-sheet {
     fill: color-mix(in srgb, var(--blue) 14%, transparent);
     stroke: var(--blue);
@@ -1007,78 +995,137 @@ a {
     100% { stroke: color-mix(in srgb, var(--fg) 18%, transparent); }
 }
 
-.pa-thumb {
-    fill: color-mix(in srgb, var(--sky) 40%, transparent);
+/* A real forecast plot: history, then the forecast bands and line, then the actual values */
+.project-panel--plot {
+    gap: 3cqi;
 }
 
-.pa-row {
-    animation: pa-hide 4s ease-in-out infinite;
-    animation-delay: calc(var(--i) * 0.35s);
+.project-panel--plot .pa-art {
+    border-bottom: 1px solid var(--line);
 }
 
-@keyframes pa-hide {
-    0%, 20% { opacity: 1; }
-    40%, 80% { opacity: 0.12; }
-    100% { opacity: 1; }
-}
-
-/* A real comparison, so the bars are drawn to scale */
-.pa-bars {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 2.6cqi;
-    height: 100%;
-}
-
-.pa-bar {
-    display: grid;
-    grid-template-columns: 15cqi minmax(0, 1fr) 13cqi;
-    align-items: center;
-    gap: 2.5cqi;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: max(0.62rem, 2.5cqi);
-    text-transform: uppercase;
-    color: var(--muted);
-}
-
-.pa-bar-track {
-    height: max(10px, 4.5cqi);
-}
-
-.pa-bar-fill {
-    display: block;
-    width: var(--w);
-    height: 100%;
-    background: color-mix(in srgb, var(--fg) 22%, transparent);
-    transform-origin: left;
-    transform: scaleX(0);
-    transition: transform 1.1s var(--ease);
-}
-
-.project-panel.is-on .pa-bar-fill {
-    transform: scaleX(1);
-}
-
-.pa-bar.is-mine {
-    color: var(--fg);
-}
-
-.pa-bar.is-mine .pa-bar-fill {
-    background: var(--sky);
-}
-
-.pa-bar-value {
-    text-align: right;
-}
-
-.pa-bar-note {
+.fc-tag {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    padding-left: 1.4cqi;
     font-family: 'JetBrains Mono', monospace;
     font-size: max(0.55rem, 2cqi);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--muted);
+    white-space: nowrap;
 }
+
+.fc-tag:first-child {
+    padding-left: 0;
+}
+
+.fc-tag--next {
+    color: var(--sky);
+}
+
+.fc-future {
+    fill: color-mix(in srgb, var(--sky) 6%, transparent);
+}
+
+.fc-now {
+    stroke: color-mix(in srgb, var(--fg) 30%, transparent);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+}
+
+.fc-band {
+    fill: color-mix(in srgb, var(--sky) 18%, transparent);
+    animation: fc-band 10s ease-out infinite;
+}
+
+.fc-band--inner {
+    fill: color-mix(in srgb, var(--sky) 26%, transparent);
+}
+
+.fc-line {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1 1;
+}
+
+.fc-history {
+    stroke: color-mix(in srgb, var(--fg) 55%, transparent);
+    stroke-width: 2;
+    animation: fc-history 10s ease-in-out infinite;
+}
+
+.fc-mid {
+    stroke: var(--sky);
+    stroke-width: 3;
+    animation: fc-mid 10s ease-in-out infinite;
+}
+
+.fc-actual {
+    stroke: var(--yellow);
+    stroke-width: 2.2;
+    animation: fc-actual 10s ease-in-out infinite;
+}
+
+.project-panel--plot svg {
+    animation: fc-loop 10s linear infinite;
+}
+
+@keyframes fc-history {
+    0% { stroke-dashoffset: 1; }
+    28%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes fc-band {
+    0%, 28% { opacity: 0; }
+    40%, 100% { opacity: 1; }
+}
+
+@keyframes fc-mid {
+    0%, 32% { stroke-dashoffset: 1; }
+    50%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes fc-actual {
+    0%, 56% { stroke-dashoffset: 1; }
+    74%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes fc-loop {
+    0%, 94% { opacity: 1; }
+    99%, 100% { opacity: 0; }
+}
+
+.fc-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2cqi 4cqi;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: max(0.58rem, 2.1cqi);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.fc-key {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.2cqi;
+}
+
+.fc-key::before {
+    content: '';
+    width: max(14px, 4cqi);
+    height: 2px;
+    background: currentColor;
+}
+
+.fc-key--history::before { background: color-mix(in srgb, var(--fg) 55%, transparent); }
+.fc-key--mid::before { background: var(--sky); height: 3px; }
+.fc-key--band::before { background: color-mix(in srgb, var(--sky) 30%, transparent); height: 10px; }
+.fc-key--actual::before { background: var(--yellow); }
 
 @media (prefers-reduced-motion: reduce) {
     .project-panel * {
@@ -1089,10 +1136,12 @@ a {
         stroke-dashoffset: 0;
     }
 
-    .pa-reason,
-    .pa-bar-fill {
+    .pa-reason {
         transform: none;
-        transition: none;
+    }
+
+    .fc-line {
+        stroke-dasharray: none;
     }
 }
 

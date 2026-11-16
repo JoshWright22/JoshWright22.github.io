@@ -1,6 +1,6 @@
 # Josh Wright
 
-> Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He trains and fine-tunes models, writes CUDA and builds reinforcement learning agents. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and his CUDA game simulator runs 177 games a second on one GPU.
+> Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He trains and fine-tunes models, writes CUDA and builds reinforcement learning agents. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and he trained a Battlecode bot on 6 million game turns mined from 110,000 ladder matches.
 
 Looking for: New grad AI and machine learning engineering roles starting May 2027: model training and fine-tuning, GPU and CUDA work, reinforcement learning, computer vision and evaluation, including AI R&D at animation studios.
 Contact: joshwright0322@gmail.com
@@ -13,7 +13,7 @@ Contact: joshwright0322@gmail.com
 ## Projects
 
 - [UNOMi](https://joshwright22.github.io/projects/unomi/): 2.8x faster motion capture, same accuracy
-- [Cambridge Battlecode 2026](https://joshwright22.github.io/projects/cambridge-battlecode-2026/): 177 games/s on one GPU, 55x the CPU engine
+- [Cambridge Battlecode 2026](https://joshwright22.github.io/projects/cambridge-battlecode-2026/): Mined 110,000 ladder matches, trained on 6M turns
 - [nanoTSFM Forecasting](https://joshwright22.github.io/projects/nanotsfm-forecasting/): 17% lower error than the nanoTSFM record
 - [Surge AI](https://joshwright22.github.io/projects/surge-ai/): Ratings that train coding models
 - [Mastodon Disaster Network](https://joshwright22.github.io/projects/mastodon-disaster-network/): 3,479 posts mapped
@@ -24,7 +24,6 @@ Contact: joshwright0322@gmail.com
 - [AtOMoC SHeLiS](https://joshwright22.github.io/projects/atomoc-shelis/): Placed #12 of 150 games
 - [Gob Spin](https://joshwright22.github.io/projects/gob-spin/): Placed #140 of 3,498 games
 - [Slush Rush](https://joshwright22.github.io/projects/slush-rush/): Placed #69 of 434 games
-- [Algone](https://joshwright22.github.io/projects/algone/): Hides algorithmic feeds on 12 sites
 
 ## Elsewhere
 

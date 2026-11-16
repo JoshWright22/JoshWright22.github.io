@@ -1,6 +1,6 @@
 # Josh Wright
 
-> Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He trains and fine-tunes models, writes CUDA and builds reinforcement learning agents. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and his CUDA game simulator runs 177 games a second on one GPU.
+> Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He trains and fine-tunes models, writes CUDA and builds reinforcement learning agents. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and he trained a Battlecode bot on 6 million game turns mined from 110,000 ladder matches.
 
 Looking for: New grad AI and machine learning engineering roles starting May 2027: model training and fine-tuning, GPU and CUDA work, reinforcement learning, computer vision and evaluation, including AI R&D at animation studios.
 
@@ -14,7 +14,7 @@ LinkedIn: https://www.linkedin.com/in/joshua-wright-a94143338/
 
 ## About
 
-Hey, I'm Josh. I'm an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the one the team now uses, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator that runs 177 games a second on one GPU and trained a PPO agent on it by self-play. I also grade LLM coding answers for Surge AI. I started out keyframing characters by hand, so animation is where I want to take AI research next. I still make games too, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!
+Hey, I'm Josh. I'm an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the one the team now uses, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I also grade LLM coding answers for Surge AI. I started out keyframing characters by hand, so animation is where I want to take AI research next. I still make games too, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!
 
 ## Skills
 
@@ -37,9 +37,9 @@ Link: https://getunomi.com/3d-lip-sync/
 
 ### Cambridge Battlecode 2026
 
-177 games/s on one GPU, 55x the CPU engine. Reinforcement Learning, October 2026 - Present.
+Mined 110,000 ladder matches, trained on 6M turns. Reinforcement Learning, October 2026 - Present.
 
-I wrote a CUDA game simulator for Cambridge Battlecode 2026 that runs 177 full games a second on one GPU, 55x the CPU engine's 3.2. Then I trained a recurrent PPO reinforcement learning agent on it by self-play. I also built a data pipeline over 110,000 ranked matches that pulls out the 20,000 strongest replays in 15 minutes, and trained GPU decision-tree models on 6 million game turns to drive the bot's choices.
+I wrote a CUDA game simulator for Cambridge Battlecode 2026 and trained a recurrent PPO reinforcement learning agent on it by self-play. I also built a data pipeline over the 110,000 matches on the public ladder that pulls out the 20,000 strongest replays in 15 minutes, and trained GPU decision-tree models on 6 million game turns to drive the bot's choices. The clip is my submitted bot (blue) winning a local match 1,044 gems to 216, in the official visualiser.
 
 Skills: CUDA, C++, Python, Reinforcement Learning, PPO, Self-Play, GPU Simulation, Data Pipelines, Decision Trees
 Page: https://joshwright22.github.io/projects/cambridge-battlecode-2026/
@@ -48,7 +48,7 @@ Page: https://joshwright22.github.io/projects/cambridge-battlecode-2026/
 
 17% lower error than the nanoTSFM record. Time-Series Forecasting, October 2026.
 
-I trained an ensemble of five 13M-parameter PyTorch forecasting models for the open nanoTSFM benchmark. It scored 0.526 CRPS on GIFT-Eval's 97 unseen tasks, 17% lower error than the 0.632 nanoTSFM record. Those numbers are from my own runs over 2 seeds.
+I trained an ensemble of five 13M-parameter PyTorch forecasting models for the open nanoTSFM benchmark. It scored 0.526 CRPS on GIFT-Eval's 97 unseen tasks, 17% lower error than the 0.632 nanoTSFM record. Those numbers are from my own runs over 2 seeds. The plot is one of its forecasts: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.
 
 Skills: PyTorch, Python, Time-Series Forecasting, Model Training, Ensembles, Evaluation
 Page: https://joshwright22.github.io/projects/nanotsfm-forecasting/
@@ -140,13 +140,3 @@ I designed and implemented the core mechanics while directing a small team throu
 Skills: Team Leadership, Project Planning, Python, Godot, Gameplay Programming, Systems Design
 Page: https://joshwright22.github.io/projects/slush-rush/
 Link: https://joshwright.itch.io/slush-rush
-
-### Algone
-
-Hides algorithmic feeds on 12 sites. Browser Extension, November 2026.
-
-I built Algone, a browser extension that hides algorithmic feeds on 12 sites. It has 26 downloads so far.
-
-Skills: TypeScript, Vitest, Playwright, GitHub Actions, Browser Extensions
-Page: https://joshwright22.github.io/projects/algone/
-Link: https://github.com/JoshWright22/Algone
