@@ -25,7 +25,9 @@ a { color: inherit; }
 .label { font: 500 .7rem/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
 
 /* The wall: a slow, endless field of frames behind everything */
-.stage { position: relative; height: 100svh; min-height: 560px; overflow: hidden; }
+.stage { position: relative; height: 100svh; min-height: 560px; overflow: hidden; contain: strict; }
+.field { will-change: transform; contain: layout paint; }
+.veil { will-change: auto; }
 .field { position: absolute; inset: -20%; display: grid; grid-template-columns: repeat(var(--cols), 74px); gap: 14px;
   justify-content: center; align-content: center; animation: drift 120s linear infinite; }
 @keyframes drift { from { transform: translate3d(0,0,0); } to { transform: translate3d(-88px,-1056px,0); } }
@@ -187,31 +189,33 @@ document.querySelectorAll(".letter p:not(.sig):not(.count)").forEach(p => {
   p.innerHTML = p.textContent.split(" ").map(w => '<span class="w">' + w + "</span>").join(" ");
   words.push(...p.querySelectorAll(".w"));
 });
-const lightWords = () => {
-  const line = window.innerHeight * 0.82;
-  for (const w of words) w.classList.toggle("in", w.getBoundingClientRect().top < line);
-};
-addEventListener("scroll", lightWords, { passive: true }); lightWords();
+// One observer instead of measuring every word on every scroll
+const wordIO = new IntersectionObserver(es => es.forEach(e =>
+  e.target.classList.toggle("in", e.isIntersecting || e.boundingClientRect.top < 0)),
+  { rootMargin: "0px 0px -18% 0px" });
+words.forEach(w => wordIO.observe(w));
+
+// Pause the drifting wall once it's scrolled off screen
+const stage = document.querySelector(".stage");
+new IntersectionObserver(([e]) => { field.style.animationPlayState = e.isIntersecting ? "running" : "paused"; })
+  .observe(stage);
 
 // Custom cursor: dot follows, ring trails and opens to "View" over portraits
 const cur = document.createElement("div"); cur.className = "cursor";
 cur.innerHTML = '<div class="ring">View</div><div class="dot"></div>';
 document.body.append(cur);
 const dot = cur.querySelector(".dot"), ring = cur.querySelector(".ring");
-let mx = -100, my = -100, rx = -100, ry = -100;
-addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY;
-  cur.classList.toggle("view", !!e.target.closest(".f.on")); });
-(function loop() { rx += (mx - rx) * .16; ry += (my - ry) * .16;
-  dot.style.transform = `translate(${mx}px,${my}px)`; ring.style.transform = `translate(${rx}px,${ry}px)`;
-  requestAnimationFrame(loop); })();
-
-// Smooth scroll (Lenis), if it loads
-addEventListener("load", () => { if (window.Lenis && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  const lenis = new Lenis({ lerp: .09 });
-  (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
-  document.querySelector(".scroll").addEventListener("click", e => { e.preventDefault(); lenis.scrollTo("#letter"); });
-}});
+let mx = -100, my = -100, rx = -100, ry = -100, running = false;
+const step = () => {
+  rx += (mx - rx) * .16; ry += (my - ry) * .16;
+  dot.style.transform = `translate3d(${mx}px,${my}px,0)`; ring.style.transform = `translate3d(${rx}px,${ry}px,0)`;
+  if (Math.abs(mx - rx) + Math.abs(my - ry) > .3) requestAnimationFrame(step); else running = false;
+};
+if (matchMedia("(pointer: fine)").matches) addEventListener("mousemove", e => {
+  mx = e.clientX; my = e.clientY;
+  cur.classList.toggle("view", !!e.target.closest(".f.on"));
+  if (!running) { running = true; requestAnimationFrame(step); }
+}, { passive: true });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 </body>
 </html>
