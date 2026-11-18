@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Million Portrait Project</title>
-<meta name="description" content="I'm drawing a million $1 portraits to pay for art school. Send a photo, get a hand-drawn ink portrait.">
+<title>A Million Commissions</title>
+<meta name="description" content="A million commissions, one dollar each. I'm drawing my way to art school. Tell me what to draw, $1 a sketch.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -12,13 +12,11 @@
 :root {
   --bg: #0f0f0f; --fg: #fdfdfd; --muted: #8a8a8a;
   --line: rgba(253,253,253,.14); --line-soft: rgba(253,253,253,.07);
-  --accent: #4776ca; --accent-bright: #7ba6e8; --accent-soft: rgba(71,118,202,.16);
-  --yellow: #ffd23f; --pad: clamp(1rem, 4vw, 4rem);
+  --accent-bright: #7ba6e8; --yellow: #ffd23f; --pad: clamp(1rem, 4vw, 4rem);
 }
 @media (prefers-color-scheme: light) {
   :root { --bg: #fdfdfd; --fg: #0f0f0f; --muted: #6f6f6f;
-    --line: rgba(15,15,15,.16); --line-soft: rgba(15,15,15,.08);
-    --accent-bright: #2f5ba8; --accent-soft: rgba(71,118,202,.14); }
+    --line: rgba(15,15,15,.16); --line-soft: rgba(15,15,15,.08); --accent-bright: #2f5ba8; }
 }
 * { box-sizing: border-box; margin: 0; }
 body { background: var(--bg); color: var(--fg); font: 400 17px/1.55 Inter, system-ui, sans-serif; }
@@ -30,7 +28,7 @@ header a { color: var(--muted); text-decoration: none; }
 .eyebrow { font: 500 .8rem JetBrains Mono, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-bright); }
 h1 { font-weight: 900; font-size: clamp(2.6rem, 8vw, 5.6rem); line-height: .98; letter-spacing: -.035em; margin: .8rem 0 1.4rem; }
 h1 em { font-style: normal; color: var(--yellow); }
-.lede { font-size: clamp(1.1rem, 2.2vw, 1.35rem); max-width: 40rem; color: var(--fg); }
+.lede { font-size: clamp(1.1rem, 2.2vw, 1.35rem); max-width: 40rem; }
 .lede + .lede { margin-top: 1rem; color: var(--muted); }
 .cta { display: inline-flex; align-items: center; gap: .6rem; margin-top: 2rem; padding: 1rem 1.6rem; border-radius: 999px;
   background: var(--yellow); color: #0f0f0f; font-weight: 800; font-size: 1.1rem; text-decoration: none; transition: transform .2s; }
@@ -67,6 +65,7 @@ summary::after { content: "+"; float: right; color: var(--muted); }
 details[open] summary::after { content: "-"; }
 details p { color: var(--muted); margin-top: .6rem; max-width: 46rem; }
 .final { text-align: center; padding: 3rem 0 5rem; }
+.final h2 { margin-bottom: 0; }
 footer { border-top: 1px solid var(--line); padding: 1.5rem 0 2.5rem; color: var(--muted); font-size: .85rem; }
 @media (max-width: 640px) {
   .stats { grid-template-columns: 1fr; }
@@ -78,62 +77,63 @@ footer { border-top: 1px solid var(--line); padding: 1.5rem 0 2.5rem; color: var
 </head>
 <body>
 <div class="wrap">
-  <header><a href="/">Josh Wright</a><span>million portrait project</span></header>
+  <header><a href="/">Josh Wright</a><span>a million commissions</span></header>
 
   <div class="hero">
-    <div class="eyebrow">$1 commissions, paying for art school</div>
+    <div class="eyebrow">Drawing my way to art school</div>
     <h1>A million commissions.<br><em>One dollar each.</em></h1>
-    <p class="lede">I'm Josh, a 24-year-old CS student who wants to go to art school to learn classical drawing. I'm paying my own way there one hand-drawn portrait at a time.</p>
-    <p class="lede">Send a photo of you, a friend or your pet. I draw it in ink and send you the full-size file. Every dollar goes into the school fund.</p>
-    <a class="cta" id="buy" href="#" target="_blank" rel="noopener">Get my portrait <small>$1</small></a>
+    <p class="lede">I'm Josh. I'm 24, I study computer science, and what I really want is to go to art school. So I'm paying for it by drawing, one dollar at a time.</p>
+    <p class="lede">You tell me what to draw. You, your pet, your D&amp;D character, your weird idea. I sketch it in ink and send you the file. Every dollar goes to tuition.</p>
+    <a class="cta" id="buy" href="#" target="_blank" rel="noopener">Commission me <small>$1</small></a>
   </div>
 
   <div class="stats">
-    <div class="stat"><b id="drawn">0</b><span>portraits drawn of 1,000,000</span></div>
+    <div class="stat"><b id="drawn">0</b><span>commissions drawn of 1,000,000</span></div>
     <div class="stat"><b id="raised">$0</b><span id="goal-label">raised for art school</span><div class="bar"><i id="goal-bar"></i></div></div>
-    <div class="stat"><b id="open">0</b><span>spots left this month</span></div>
+    <div class="stat"><b id="open">0</b><span>commissions open this month</span></div>
   </div>
 
   <section>
     <h2>How it works</h2>
     <div class="steps">
-      <div class="step"><div class="n">01</div><h3>Pay $1 on Ko-fi</h3><p>PayPal or card through Ko-fi. I never see your card details.</p></div>
-      <div class="step"><div class="n">02</div><h3>Attach a photo</h3><p>Add it in the Ko-fi order message, or email it with your order number. Faces, pets and characters all work.</p></div>
-      <div class="step"><div class="n">03</div><h3>I draw it</h3><p>In order, one at a time. You get your place in line and the week it should be done.</p></div>
-      <div class="step"><div class="n">04</div><h3>You get the file</h3><p>A full-size ink portrait in your inbox. It also joins the Wall below, if you want it there.</p></div>
+      <div class="step"><div class="n">01</div><h3>Pay $1</h3><p>Checkout runs through Ko-fi with PayPal or card. I never see your card details.</p></div>
+      <div class="step"><div class="n">02</div><h3>Tell me what to draw</h3><p>Write it in your order message, and add a photo if it helps. One subject per dollar.</p></div>
+      <div class="step"><div class="n">03</div><h3>I draw it</h3><p>Commissions get drawn in order. You'll know your place in line and the week to expect it.</p></div>
+      <div class="step"><div class="n">04</div><h3>It's yours</h3><p>The full-size sketch lands in your inbox, and it goes up on the Wall if you want it there.</p></div>
     </div>
   </section>
 
   <section>
     <h2>The Wall</h2>
     <div class="wall" id="wall"></div>
-    <p class="note">Every portrait I draw goes up here in order. Hover to see who it is. Portrait #1 and portrait #10,000 will sit on the same wall, so you can watch me get better.</p>
+    <p class="note">Every commission goes up here in order. Hover over one to see who it's for. Commission #1 and commission #10,000 will hang on the same wall, so you'll see how much better I get.</p>
   </section>
 
   <section class="story">
-    <div><h2>Why I'm doing this</h2></div>
+    <div><h2>Why a dollar</h2></div>
     <div>
-      <p><strong>I want to learn to draw properly.</strong> The best training for that is a classical atelier, years of drawing from life. My goal is a full art education at the best school I can get into.</p>
-      <p><strong>I can't pay for it yet.</strong> So instead of asking for donations, I'm selling the thing the school will teach me: portraits. Each $1 is one more drawing of practice and one more dollar toward tuition.</p>
-      <p><strong>A million is the dream.</strong> I'll draw as many as people want, and only open as many spots each month as I can actually finish.</p>
+      <p><strong>I want to learn to draw for real.</strong> That means years at a classical atelier, drawing from life every day. I want the best school I can get into.</p>
+      <p><strong>I can't afford it yet.</strong> I didn't want to ask for donations, so I'm selling the thing school will teach me. Every commission is one more drawing of practice and one more dollar toward getting there.</p>
+      <p><strong>A million is the dream.</strong> I'll draw as many as you want, but I only open as many each month as I can actually finish.</p>
     </div>
   </section>
 
   <section>
     <h2>Questions</h2>
-    <details><summary>What if you don't finish mine?</summary><p>If your portrait isn't delivered within 30 days of your order, your $1 is refunded automatically. You don't need to ask.</p></details>
-    <details><summary>What happens to my photo?</summary><p>Only the drawing is ever shown. Your photo is deleted once your portrait is sent.</p></details>
+    <details><summary>What can I commission?</summary><p>Pretty much anything that fits in a sketch. People, pets, characters, creatures or a little scene. One subject per dollar.</p></details>
+    <details><summary>What do they look like?</summary><p>Quick ink sketches, like the ones on the Wall. Think sketchbook studies, not finished paintings. That's how I can do them for $1.</p></details>
+    <details><summary>What if you don't finish mine?</summary><p>If your commission isn't delivered within 30 days, you get your $1 back automatically. You don't have to ask.</p></details>
+    <details><summary>What happens to my photo?</summary><p>Only the drawing is ever shown. I delete your photo once your commission is sent.</p></details>
     <details><summary>Do I have to be on the Wall?</summary><p>No. Use your name, a nickname, or stay anonymous. Say which in your order message.</p></details>
-    <details><summary>What style are the portraits?</summary><p>Quick ink head-and-shoulders portraits, like the ones on the Wall. They're studies, not finished paintings, which is why they cost $1.</p></details>
-    <details><summary>Can I buy more than one?</summary><p>Yes. Each $1 is one portrait.</p></details>
+    <details><summary>Can I get more than one?</summary><p>Yes. Each dollar is one commission.</p></details>
   </section>
 
   <div class="final">
-    <h2>Help me draw my way to art school.</h2>
-    <a class="cta" id="buy2" href="#" target="_blank" rel="noopener">Get my portrait <small>$1</small></a>
+    <h2>One dollar. One drawing.<br>One step closer to art school.</h2>
+    <a class="cta" id="buy2" href="#" target="_blank" rel="noopener">Commission me <small>$1</small></a>
   </div>
 
-  <footer>The Million Portrait Project &middot; <a href="/">Josh Wright</a></footer>
+  <footer>A Million Commissions &middot; <a href="/">Josh Wright</a></footer>
 </div>
 
 <script>
@@ -142,37 +142,37 @@ const CONFIG = {
   kofiUrl: "",            // Ko-fi shop item link, e.g. https://ko-fi.com/s/xxxx
   raised: 0,              // dollars raised so far
   tuitionGoal: null,      // dollars; set once the tuition figure is confirmed
-  spotsThisMonth: 0,      // spots still open this month
+  openThisMonth: 0,       // commissions still open this month
   wallSlots: 120,         // empty slots shown on the Wall
-  // Each drawn portrait: { img: "wall/0001.jpg", name: "Sam" } (name optional)
-  portraits: []
+  // Each finished commission: { img: "wall/0001.jpg", name: "Sam" } (name optional)
+  commissions: []
 };
 // ----------------------------------
 const $ = id => document.getElementById(id);
 const fmt = n => n.toLocaleString("en-US");
-$("drawn").textContent = fmt(CONFIG.portraits.length);
+$("drawn").textContent = fmt(CONFIG.commissions.length);
 $("raised").textContent = "$" + fmt(CONFIG.raised);
-$("open").textContent = fmt(CONFIG.spotsThisMonth);
+$("open").textContent = fmt(CONFIG.openThisMonth);
 if (CONFIG.tuitionGoal) {
   $("goal-label").textContent = "raised of $" + fmt(CONFIG.tuitionGoal) + " tuition goal";
   $("goal-bar").style.width = Math.min(100, CONFIG.raised / CONFIG.tuitionGoal * 100) + "%";
 } else { $("goal-bar").parentElement.style.display = "none"; }
 for (const id of ["buy", "buy2"]) {
   const a = $(id);
-  if (CONFIG.kofiUrl && CONFIG.spotsThisMonth > 0) a.href = CONFIG.kofiUrl;
+  if (CONFIG.kofiUrl && CONFIG.openThisMonth > 0) a.href = CONFIG.kofiUrl;
   else { a.removeAttribute("href"); a.style.opacity = .5; a.style.cursor = "default";
-    a.innerHTML = CONFIG.kofiUrl ? "Sold out this month" : "Opening soon"; }
+    a.textContent = CONFIG.kofiUrl ? "Full this month. Back soon" : "Opening soon"; }
 }
 const wall = $("wall");
-CONFIG.portraits.forEach((p, i) => {
+CONFIG.commissions.forEach((p, i) => {
   const c = document.createElement("div"); c.className = "cell";
   const img = document.createElement("img"); img.src = p.img; img.loading = "lazy";
-  img.alt = "Portrait #" + (i + 1) + (p.name ? " of " + p.name : "");
+  img.alt = "Commission #" + (i + 1) + (p.name ? " for " + p.name : "");
   const tip = document.createElement("div"); tip.className = "tip";
   tip.textContent = "#" + (i + 1) + (p.name ? " " + p.name : "");
   c.append(img, tip); wall.append(c);
 });
-for (let i = CONFIG.portraits.length; i < CONFIG.wallSlots; i++) {
+for (let i = CONFIG.commissions.length; i < CONFIG.wallSlots; i++) {
   const c = document.createElement("div"); c.className = "cell open"; wall.append(c);
 }
 </script>
