@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Million Commission Project</title>
+<meta name="description" content="A million commissions, one dollar each. I'm drawing my way to art school. Tell me what to draw, and every dollar goes to tuition.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Public+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #ffffff; --paper-2: #f2f2f2; --ink: #111111; --muted: #8c8c8c;
+  --rule: rgba(0,0,0,.18); --rule-soft: rgba(0,0,0,.07);
+  --serif: "Libre Caslon Display", "Times New Roman", serif; --sans: "Public Sans", Helvetica, Arial, sans-serif;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root { --paper: #0b0b0b; --paper-2: #181818; --ink: #f4f4f4; --muted: #7d7d7d;
+    --rule: rgba(255,255,255,.18); --rule-soft: rgba(255,255,255,.07); }
+}
+* { box-sizing: border-box; margin: 0; }
+html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); font: 300 17px/1.7 var(--sans); }
+a { color: inherit; }
+.label { font: 500 .7rem/1 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+
+/* First screen: the wall */
+.stage { position: relative; height: 100svh; min-height: 560px; overflow: hidden; contain: strict; }
+.field { position: absolute; inset: -20%; display: grid; grid-template-columns: repeat(var(--cols), 74px); gap: 14px;
+  justify-content: center; align-content: center; will-change: transform; contain: layout paint;
+  animation: drift 120s linear infinite; opacity: 0; transition: opacity 2s ease; }
+@keyframes drift { to { transform: translate3d(-88px, -1056px, 0); } }
+.f { aspect-ratio: 4 / 5; border: 1px dashed var(--rule-soft); }
+.f.on { border: 1px solid var(--rule); background: var(--paper-2); padding: 3px; }
+.f img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.veil { position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 52% 46% at 50% 50%, var(--paper) 35%, transparent 100%); }
+.center { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 0 1rem; pointer-events: none; }
+.center > div { pointer-events: auto; }
+h1 { font: 400 clamp(3rem, 8.5vw, 6.6rem)/.95 var(--serif); letter-spacing: -.01em; margin-top: 1.3rem; }
+h1 .line { display: block; overflow: hidden; padding-bottom: .06em; }
+h1 .line > span { display: inline-block; transform: translateY(105%); transition: transform 1.4s var(--ease); }
+h1 .line + .line > span { transition-delay: .18s; }
+.scroll { position: absolute; bottom: 1.6rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column;
+  align-items: center; gap: .8rem; text-decoration: none; }
+.cue { width: 1px; height: 56px; background: var(--rule); position: relative; overflow: hidden; }
+.cue::after { content: ""; position: absolute; left: 0; top: -40%; width: 1px; height: 40%; background: var(--ink);
+  animation: cue 2.2s cubic-bezier(.6,0,.4,1) infinite; }
+@keyframes cue { to { top: 100%; } }
+.center .label, .scroll { opacity: 0; transition: opacity 1.2s ease .9s; }
+.ready .field, .ready .center .label, .ready .scroll { opacity: 1; }
+.ready h1 .line > span { transform: none; }
+
+/* Letter */
+.letter { max-width: 38rem; margin: 0 auto; padding: clamp(5rem, 12vw, 9rem) 1.25rem clamp(4rem, 10vw, 7rem); }
+.letter p { font: 400 clamp(1.35rem, 2.6vw, 1.7rem)/1.5 var(--serif); margin-bottom: 1.4rem; }
+.letter p.small { font: 300 1rem/1.75 var(--sans); color: var(--muted); }
+.letter .sig { font: 400 1.6rem var(--serif); color: var(--muted); }
+.w { opacity: .18; transition: opacity .6s ease; }
+.w.in { opacity: 1; }
+.count { font: 400 1.2rem var(--serif); margin-top: 2.5rem; }
+.count b { font-weight: 400; font-variant-numeric: lining-nums tabular-nums; }
+.btn { display: inline-block; margin-top: 1.2rem; padding: 1rem 2.2rem; border: 1px solid var(--ink); background: var(--paper); color: var(--ink);
+  font: 500 .76rem var(--sans); letter-spacing: .22em; text-transform: uppercase; text-decoration: none; transition: background .3s, color .3s; }
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn.off { opacity: .5; pointer-events: none; }
+
+/* Questions */
+.faq { max-width: 38rem; margin: 0 auto; padding: 0 1.25rem 6rem; }
+details { border-top: 1px solid var(--rule); padding: 1.2rem 0; }
+details:last-of-type { border-bottom: 1px solid var(--rule); }
+summary { cursor: pointer; list-style: none; font: 400 1.3rem var(--serif); display: flex; justify-content: space-between; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; }
+details[open] summary::after { content: "\2013"; }
+details p { color: var(--muted); margin-top: .6rem; }
+footer { padding: 2rem clamp(1rem, 4vw, 3rem) 2.5rem; border-top: 1px solid var(--rule); }
+
+/* Lightbox + cursor */
+.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.88); display: none; place-items: center; z-index: 10; padding: 1.5rem; }
+.lightbox.show { display: grid; }
+.lightbox figure { max-width: min(560px, 92vw); text-align: center; color: #f4f4f4; }
+.lightbox img { width: 100%; background: #fff; padding: 10px; }
+.lightbox figcaption { font: 400 1.2rem var(--serif); margin-top: .8rem; }
+.cursor { position: fixed; left: 0; top: 0; z-index: 60; pointer-events: none; display: none; }
+.cursor .dot { position: absolute; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: var(--ink); }
+.cursor .ring { position: absolute; width: 34px; height: 34px; margin: -17px; border-radius: 50%; border: 1px solid var(--rule);
+  display: grid; place-items: center; font: 500 .55rem var(--sans); letter-spacing: .2em; text-transform: uppercase; color: transparent;
+  transition: width .5s var(--ease), height .5s var(--ease), margin .5s var(--ease), background .4s, color .3s; }
+.cursor.view .ring { width: 74px; height: 74px; margin: -37px; background: var(--paper); border-color: var(--ink); color: var(--ink); }
+@media (pointer: fine) { .cursor { display: block; } body, a, .f.on, summary { cursor: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .field { animation: none; } .cue::after { animation: none; top: 30%; }
+  .field, h1 .line > span, .center .label, .scroll, .w { transition: none; transform: none; opacity: 1; }
+}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="field" id="field"></div>
+  <div class="veil"></div>
+  <div class="center"><div>
+    <div class="label">The Million Commission Project</div>
+    <h1><span class="line"><span>A million commissions.</span></span><span class="line"><span>One dollar each.</span></span></h1>
+  </div></div>
+  <a class="scroll label" href="#letter" aria-label="Scroll down"><span>Scroll</span><i class="cue"></i></a>
+</div>
+
+<div class="letter" id="letter">
+  <p>I'm Josh. I'm 24, I study computer science, and what I really want is to go to art school and learn to draw the classical way.</p>
+  <p>I didn't want to ask for donations, so I'm selling the thing school will teach me. Tell me what to draw, you or a friend or your pet or a character, and I'll draw it by hand for a dollar. Every dollar goes to tuition.</p>
+  <p class="small">You pay on Ko-fi and tell me what you want. Commissions get drawn in order, and the full-size drawing comes to your inbox. Then it takes the next numbered frame on the wall above, so you can watch the wall fill up and watch me get better. I only open as many each month as I can finish.</p>
+  <p class="sig">Josh</p>
+  <p class="count"><b id="drawn">0</b> of 1,000,000 drawn &middot; <b id="raised">$0</b> toward art school</p>
+  <a class="btn" id="buy" href="#" target="_blank" rel="noopener">Commission me &middot; $1</a>
+</div>
+
+<div class="faq">
+  <details><summary>What can I commission?</summary><p>Pretty much anything that fits in a sketch. People, pets, characters, creatures or a little scene. One subject per dollar.</p></details>
+  <details><summary>What if you don't finish mine?</summary><p>If your commission isn't delivered within 30 days, you get your $1 back. You don't have to ask.</p></details>
+  <details><summary>What happens to my photo?</summary><p>Only the drawing is ever shown. I delete your photo once your commission is sent.</p></details>
+  <details><summary>Do I have to be on the wall?</summary><p>No. Use your name, a nickname, or stay anonymous. Say which in your order.</p></details>
+</div>
+
+<footer class="label">The Million Commission Project</footer>
+
+<div class="lightbox" id="lb"><figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure></div>
+
+<script src="wall.js"></script>
+<script>
+// Settings live in wall.js (tools/add_commission.py updates it).
+const C = window.WALL || { kofiUrl: "", raised: 0, openThisMonth: 0, commissions: [] };
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString("en-US");
+const P = C.commissions;
+$("drawn").textContent = fmt(P.length);
+$("raised").textContent = "$" + fmt(C.raised);
+const buy = $("buy");
+if (C.kofiUrl && C.openThisMonth > 0) buy.href = C.kofiUrl;
+else { buy.removeAttribute("href"); buy.classList.add("off"); buy.textContent = C.kofiUrl ? "Full this month" : "Opening soon"; }
+
+// Wall: drawn commissions in order, then empty frames
+const field = $("field");
+const cols = Math.ceil(innerWidth * 1.4 / 88) + 2, rows = Math.ceil(innerHeight * 1.4 / 106) + 12;
+field.style.setProperty("--cols", cols);
+const frag = document.createDocumentFragment();
+for (let i = 0; i < rows * cols; i++) {
+  const cell = document.createElement("div"); cell.className = "f";
+  const p = P.length ? P[i % (P.length * 3)] : null;
+  if (p) {
+    const n = (i % (P.length * 3)) + 1;
+    cell.classList.add("on");
+    const img = document.createElement("img"); img.src = p.thumb || p.img; img.loading = "lazy"; img.alt = "Commission No. " + n;
+    cell.append(img);
+    cell.onclick = () => { $("lb-img").src = p.img; $("lb-cap").textContent = "No. " + n + (p.name ? ", for " + p.name : ""); $("lb").classList.add("show"); };
+  }
+  frag.append(cell);
+}
+field.append(frag);
+$("lb").onclick = () => $("lb").classList.remove("show");
+new IntersectionObserver(([e]) => { field.style.animationPlayState = e.isIntersecting ? "running" : "paused"; })
+  .observe(document.querySelector(".stage"));
+
+requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add("ready")));
+
+// Letter words light up as they come into view
+const words = [];
+document.querySelectorAll(".letter p:not(.sig):not(.count)").forEach(p => {
+  p.innerHTML = p.textContent.split(" ").map(w => '<span class="w">' + w + "</span>").join(" ");
+  words.push(...p.querySelectorAll(".w"));
+});
+const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle("in", e.isIntersecting || e.boundingClientRect.top < 0)),
+  { rootMargin: "0px 0px -18% 0px" });
+words.forEach(w => io.observe(w));
+
+// Cursor (mouse only, runs only while moving)
+if (matchMedia("(pointer: fine)").matches) {
+  const cur = document.createElement("div"); cur.className = "cursor";
+  cur.innerHTML = '<div class="ring">View</div><div class="dot"></div>';
+  document.body.append(cur);
+  const dot = cur.querySelector(".dot"), ring = cur.querySelector(".ring");
+  let mx = -100, my = -100, rx = -100, ry = -100, running = false;
+  const step = () => {
+    rx += (mx - rx) * .16; ry += (my - ry) * .16;
+    dot.style.transform = `translate3d(${mx}px,${my}px,0)`; ring.style.transform = `translate3d(${rx}px,${ry}px,0)`;
+    if (Math.abs(mx - rx) + Math.abs(my - ry) > .3) requestAnimationFrame(step); else running = false;
+  };
+  addEventListener("mousemove", e => {
+    mx = e.clientX; my = e.clientY;
+    cur.classList.toggle("view", !!e.target.closest(".f.on"));
+    if (!running) { running = true; requestAnimationFrame(step); }
+  }, { passive: true });
+}
+</script>
+</body>
+</html>
