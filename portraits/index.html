@@ -7,16 +7,16 @@
 <meta name="description" content="A million portraits, one dollar each. I'm drawing my way to art school. Send a photo and get a hand-drawn portrait for $1.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@300;400;500&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Public+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --paper: #f3ede3; --paper-2: #e8dfd0; --ink: #2b211c; --muted: #7a6a5e; --ochre: #a06716;
-  --rule: rgba(49,39,35,.2); --rule-soft: rgba(49,39,35,.09);
-  --serif: "Cormorant Garamond", Georgia, serif; --sans: "Work Sans", system-ui, sans-serif;
+  --paper: #ffffff; --paper-2: #f2f2f2; --ink: #111111; --muted: #8c8c8c; --ochre: #111111;
+  --rule: rgba(0,0,0,.18); --rule-soft: rgba(0,0,0,.07);
+  --serif: "Libre Caslon Display", "Times New Roman", serif; --sans: "Public Sans", Helvetica, Arial, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
-  :root { --paper: #171311; --paper-2: #221c18; --ink: #ece3d4; --muted: #a8998a; --ochre: #c98d3a;
-    --rule: rgba(236,227,212,.18); --rule-soft: rgba(236,227,212,.07); }
+  :root { --paper: #0b0b0b; --paper-2: #181818; --ink: #f4f4f4; --muted: #7d7d7d; --ochre: #f4f4f4;
+    --rule: rgba(255,255,255,.18); --rule-soft: rgba(255,255,255,.07); }
 }
 * { box-sizing: border-box; margin: 0; }
 html { -webkit-font-smoothing: antialiased; }
@@ -42,7 +42,7 @@ a { color: inherit; }
 .center > div { pointer-events: auto; max-width: 40rem; }
 h1 { font: 400 clamp(3rem, 8.5vw, 6.6rem)/.92 var(--serif); letter-spacing: -.01em; margin: 1.3rem 0 1.5rem; }
 h1 em { color: var(--ochre); }
-.count { font: italic 400 1.25rem var(--serif); color: var(--muted); }
+.count { font: 400 1.25rem var(--serif); color: var(--muted); }
 .count b { font-style: normal; font-weight: 500; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
 .btn { display: inline-block; margin-top: 2rem; padding: 1rem 2.2rem; border: 1px solid var(--ink); color: var(--ink); background: var(--paper);
   font: 500 .76rem var(--sans); letter-spacing: .22em; text-transform: uppercase; text-decoration: none; transition: background .3s, color .3s; }
@@ -54,13 +54,13 @@ h1 em { color: var(--ochre); }
 @keyframes cue { to { top: 100%; } }
 @media (prefers-reduced-motion: reduce) { .cue::after { animation: none; top: 30%; } }
 html { scroll-behavior: smooth; }
-.letter .count { font: italic 400 1.2rem var(--serif); margin: 2.5rem 0 0; }
+.letter .count { font: 400 1.2rem var(--serif); margin: 2.5rem 0 0; }
 .letter .btn { margin-top: 1.2rem; }
 
 .letter { max-width: 38rem; margin: 0 auto; padding: clamp(5rem, 12vw, 9rem) 1.25rem clamp(4rem, 10vw, 7rem); }
 .letter p { font: 400 clamp(1.35rem, 2.6vw, 1.7rem)/1.5 var(--serif); margin-bottom: 1.4rem; }
 .letter p.small { font: 300 1rem/1.75 var(--sans); color: var(--muted); }
-.letter .sig { font-style: italic; color: var(--muted); }
+.letter .sig { color: var(--muted); }
 
 .faq { max-width: 38rem; margin: 0 auto; padding: 0 1.25rem 6rem; }
 details { border-top: 1px solid var(--rule); padding: 1.2rem 0; }
@@ -85,7 +85,9 @@ h1 .line:nth-child(2) > * { transition-delay: .18s; }
 .ready .field { opacity: 1; }
 .letter .w { opacity: .18; transition: opacity .6s ease; }
 .letter .w.in { opacity: 1; }
-.hand { font: 500 2.2rem/1 Caveat, cursive !important; color: var(--ochre) !important; font-style: normal !important; }
+.hand { font: 400 1.6rem/1 var(--serif) !important; color: var(--ink) !important; font-style: normal !important; }
+em, i { font-style: normal; }
+.f img { filter: none !important; }
 .grain { position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .07; mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 @media (prefers-color-scheme: dark) { .grain { mix-blend-mode: screen; opacity: .05; } }
@@ -104,7 +106,7 @@ h1 .line:nth-child(2) > * { transition-delay: .18s; }
 .lightbox.show { display: grid; }
 .lightbox figure { max-width: min(520px, 92vw); text-align: center; color: #ece3d4; }
 .lightbox img { width: 100%; background: #f3ede3; padding: 10px; }
-.lightbox figcaption { font: italic 400 1.2rem var(--serif); margin-top: .8rem; }
+.lightbox figcaption { font: 400 1.2rem var(--serif); margin-top: .8rem; }
 </style>
 </head>
 <body>
@@ -194,8 +196,7 @@ addEventListener("scroll", lightWords, { passive: true }); lightWords();
 // Custom cursor: dot follows, ring trails and opens to "View" over portraits
 const cur = document.createElement("div"); cur.className = "cursor";
 cur.innerHTML = '<div class="ring">View</div><div class="dot"></div>';
-const grain = document.createElement("div"); grain.className = "grain";
-document.body.append(grain, cur);
+document.body.append(cur);
 const dot = cur.querySelector(".dot"), ring = cur.querySelector(".ring");
 let mx = -100, my = -100, rx = -100, ry = -100;
 addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY;
