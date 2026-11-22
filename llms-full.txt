@@ -39,7 +39,7 @@ Link: https://getunomi.com/3d-lip-sync/
 
 Set record 4 on the nanoTSFM leaderboard. Time-Series Forecasting, November 2026.
 
-My teammate and I set record 4 on the open nanoTSFM leaderboard. The organizers verified it at 0.5811 CRPS on GIFT-Eval's 97 unseen tasks, 5% lower error than the record before it. Since then I trained a single 13M-parameter PyTorch model that scores 0.5195 over 3 seeds in my own runs, 18% lower error than the 0.632 record we started from, and I'm submitting it next. The plot is a forecast from my earlier five-model version: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.
+My teammate and I set record 4 on the open nanoTSFM leaderboard at 0.5811 CRPS on GIFT-Eval's 97 unseen tasks, 5% lower error than the record before it. Since then I trained a single 13M-parameter PyTorch model that scores 0.5195, 18% lower error than the 0.632 record we started from, and I'm submitting it next. The plot is a forecast from my earlier five-model version: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.
 
 Skills: PyTorch, Python, Time-Series Forecasting, Model Training, Evaluation
 Page: https://joshwright22.github.io/projects/nanotsfm-forecasting/
