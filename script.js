@@ -44,11 +44,11 @@ const content = {
             link: 'https://getunomi.com/3d-lip-sync/'
         },
         {
-            title: 'nanoTSFM Forecasting', short: 'nanoTSFM', result: '17% lower error than the nanoTSFM record',
+            title: 'nanoTSFM Forecasting', short: 'nanoTSFM', result: 'Set record 4 on the nanoTSFM leaderboard',
             category: 'Time-Series Forecasting',
-            date: 'October 2026',
-            desc: 'I trained an ensemble of five 13M-parameter PyTorch forecasting models for the open nanoTSFM benchmark. It scored 0.526 CRPS on GIFT-Eval\'s 97 unseen tasks, 17% lower error than the 0.632 nanoTSFM record. Those numbers are from my own runs over 2 seeds. The plot is one of its forecasts: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.',
-            expertise: ['PyTorch', 'Python', 'Time-Series Forecasting', 'Model Training', 'Ensembles', 'Evaluation'],
+            date: 'November 2026',
+            desc: 'My teammate and I set record 4 on the open nanoTSFM leaderboard. The organizers verified it at 0.5811 CRPS on GIFT-Eval's 97 unseen tasks, 5% lower error than the record before it. Since then I trained a single 13M-parameter PyTorch model that scores 0.5195 over 3 seeds in my own runs, 18% lower error than the 0.632 record we started from, and I'm submitting it next. The plot is a forecast from my earlier five-model version: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.',
+            expertise: ['PyTorch', 'Python', 'Time-Series Forecasting', 'Model Training', 'Evaluation'],
             // GIFT-Eval electricity/H, series MT_214: the last 5 days of context, then the 48 held-out
             // hours. q10..q90 are the trained ensemble's quantile forecasts for those hours.
             forecast: {
