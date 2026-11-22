@@ -47,7 +47,7 @@ const content = {
             title: 'nanoTSFM Forecasting', short: 'nanoTSFM', result: 'Set record 4 on the nanoTSFM leaderboard',
             category: 'Time-Series Forecasting',
             date: 'November 2026',
-            desc: 'My teammate and I set record 4 on the open nanoTSFM leaderboard at 0.5811 CRPS on GIFT-Eval\'s 97 unseen tasks, 5% lower error than the record before it. Since then I trained a single 13M-parameter PyTorch model that scores 0.5195, 18% lower error than the 0.632 record we started from, and I\'m submitting it next. The plot is a forecast from my earlier five-model version: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.',
+            desc: 'My teammate and I trained two models for the open nanoTSFM leaderboard. The first set record 4 at 0.5811 CRPS on GIFT-Eval\'s 97 unseen tasks, and the second scores 0.5195, 18% lower error than the 0.632 record we started from. The plot is a forecast from my earlier five-model version: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.',
             expertise: ['PyTorch', 'Python', 'Time-Series Forecasting', 'Model Training', 'Evaluation'],
             // GIFT-Eval electricity/H, series MT_214: the last 5 days of context, then the 48 held-out
             // hours. q10..q90 are the trained ensemble's quantile forecasts for those hours.
