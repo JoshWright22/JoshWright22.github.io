@@ -14,7 +14,7 @@ LinkedIn: https://www.linkedin.com/in/joshua-wright-a94143338/
 
 ## About
 
-Hey, I'm Josh. I'm a technical artist: I animate, I build the tools animators use, and I train the AI models behind them. I'm graduating from Arizona State University in May 2027 with a B.S. in Computer Science. At my internship at UNOMi I work on the animation plugins for Maya, Blender, Unreal Engine and Cinema 4D. I also benchmarked 6 markerless motion capture pipelines, picked the one the team now uses and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I started out keyframing characters by hand, and I still make games, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!
+Hey, I'm Josh. I'm a technical artist graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the one the team now uses, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I started out keyframing characters by hand, so animation is where I want to take AI research next. I still make games too, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!
 
 ## Skills
 
@@ -39,7 +39,7 @@ Link: https://getunomi.com/3d-lip-sync/
 
 Set record 4 on the nanoTSFM leaderboard. Time-Series Forecasting, November 2026.
 
-I worked on a team to train two models for the open nanoTSFM leaderboard. The first set record 4 at 0.5811 CRPS on GIFT-Eval's 97 unseen tasks, and the second scores 0.5195, 18% lower error than the 0.632 record we started from. The plot is a forecast from my earlier five-model version: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.
+I worked on a team to train two models for the open nanoTSFM leaderboard. The first set record 4 at 0.5811 CRPS on GIFT-Eval's 97 unseen tasks, and the second scores 0.5195, 18% lower error than the 0.632 record we started from. The plot is a forecast from my earlier five-model version. It shows the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.
 
 Skills: PyTorch, Python, Time-Series Forecasting, Model Training, Evaluation
 Page: https://joshwright22.github.io/projects/nanotsfm-forecasting/
