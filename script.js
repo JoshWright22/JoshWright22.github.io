@@ -8,8 +8,8 @@
 const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
-    aboutH: 'AI Engineer',
-    aboutT: 'Hey, I\'m Josh. I\'m an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the one the team now uses, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I started out keyframing characters by hand, so animation is where I want to take AI research next. I still make games too, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you\'re hiring or want to work on something together, reach out!',
+    aboutH: 'Tech Art, Software, AI',
+    aboutT: "Hey, I'm Josh. I'm a technical artist, software developer and AI engineer, and I work where the three meet. I'm graduating from Arizona State University in May 2027 with a B.S. in Computer Science. At my internship at UNOMi I work on the animation plugins for Maya, Blender, Unreal Engine and Cinema 4D. I also benchmarked 6 markerless motion capture pipelines, picked the one the team now uses and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I started out keyframing characters by hand, and I still make games, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!",
 
     links: [
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' },
@@ -19,13 +19,13 @@ const content = {
         { text: 'LinkedIn', url: 'https://www.linkedin.com/in/joshua-wright-a94143338/' }
     ],
     profileImg: 'assets/me-hero.jpg',
-    marquee: ['Model Training', 'Fine-Tuning', 'PyTorch', 'CUDA', 'Reinforcement Learning', 'PPO', 'Self-Play', 'Computer Vision', 'Motion Capture', 'Forecasting', 'LLM Evaluation', 'AI Agents', 'Benchmarking', 'Azure GPUs', 'Python', 'C++', 'AI for Animation', 'Gameplay Systems'],
+    marquee: ['Technical Art', 'Animation Tools', 'Maya', 'Blender', 'Unreal Engine', 'Plugin Development', 'TypeScript', 'React', 'Model Training', 'Fine-Tuning', 'PyTorch', 'CUDA', 'Reinforcement Learning', 'PPO', 'Self-Play', 'Computer Vision', 'Motion Capture', 'Forecasting', 'LLM Evaluation', 'AI Agents', 'Benchmarking', 'Azure GPUs', 'Python', 'C++', 'AI for Animation', 'Gameplay Systems'],
     // art is one of: net, graph, game, code.
     stack: [
+        { title: 'Technical Art', what: 'I build the tools animators use, like the UNOMi plugins for Maya, Blender, Unreal and Cinema 4D. I keyframe characters by hand too, so I know how those tools should feel.', art: 'graph', tools: ['Python', 'Plugin Development', 'Maya', 'Blender', 'Cinema 4D', 'Unreal Engine', 'Keyframe Animation'] },
+        { title: 'Software Development', what: 'I can own a product end to end, from a C++ framework to the server and the cloud it runs on.', art: 'code', tools: ['C++', 'TypeScript', 'React', 'Docker', 'Microsoft Azure', 'AWS', 'Git', 'CI', 'Team Leadership', 'Agile Sprints'] },
         { title: 'AI / ML Engineering', what: 'I train models, make them faster and check them against real benchmarks. At UNOMi that means vision models for markerless motion capture, fine-tuned and hosted on Azure GPUs. On my own it means a CUDA simulator for training PPO agents by self-play, and forecasting models scored on GIFT-Eval. Next I want to do this research myself, focused on animation.', art: 'net', tools: ['PyTorch', 'CUDA', 'Python', 'Reinforcement Learning (PPO, Self-Play)', 'Model Fine-Tuning', 'Computer Vision', 'Time-Series Forecasting', 'LLM Evaluation', 'AI Agents (MCP)', 'Azure GPU Hosting', 'C++'] },
-        { title: 'Animation Tools', what: 'I build the UNOMi plugins for Maya, Blender, Unreal and Cinema 4D, and I keyframe by hand.', art: 'graph', tools: ['Python', 'Plugin Development', 'Maya', 'Blender', 'Cinema 4D', 'Unreal Engine', 'Keyframe Animation'] },
-        { title: 'Gameplay Systems', what: 'I build gameplay systems on hard deadlines, from combat and upgrades to procedural levels.', art: 'game', tools: ['C#', 'Unity', 'Godot', 'Unreal Engine', 'Procedural Generation', 'Multiplayer Networking'] },
-        { title: 'Software Engineering', what: 'I can own a product end to end, from a C++ framework to the server and the cloud it runs on.', art: 'code', tools: ['C++', 'TypeScript', 'React', 'Docker', 'Microsoft Azure', 'AWS', 'Git', 'CI', 'Team Leadership', 'Agile Sprints'] }
+        { title: 'Gameplay Systems', what: 'I build gameplay systems on hard deadlines, from combat and upgrades to procedural levels.', art: 'game', tools: ['C#', 'Unity', 'Godot', 'Unreal Engine', 'Procedural Generation', 'Multiplayer Networking'] }
     ],
     // To add a project, copy a block and put it where it belongs: the page order, numbers,
     // top bar and scroll all follow this list. A new group starts a new heading. short is
