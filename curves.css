@@ -1257,7 +1257,10 @@ html {
 
 /* Follows each line's length, tall enough that the lines of a paragraph join up */
 .hug {
-    padding-block: max(0px, calc(0.5lh - 0.45em));
+    padding-block: max(0.12em, calc(0.5lh - 0.45em));
+    /* A margin of plate past the ends of each line, so a curve never touches the words */
+    padding-inline: 0.4em;
+    margin-inline: -0.4em;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 }
@@ -1311,8 +1314,8 @@ html {
     }
 }
 
-/* No room for the project labels on small screens, so their keys go too */
-@media (max-width: 1000px) {
+/* No room for the project labels on phones, so their keys go too */
+@media (max-width: 720px) {
     .nav-links a[href^='#project'],
     .nav-key[data-for^='#project'] {
         display: none;
@@ -2046,4 +2049,11 @@ html {
 
 html::-webkit-scrollbar {
     display: none;
+}
+
+/* A wrapped title is one plate, so no curve can slip into the notch beside a short line */
+.project-title .hug,
+.about-heading .hug,
+.shot-title .hug {
+    display: inline-block;
 }
