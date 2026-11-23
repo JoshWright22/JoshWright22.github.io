@@ -1078,13 +1078,15 @@
         }
 
         // Every key is the same number of ticks from the last, so the bar holds any number
-        // of projects. With too many for the ticks, the ticks get finer until they fit.
+        // of projects. The tick size is tuned so those equal steps run from the name to the
+        // bar's right end, and with many projects the ticks just get finer.
         const count = t.anchors.length;
-        if (t.endTick - t.startTick < count) {
-            const finer = Math.ceil(t.ticks * count / Math.max(1, t.endTick - t.startTick));
-            t.startTick = Math.round(t.startTick * finer / t.ticks);
-            t.endTick = Math.round(t.endTick * finer / t.ticks);
-            t.ticks = finer;
+        const span = Math.max(1, t.endTick - t.startTick);
+        const step = Math.max(1, Math.round(span / count));
+        const ticks = Math.max(1, Math.round(t.ticks * count * step / span));
+        if (ticks !== t.ticks) {
+            t.startTick = Math.round(t.startTick * ticks / t.ticks);
+            t.ticks = ticks;
             t.homeKey.style.left = `${tickX(t, t.startTick)}px`;
             let path = '';
             for (let i = 0; i <= t.ticks; i++) {
@@ -1093,8 +1095,7 @@
             }
             t.rulerPath.setAttribute('d', path);
         }
-        const step = Math.max(1, Math.floor((t.endTick - t.startTick) / count));
-        t.keyTicks = t.anchors.map((_, i) => t.startTick + (i + 1) * step);
+        t.keyTicks = t.anchors.map((_, i) => Math.min(t.ticks, t.startTick + (i + 1) * step));
         t.endTick = t.keyTicks[count - 1];
         // Where each section lands in the scroll, always rising, with the last at the bottom.
         t.keyScroll = t.anchors.map(a => landingTop(document.querySelector(a.getAttribute('href')), t.nav.offsetHeight));
