@@ -49,6 +49,7 @@ const content = {
             date: 'November 2026',
             desc: 'I worked on a team to train two models for the open nanoTSFM leaderboard. The first set record 4 at 0.5811 CRPS on GIFT-Eval\'s 97 unseen tasks, and the second scores 0.5195, 18% lower error than the 0.632 record we started from. The plot is a forecast from my earlier five-model version: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.',
             expertise: ['PyTorch', 'Python', 'Time-Series Forecasting', 'Model Training', 'Evaluation'],
+            link: 'https://abel-ai-lab.github.io/nanoTSFM/',
             // GIFT-Eval electricity/H, series MT_214: the last 5 days of context, then the 48 held-out
             // hours. q10..q90 are the trained ensemble's quantile forecasts for those hours.
             forecast: {
@@ -205,7 +206,7 @@ function renderStack() {
 }
 
 const projectLink = proj => proj.link
-    ? `<a class="project-link" href="${proj.link}" target="_blank" rel="noopener">${proj.linkText || 'View product'} ↗</a>`
+    ? `<a class="project-link" href="${proj.link}" target="_blank" rel="noopener">${proj.linkText || 'View product'} <span class="project-link-arrow">↗</span></a>`
     : '';
 
 /* A real forecast, drawn in: the days before, the model's 48 hours with its 10-90% and

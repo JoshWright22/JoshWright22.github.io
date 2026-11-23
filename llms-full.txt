@@ -43,6 +43,7 @@ I worked on a team to train two models for the open nanoTSFM leaderboard. The fi
 
 Skills: PyTorch, Python, Time-Series Forecasting, Model Training, Evaluation
 Page: https://joshwright22.github.io/projects/nanotsfm-forecasting/
+Link: https://abel-ai-lab.github.io/nanoTSFM/
 
 ### Trust No One
 

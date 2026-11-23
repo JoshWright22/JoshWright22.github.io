@@ -789,20 +789,33 @@ a {
 .project-link::before {
     content: '';
     position: absolute;
-    inset: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
     background: var(--accent);
-    transform: translateY(101%);
-    transition: transform 0.45s var(--ease);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease);
     z-index: -1;
 }
 
+.project-link-arrow {
+    display: inline-block;
+    transition: transform 0.4s var(--ease);
+}
+
 .project-link:hover {
-    color: #fff;
-    border-color: var(--accent);
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
 }
 
 .project-link:hover::before {
-    transform: translateY(0);
+    transform: scaleX(1);
+}
+
+.project-link:hover .project-link-arrow {
+    transform: translate(2px, -2px);
 }
 
 @media (max-width: 860px) {
