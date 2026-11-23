@@ -1320,9 +1320,8 @@ html {
     }
 }
 
-/* Too many projects for even their numbers: the same as a small screen */
-.nav--unlabelled .nav-links a[href^='#project'],
-.nav--unlabelled .nav-key[data-for^='#project'] {
+/* Too many projects for even their numbers: their words go, but each keeps its key */
+.nav--unlabelled .nav-links a[href^='#project'] {
     display: none;
 }
 

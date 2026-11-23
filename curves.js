@@ -1012,7 +1012,24 @@
 
     const tickX = (t, tick) => Math.round(tick * (t.width - 1) / t.ticks) + 0.5;
 
-    const tickAt = (t, scroll) => t.startTick + Math.round(clamp(scroll / t.scrollMax, 0, 1) * (t.endTick - t.startTick));
+    // Keys sit an equal number of ticks apart, whatever the number of sections. Between two
+    // keys the playhead moves in step with the scroll between those two sections, so it
+    // reaches each key exactly when its section lands under the bar.
+    const tickAt = (t, scroll) => {
+        const s = t.keyScroll;
+        if (!s || !s.length) return t.startTick + Math.round(clamp(scroll / t.scrollMax, 0, 1) * (t.endTick - t.startTick));
+        let fromScroll = 0;
+        let fromTick = t.startTick;
+        for (let i = 0; i < s.length; i++) {
+            if (scroll < s[i]) {
+                const f = clamp((scroll - fromScroll) / Math.max(1, s[i] - fromScroll), 0, 1);
+                return fromTick + Math.round(f * (t.keyTicks[i] - fromTick));
+            }
+            fromScroll = s[i];
+            fromTick = t.keyTicks[i];
+        }
+        return t.keyTicks[t.keyTicks.length - 1];
+    };
 
     // A key sits where its section lands in the scroll, so distance on the bar is
     // distance to scroll. Labels shuffle apart if two keys land close together.
@@ -1024,6 +1041,7 @@
         const unit = parseFloat(getComputedStyle(t.nav).fontSize) / NAV_TEXT;
         t.unit = unit;
         t.ticks = Math.max(1, Math.round(t.width / (TICK_TARGET * unit)));
+        t.keyScroll = null;
 
         // The timeline starts on the name's key, which sits on the tick nearest the name.
         // Measured against the track, because the bar may still be sliding in.
@@ -1059,11 +1077,30 @@
             return;
         }
 
-        t.keyTicks = t.anchors.map(a => {
-            const target = landingTop(document.querySelector(a.getAttribute('href')), t.nav.offsetHeight);
-            return tickAt(t, target);
-        });
-        t.keyTicks[t.keyTicks.length - 1] = t.endTick;
+        // Every key is the same number of ticks from the last, so the bar holds any number
+        // of projects. With too many for the ticks, the ticks get finer until they fit.
+        const count = t.anchors.length;
+        if (t.endTick - t.startTick < count) {
+            const finer = Math.ceil(t.ticks * count / Math.max(1, t.endTick - t.startTick));
+            t.startTick = Math.round(t.startTick * finer / t.ticks);
+            t.endTick = Math.round(t.endTick * finer / t.ticks);
+            t.ticks = finer;
+            t.homeKey.style.left = `${tickX(t, t.startTick)}px`;
+            let path = '';
+            for (let i = 0; i <= t.ticks; i++) {
+                const size = (i % 5 ? 4 : 8) * unit;
+                path += `M${tickX(t, i)} ${height - size}V${height}`;
+            }
+            t.rulerPath.setAttribute('d', path);
+        }
+        const step = Math.max(1, Math.floor((t.endTick - t.startTick) / count));
+        t.keyTicks = t.anchors.map((_, i) => t.startTick + (i + 1) * step);
+        t.endTick = t.keyTicks[count - 1];
+        // Where each section lands in the scroll, always rising, with the last at the bottom.
+        t.keyScroll = t.anchors.map(a => landingTop(document.querySelector(a.getAttribute('href')), t.nav.offsetHeight));
+        t.keyScroll[count - 1] = t.scrollMax;
+        for (let i = count - 2; i >= 0; i--) t.keyScroll[i] = Math.min(t.keyScroll[i], t.keyScroll[i + 1] - 1);
+        for (let i = 0; i < count; i++) t.keyScroll[i] = Math.max(t.keyScroll[i], i ? t.keyScroll[i - 1] + 1 : 1);
         t.diamonds.forEach((key, i) => {
             key.style.left = `${tickX(t, t.keyTicks[i])}px`;
         });
@@ -1253,7 +1290,8 @@
         const parked = t.keyTicks.indexOf(tick);
         // A key whose label is hidden on this screen has no word to head for.
         const word = parked >= 0 && t.anchors[parked].offsetWidth ? t.labels[parked] : null;
-        t.ballGoal = word ? (word.left + word.right) / 2 : t.x;
+        // It lands over the key itself, kept on the word when a label had to shift aside.
+        t.ballGoal = word ? clamp(t.x, word.left + 4, word.right - 4) : t.x;
         if (tick === t.startTick) {
             const home = t.labels[t.labels.length - 1];
             if (home) t.ballGoal = (home.left + home.right) / 2;
