@@ -614,9 +614,7 @@ html {
 
 /* Anticipation: links pull back before they go */
 
-.project-link:hover {
-    animation: anticipate 0.5s var(--ease);
-}
+/* (Product buttons keep a quiet hover: underline and arrow only) */
 
 @keyframes anticipate {
     0% {

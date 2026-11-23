@@ -1,8 +1,8 @@
 # Josh Wright
 
-> Josh Wright is a technical artist, software developer and AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds animation tools for Maya, Blender, Unreal Engine and Cinema 4D, trains and fine-tunes models and writes CUDA. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and he trained a Battlecode bot on 6 million game turns mined from 110,000 ladder matches.
+> Josh Wright is a technical artist finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds animation tools for Maya, Blender, Unreal Engine and Cinema 4D, writes the code behind them and trains the AI models that drive them. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and he trained a Battlecode bot on 6 million game turns mined from 110,000 ladder matches.
 
-Looking for: New grad roles starting May 2027 in technical art, software development and AI engineering: animation tools and plugins, pipeline work, model training and fine-tuning, GPU and CUDA work, reinforcement learning and computer vision, especially at game and animation studios.
+Looking for: New grad technical artist roles starting May 2027 at game and animation studios: animation tools and DCC plugins (Maya, Blender, Unreal), pipeline work, motion capture, and machine learning for animation.
 
 Email: joshwright0322@gmail.com
 Location: Tempe, Arizona
@@ -14,7 +14,7 @@ LinkedIn: https://www.linkedin.com/in/joshua-wright-a94143338/
 
 ## About
 
-Hey, I'm Josh. I'm a technical artist, software developer and AI engineer, and I work where the three meet. I'm graduating from Arizona State University in May 2027 with a B.S. in Computer Science. At my internship at UNOMi I work on the animation plugins for Maya, Blender, Unreal Engine and Cinema 4D. I also benchmarked 6 markerless motion capture pipelines, picked the one the team now uses and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I started out keyframing characters by hand, and I still make games, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!
+Hey, I'm Josh. I'm a technical artist: I animate, I build the tools animators use, and I train the AI models behind them. I'm graduating from Arizona State University in May 2027 with a B.S. in Computer Science. At my internship at UNOMi I work on the animation plugins for Maya, Blender, Unreal Engine and Cinema 4D. I also benchmarked 6 markerless motion capture pipelines, picked the one the team now uses and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I started out keyframing characters by hand, and I still make games, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!
 
 ## Skills
 
@@ -63,6 +63,7 @@ I wrote a CUDA game simulator for Cambridge Battlecode 2026 and trained a recurr
 
 Skills: CUDA, C++, Python, Reinforcement Learning, PPO, Self-Play, GPU Simulation, Data Pipelines, Decision Trees
 Page: https://joshwright22.github.io/projects/cambridge-battlecode-2026/
+Link: https://2026a.battlecode.co.uk/
 
 ### There's No Place Like 127.0.0.1
 

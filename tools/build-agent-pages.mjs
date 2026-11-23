@@ -30,8 +30,8 @@ const projects = content.projects.map(p => ({ ...p, slug: slug(p.title), url: `$
 const won = p => /\bplaced\b|\bplace\b|highest scored/i.test(p.result);
 const skills = [...new Set(content.stack.flatMap(s => s.tools))];  // adding every project tag read as keyword stuffing
 const social = content.links.map(l => l.url);
-const lead = 'Josh Wright is a technical artist, software developer and AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds animation tools for Maya, Blender, Unreal Engine and Cinema 4D, trains and fine-tunes models and writes CUDA. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and he trained a Battlecode bot on 6 million game turns mined from 110,000 ladder matches.';
-const looking = 'New grad roles starting May 2027 in technical art, software development and AI engineering: animation tools and plugins, pipeline work, model training and fine-tuning, GPU and CUDA work, reinforcement learning and computer vision, especially at game and animation studios.';
+const lead = 'Josh Wright is a technical artist finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds animation tools for Maya, Blender, Unreal Engine and Cinema 4D, writes the code behind them and trains the AI models that drive them. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and he trained a Battlecode bot on 6 million game turns mined from 110,000 ladder matches.';
+const looking = 'New grad technical artist roles starting May 2027 at game and animation studios: animation tools and DCC plugins (Maya, Blender, Unreal), pipeline work, motion capture, and machine learning for animation.';
 
 const person = {
     '@type': 'Person',
@@ -46,7 +46,7 @@ const person = {
     worksFor: { '@type': 'Organization', name: 'Pixel Pirate Studio', url: 'https://getunomi.com/' },
     affiliation: { '@type': 'CollegeOrUniversity', name: 'Arizona State University', url: 'https://www.asu.edu/' },
     homeLocation: { '@type': 'Place', name: 'Tempe, Arizona' },
-    hasOccupation: [{ '@type': 'Occupation', name: 'Technical Artist' }, { '@type': 'Occupation', name: 'Software Developer' }, { '@type': 'Occupation', name: 'AI Engineer' }],
+    hasOccupation: [{ '@type': 'Occupation', name: 'Technical Artist' }],
     knowsAbout: skills,
     knowsLanguage: 'en',
     award: projects.filter(won).map(p => `${p.title}: ${p.result}`),
@@ -68,7 +68,7 @@ const head = [
     `<link rel="canonical" href="${SITE}/">`,
     `<link rel="alternate" type="text/markdown" href="${SITE}/index.md">`,
     `<meta property="og:type" content="profile">`,
-    `<meta property="og:title" content="Josh Wright - Technical Artist, Software Developer, AI Engineer">`,
+    `<meta property="og:title" content="Josh Wright - Technical Artist">`,
     `<meta property="og:description" content="${esc(lead)}">`,
     `<meta property="og:url" content="${SITE}/">`,
     `<meta property="og:image" content="${SITE}/assets/me-hero.jpg">`,
@@ -79,7 +79,7 @@ const head = [
 
 const links = content.links.map(l => `<a class="link-row" href="${l.url}">${esc(l.text)}</a>`).join('');
 const socials = content.links.map(l => `<a class="footer-link" href="${l.url}">${esc(l.text)}</a>`).join('');
-const workList = projects.map((p, i) => `${p.group && p.group !== (projects[i - 1] || {}).group ? `<h2>${esc(p.group)}</h2>` : ''}<article><h3><a href="/projects/${p.slug}/">${esc(p.title)}</a></h3><p>${esc(p.category)}, ${esc(p.date)}. ${esc(p.result)}.</p><p>${esc(p.desc)}</p><p>${esc(p.expertise.join(', '))}</p>${p.link ? `<p><a href="${p.link}">${esc(p.linkText || 'View product')}</a></p>` : ''}</article>`).join('');
+const workList = projects.map((p, i) => `${p.group && p.group !== (projects[i - 1] || {}).group ? `<h2>${esc(p.group)}</h2>` : ''}<article><h3><a href="/projects/${p.slug}/">${esc(p.title)}</a></h3><p>${esc(p.category)}, ${esc(p.date)}. ${esc(p.result)}.</p><p>${esc(p.desc)}</p><p>${esc(p.expertise.join(', '))}</p>${p.link ? `<p><a href="${p.link}">${esc(p.linkText || 'View product')}</a></p>` : ''}${p.repo ? `<p><a href="${p.repo}">View code</a></p>` : ''}</article>`).join('');
 const stackList = content.stack.map(s => `<article><h3>${esc(s.title)}</h3><p>${esc(s.what)}</p><p>${esc(s.tools.join(' / '))}</p></article>`).join('');
 
 function fill(html, id, text) {
@@ -141,7 +141,7 @@ const projectFacts = p => `<ul>
             <li>Type: ${esc(p.category)}</li>
             <li>Date: ${esc(p.date)}</li>
             <li>Skills: ${esc(p.expertise.join(', '))}</li>
-            ${p.link ? `<li>Link: <a href="${p.link}">${esc(p.link)}</a></li>` : ''}
+            ${p.link ? `<li>Link: <a href="${p.link}">${esc(p.link)}</a></li>` : ''}${p.repo ? `<li>Code: <a href="${p.repo}">${esc(p.repo)}</a></li>` : ''}
         </ul>`;
 
 rmSync(join(ROOT, 'projects'), { recursive: true, force: true });
@@ -177,12 +177,12 @@ const asked = [
 
 const skillGroups = content.stack.map(s => `<li><strong>${esc(s.title)}:</strong> ${esc(s.tools.join(', '))}</li>`).join('\n            ');
 write('profile/index.html', page({
-    title: 'Josh Wright - Technical Artist, Software Developer, AI Engineer, New Grad May 2027 | Profile',
+    title: 'Josh Wright - Technical Artist, New Grad May 2027 | Profile',
     description: lead,
     path: '/profile/',
     data: { ...profilePage, url: `${SITE}/profile/` },
     body: `        <p><a href="/">Portfolio</a></p>
-        <h1>Josh Wright: technical artist, software developer and AI engineer</h1>
+        <h1>Josh Wright: technical artist for animation tools, pipelines and AI</h1>
 ${asked.map(([q, a]) => `        <h2>${esc(q)}</h2>\n        <p>${esc(a)}</p>`).join('\n')}
         <h2>What has Josh Wright built?</h2>
         <ul>

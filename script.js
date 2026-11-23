@@ -8,8 +8,8 @@
 const content = {
     // Sky from assets/me.jpg. Mirrors --accent in style.css.
     accent: '#4776ca',
-    aboutH: 'Tech Art, Software, AI',
-    aboutT: "Hey, I'm Josh. I'm a technical artist, software developer and AI engineer, and I work where the three meet. I'm graduating from Arizona State University in May 2027 with a B.S. in Computer Science. At my internship at UNOMi I work on the animation plugins for Maya, Blender, Unreal Engine and Cinema 4D. I also benchmarked 6 markerless motion capture pipelines, picked the one the team now uses and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I started out keyframing characters by hand, and I still make games, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!",
+    aboutH: 'Technical Artist',
+    aboutT: "Hey, I'm Josh. I'm a technical artist: I animate, I build the tools animators use, and I train the AI models behind them. I'm graduating from Arizona State University in May 2027 with a B.S. in Computer Science. At my internship at UNOMi I work on the animation plugins for Maya, Blender, Unreal Engine and Cinema 4D. I also benchmarked 6 markerless motion capture pipelines, picked the one the team now uses and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I started out keyframing characters by hand, and I still make games, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!",
 
     links: [
         { text: 'YouTube', url: 'https://www.youtube.com/@JoshWright_Dev' },
@@ -49,6 +49,7 @@ const content = {
             date: 'November 2026',
             desc: 'I worked on a team to train two models for the open nanoTSFM leaderboard. The first set record 4 at 0.5811 CRPS on GIFT-Eval\'s 97 unseen tasks, and the second scores 0.5195, 18% lower error than the 0.632 record we started from. The plot is a forecast from my earlier five-model version: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.',
             expertise: ['PyTorch', 'Python', 'Time-Series Forecasting', 'Model Training', 'Evaluation'],
+            repo: 'https://github.com/JoshWright22/nanoTSFM',
             link: 'https://abel-ai-lab.github.io/nanoTSFM/',
             // GIFT-Eval electricity/H, series MT_214: the last 5 days of context, then the 48 held-out
             // hours. q10..q90 are the trained ensemble's quantile forecasts for those hours.
@@ -78,6 +79,7 @@ const content = {
             date: 'October 2026',
             desc: 'I wrote a CUDA game simulator for Cambridge Battlecode 2026 and trained a recurrent PPO reinforcement learning agent on it by self-play. I also built a data pipeline over the 110,000 matches on the public ladder that pulls out the 20,000 strongest replays in 15 minutes, and trained GPU decision-tree models on 6 million game turns to drive the bot\'s choices. The clip is my submitted bot (blue) winning a local match 1,044 gems to 216, in the official visualiser.',
             expertise: ['CUDA', 'C++', 'Python', 'Reinforcement Learning', 'PPO', 'Self-Play', 'GPU Simulation', 'Data Pipelines', 'Decision Trees'],
+            link: 'https://2026a.battlecode.co.uk/', linkText: 'View competition',
             img: './assets/battlecode.webm'
         },
         {
@@ -132,6 +134,7 @@ const content = {
             date: 'June 2026',
             desc: 'I designed and implemented the core mechanics while directing a small team through a one week build. I set the scope, decided early what to leave out, and shipped polished systems under a tight deadline. We placed #69 out of 434 entries in Comfy Jam: Summer.',
             expertise: ['Team Leadership', 'Project Planning', 'Python', 'Godot', 'Gameplay Programming', 'Systems Design'],
+            repo: 'https://github.com/JoshWright22/terrible-goblin-cozy-jam',
             img: './assets/slush-rush.webm',
             link: 'https://joshwright.itch.io/slush-rush'
         }
@@ -205,9 +208,13 @@ function renderStack() {
     document.getElementById('stack-tags').innerHTML = `<div class="board">${shots}</div>`;
 }
 
-const projectLink = proj => proj.link
-    ? `<a class="project-link" href="${proj.link}" target="_blank" rel="noopener">${proj.linkText || 'View product'} <span class="project-link-arrow">↗</span></a>`
-    : '';
+const linkButton = (url, text) =>
+    `<a class="project-link" href="${url}" target="_blank" rel="noopener">${text} <span class="project-link-arrow">↗</span></a>`;
+// A product link, plus the code when the repo is public.
+const projectLink = proj => {
+    const buttons = [proj.link && linkButton(proj.link, proj.linkText || 'View product'), proj.repo && linkButton(proj.repo, 'View code')].filter(Boolean);
+    return buttons.length ? `<span class="project-links">${buttons.join('')}</span>` : '';
+};
 
 /* A real forecast, drawn in: the days before, the model's 48 hours with its 10-90% and
    30-70% bands, then what actually happened. */

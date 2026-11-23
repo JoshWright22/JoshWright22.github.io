@@ -769,6 +769,12 @@ a {
     color: #fff;
 }
 
+.project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
 .project-link {
     display: inline-flex;
     align-items: center;
