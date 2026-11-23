@@ -49,7 +49,6 @@ const content = {
             date: 'November 2026',
             desc: 'I worked on a team to train two models for the open nanoTSFM leaderboard. The first set record 4 at 0.5811 CRPS on GIFT-Eval\'s 97 unseen tasks, and the second scores 0.5195, 18% lower error than the 0.632 record we started from. The plot is a forecast from my earlier five-model version: the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.',
             expertise: ['PyTorch', 'Python', 'Time-Series Forecasting', 'Model Training', 'Evaluation'],
-            repo: 'https://github.com/JoshWright22/nanoTSFM',
             link: 'https://abel-ai-lab.github.io/nanoTSFM/',
             // GIFT-Eval electricity/H, series MT_214: the last 5 days of context, then the 48 held-out
             // hours. q10..q90 are the trained ensemble's quantile forecasts for those hours.
@@ -134,7 +133,6 @@ const content = {
             date: 'June 2026',
             desc: 'I designed and implemented the core mechanics while directing a small team through a one week build. I set the scope, decided early what to leave out, and shipped polished systems under a tight deadline. We placed #69 out of 434 entries in Comfy Jam: Summer.',
             expertise: ['Team Leadership', 'Project Planning', 'Python', 'Godot', 'Gameplay Programming', 'Systems Design'],
-            repo: 'https://github.com/JoshWright22/terrible-goblin-cozy-jam',
             img: './assets/slush-rush.webm',
             link: 'https://joshwright.itch.io/slush-rush'
         }
