@@ -1,8 +1,8 @@
 # Josh Wright
 
-> Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds animation tools for Maya, Blender, Unreal Engine and Cinema 4D, writes the code behind them and trains the AI models that drive them. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and he trained a Battlecode bot on 6 million game turns mined from 110,000 ladder matches.
+> Josh Wright is a game developer finishing a B.S. in Computer Science at Arizona State University in May 2027. His jam games have placed #9 of 2,253 in the Brackeys Game Jam and 2nd at the AZ Game Cup, and he is expanding his roguelike AtOMoC SHeLiS into a Steam release. At Pixel Pirate Studio he builds animation tools for Maya, Blender, Unreal Engine and Cinema 4D and made the markerless motion capture pipeline 2.8x faster at the same accuracy.
 
-Looking for: New grad AI engineer roles starting May 2027 at game and animation studios: animation tools and DCC plugins (Maya, Blender, Unreal), pipeline work, motion capture, and machine learning for animation.
+Looking for: New grad game developer roles starting May 2027 at game and animation studios, in gameplay programming, technical animation, animation tools and AI for games.
 
 Email: joshwright0322@gmail.com
 Location: Tempe, Arizona
@@ -14,13 +14,13 @@ LinkedIn: https://www.linkedin.com/in/joshua-wright-a94143338/
 
 ## About
 
-Hey, I'm Josh. I'm an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the best one, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I have a passion for hand keyframed animation, so animation is where I want to take AI research next. I also make games, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!
+Hey, I'm Josh. I'm a game developer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I make games, mostly with a team on a jam deadline. Trust No One placed #9 out of 2,253 entries in the Brackeys Game Jam, and my team took 2nd at the AZ Game Cup with the highest scored pitch. Right now I'm turning my solo roguelike AtOMoC SHeLiS into a Steam release. At my internship at UNOMi I build animation tools for Maya, Blender and Unreal, and I made our markerless motion capture 2.8x faster at the same accuracy. I also keyframe animation by hand and train AI agents to play games, like the PPO bot I trained by self-play on my own CUDA Battlecode simulator. If you're hiring or want to make a game together, reach out!
 
 ## Skills
 
-- AI / ML Engineering: PyTorch, CUDA, Python, Reinforcement Learning (PPO, Self-Play), Model Fine-Tuning, Computer Vision, Time-Series Forecasting, LLM Evaluation, AI Agents (MCP), Azure GPU Hosting, C++
+- Game Development: C#, Unity, Godot, GDScript, Unreal Engine, Gameplay Programming, Systems Design, Procedural Generation, Multiplayer Networking, Team Leadership
 - Animation Tools: Python, Plugin Development, Maya, Blender, Cinema 4D, Unreal Engine, Keyframe Animation
-- Gameplay Systems: C#, Unity, Godot, Unreal Engine, Procedural Generation, Multiplayer Networking
+- AI for Games: PyTorch, CUDA, Python, Reinforcement Learning (PPO, Self-Play), Model Fine-Tuning, Computer Vision, Time-Series Forecasting, Azure GPU Hosting, C++
 - Software Engineering: C++, TypeScript, React, Docker, Microsoft Azure, AWS, Git, CI, Team Leadership, Agile Sprints
 
 ## Work
