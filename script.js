@@ -316,6 +316,9 @@ function renderProjects(projects) {
 
         const mediaBlock = `<div class="project-media">${inner}${expand}</div>`;
 
+        const tags = (proj.expertise || [])
+            .map(s => `<span class="tag">${s}</span>`).join('');
+
         const link = projectLink(proj);
 
         return heading + `
@@ -331,6 +334,7 @@ function renderProjects(projects) {
                 ${mediaBlock}
                 <div class="project-side">
                     <p class="project-desc">${proj.desc}</p>
+                    <div class="project-tags">${tags}</div>
                     ${link}
                 </div>
             </div>
