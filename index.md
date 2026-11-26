@@ -1,8 +1,8 @@
 # Josh Wright
 
-> Josh Wright is a technical artist finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds animation tools for Maya, Blender, Unreal Engine and Cinema 4D, writes the code behind them and trains the AI models that drive them. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and he trained a Battlecode bot on 6 million game turns mined from 110,000 ladder matches.
+> Josh Wright is an AI engineer finishing a B.S. in Computer Science at Arizona State University in May 2027. He builds animation tools for Maya, Blender, Unreal Engine and Cinema 4D, writes the code behind them and trains the AI models that drive them. At Pixel Pirate Studio he made the markerless motion capture pipeline 2.8x faster at the same accuracy, and he trained a Battlecode bot on 6 million game turns mined from 110,000 ladder matches.
 
-Looking for: New grad technical artist roles starting May 2027 at game and animation studios: animation tools and DCC plugins (Maya, Blender, Unreal), pipeline work, motion capture, and machine learning for animation.
+Looking for: New grad AI engineer roles starting May 2027 at game and animation studios: animation tools and DCC plugins (Maya, Blender, Unreal), pipeline work, motion capture, and machine learning for animation.
 
 Email: joshwright0322@gmail.com
 Location: Tempe, Arizona
