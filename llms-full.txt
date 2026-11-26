@@ -14,7 +14,7 @@ LinkedIn: https://www.linkedin.com/in/joshua-wright-a94143338/
 
 ## About
 
-Hey, I'm Josh. I'm an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the one the team now uses, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I started out keyframing characters by hand, so animation is where I want to take AI research next. I still make games too, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!
+Hey, I'm Josh. I'm an AI engineer graduating from Arizona State University in May 2027 with a B.S. in Computer Science. I train and fine-tune models, write CUDA, build reinforcement learning agents and test what comes out against real benchmarks. At my internship at UNOMi I benchmarked 6 markerless motion capture pipelines, picked the best one, and made it 2.8x faster at the same accuracy. On my own I wrote a CUDA game simulator for Cambridge Battlecode and trained a PPO agent on it by self-play. I have a passion for hand keyframed animation, so animation is where I want to take AI research next. I also make games, like Trust No One, which placed #9 out of 2,253 entries in the Brackeys Game Jam. If you're hiring or want to work on something together, reach out!
 
 ## Skills
 
@@ -29,7 +29,7 @@ Hey, I'm Josh. I'm an AI engineer graduating from Arizona State University in Ma
 
 2.8x faster motion capture, same accuracy. Software Engineering Internship, August 2026 - Present.
 
-I'm a software engineering intern at Pixel Pirate Studio, a two-time Emmy-nominated animation studio in Los Angeles. The studio makes UNOMi, which uses machine learning to generate 3D character animation. I work on the markerless motion capture coming in UNOMi 3D, which turns camera footage of a performer into animation. I benchmarked 6 markerless motion capture pipelines on real clips and picked the one the team now uses by default. Then I made it 2.8x faster at the same accuracy, which cut its estimated cloud GPU cost per video minute by 64%. I fine-tune the vision-to-motion models, which I host on Microsoft Azure. I also merged the 4 UNOMi plugins for Maya, Blender, Unreal Engine and Cinema 4D into one repo with CI. The internship runs through May 2027.
+I'm a software engineering intern at Pixel Pirate Studio, a two-time Emmy-nominated animation studio in Los Angeles. The studio makes UNOMi, which uses machine learning to generate 3D character animation. I work on the markerless motion capture coming in UNOMi 3D, which turns camera footage of a performer into animation. I benchmarked 6 markerless motion capture pipelines on real clips and picked the best one. Then I made it 2.8x faster at the same accuracy, which cut its estimated cloud GPU cost per video minute by 64%. I fine-tune the vision-to-motion models, which I host on Microsoft Azure. I also merged the 4 UNOMi plugins for Maya, Blender, Unreal Engine and Cinema 4D into one repo with CI. The internship runs through May 2027.
 
 Skills: Computer Vision, Motion Capture, Model Fine-Tuning, Benchmarking, GPU Optimization, Microsoft Azure, Python, CI, Animation Tools
 Page: https://joshwright22.github.io/projects/unomi/
