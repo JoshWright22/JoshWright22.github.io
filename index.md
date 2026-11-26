@@ -18,9 +18,9 @@ Hey, I'm Josh. I'm a game developer graduating from Arizona State University in 
 
 ## Skills
 
-- Game Development: C#, Unity, Godot, GDScript, Unreal Engine, Gameplay Programming, Systems Design, Procedural Generation, Multiplayer Networking, Team Leadership
+- AI / ML Engineering: PyTorch, CUDA, Python, Reinforcement Learning (PPO, Self-Play), Model Fine-Tuning, Computer Vision, Time-Series Forecasting, LLM Evaluation, AI Agents (MCP), Azure GPU Hosting, C++
 - Animation Tools: Python, Plugin Development, Maya, Blender, Cinema 4D, Unreal Engine, Keyframe Animation
-- AI for Games: PyTorch, CUDA, Python, Reinforcement Learning (PPO, Self-Play), Model Fine-Tuning, Computer Vision, Time-Series Forecasting, Azure GPU Hosting, C++
+- Gameplay Systems: C#, Unity, Godot, Unreal Engine, Procedural Generation, Multiplayer Networking
 - Software Engineering: C++, TypeScript, React, Docker, Microsoft Azure, AWS, Git, CI, Team Leadership, Agile Sprints
 
 ## Work
