@@ -44,10 +44,10 @@ const content = {
             link: 'https://getunomi.com/3d-lip-sync/'
         },
         {
-            title: 'nanoTSFM Forecasting', short: 'nanoTSFM', result: 'Set records 4 and 6 on the nanoTSFM leaderboard',
+            title: 'nanoTSFM Forecasting', short: 'nanoTSFM', result: 'Holds the nanoTSFM world record',
             category: 'Time-Series Forecasting',
             date: 'November 2026',
-            desc: 'I worked on a team to train two models for the open nanoTSFM leaderboard. The first set record 4 at 0.5811 CRPS on GIFT-Eval\'s 97 unseen tasks, and the second set record 6 at 0.5325, 16% lower error than the 0.632 record we started from. The plot is a forecast from my earlier five-model version. It shows the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.',
+            desc: 'I worked on a team to train two models for the open nanoTSFM leaderboard. The first set record 4 at 0.5811 CRPS on GIFT-Eval\'s 97 unseen tasks, and the second set record 6 at 0.5325, the current world record and 16% lower error than the 0.632 record we started from. The plot is a forecast from my earlier five-model version. It shows the next 48 hours of a GIFT-Eval electricity series, with its quantile bands, against what actually happened.',
             expertise: ['PyTorch', 'Python', 'Time-Series Forecasting', 'Model Training', 'Evaluation'],
             link: 'https://abel-ai-lab.github.io/nanoTSFM/',
             // GIFT-Eval electricity/H, series MT_214: the last 5 days of context, then the 48 held-out
