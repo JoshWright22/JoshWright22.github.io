@@ -13,7 +13,7 @@ Contact: joshwright0322@gmail.com
 ## Projects
 
 - [UNOMi](https://joshwright22.github.io/projects/unomi/): 2.8x faster motion capture, same accuracy
-- [nanoTSFM Forecasting](https://joshwright22.github.io/projects/nanotsfm-forecasting/): Set record 4 on the nanoTSFM leaderboard
+- [nanoTSFM Forecasting](https://joshwright22.github.io/projects/nanotsfm-forecasting/): Set records 4 and 6 on the nanoTSFM leaderboard
 - [Trust No One](https://joshwright22.github.io/projects/trust-no-one/): Placed #9 of 2,253 games
 - [Cambridge Battlecode 2026](https://joshwright22.github.io/projects/cambridge-battlecode-2026/): Mined 110,000 ladder matches, trained on 6M turns
 - [There's No Place Like 127.0.0.1](https://joshwright22.github.io/projects/theres-no-place-like-127-0-0-1/): Highest scored pitch at the AZ Game Cup
